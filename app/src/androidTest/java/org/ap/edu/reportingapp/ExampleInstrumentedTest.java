@@ -1,4 +1,4 @@
-package org.ap.edu.reporteringapp;
+package org.ap.edu.reportingapp;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

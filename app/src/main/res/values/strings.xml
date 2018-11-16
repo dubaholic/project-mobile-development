@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Reportering app</string>
+    <string-array name="verdiepingen">
+        <item>-1</item>
+        <item>Gelijkvloers</item>
+        <item>1ste</item>
+        <item>2de</item>
+        <item>3de</item>
+        <item>4de</item>
+        <item>Dak</item>
+    </string-array>
 </resources>

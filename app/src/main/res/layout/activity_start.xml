@@ -4,19 +4,105 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.ap.edu.reporteringapp.Start">
+    tools:context="org.ap.edu.reportingapp.Start">
 
     <TextView
-        android:layout_width="122dp"
-        android:layout_height="51dp"
+        android:layout_width="122sp"
+        android:layout_height="51sp"
         android:gravity="center"
         android:text="Start"
-        android:textSize="32dp"
+        android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.034"
         tools:text="Start" />
+
+    <TextView
+        android:id="@+id/txtViewApMail"
+        android:layout_width="130sp"
+        android:layout_height="35sp"
+        android:text="AP Email"
+        android:textSize="24sp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="30sp"
+        tools:layout_editor_absoluteY="75sp" />
+
+    <TextView
+        android:id="@+id/txtViewVerdieping"
+        android:layout_width="130sp"
+        android:layout_height="40sp"
+        android:text="Verdieping"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="30sp"
+        tools:layout_editor_absoluteY="150sp" />
+
+    <TextView
+        android:id="@+id/txtViewLokaal"
+        android:layout_width="130sp"
+        android:layout_height="40sp"
+        android:text="Lokaal"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="30sp"
+        tools:layout_editor_absoluteY="225sp" />
+
+    <TextView
+        android:id="@+id/txtViewCategorie"
+        android:layout_width="130sp"
+        android:layout_height="40sp"
+        android:text="Categorie"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="30sp"
+        tools:layout_editor_absoluteY="300sp" />
+
+    <TextView
+        android:id="@+id/txtViewFoto"
+        android:layout_width="130sp"
+        android:layout_height="40sp"
+        android:text="Foto toevoegen"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="30sp"
+        tools:layout_editor_absoluteY="375sp" />
+
+    <EditText
+        android:id="@+id/txtApMail"
+        android:layout_width="160sp"
+        android:layout_height="40sp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text=""
+        tools:layout_editor_absoluteX="195sp"
+        tools:layout_editor_absoluteY="75sp" />
+
+    <Spinner
+        android:id="@+id/cmbVerdiep"
+        android:layout_width="160sp"
+        android:layout_height="40sp"
+        tools:layout_editor_absoluteX="195sp"
+        tools:layout_editor_absoluteY="150sp" />
+
+    <Spinner
+        android:id="@+id/cmbLokaal"
+        android:layout_width="160sp"
+        android:layout_height="40sp"
+        tools:layout_editor_absoluteX="195dp"
+        tools:layout_editor_absoluteY="225dp" />
+
+    <Spinner
+        android:id="@+id/cmbCategorie"
+        android:layout_width="160sp"
+        android:layout_height="40sp"
+        tools:layout_editor_absoluteX="195dp"
+        tools:layout_editor_absoluteY="300dp" />
+
+    <Button
+        android:id="@+id/btnFoto"
+        android:layout_width="160sp"
+        android:layout_height="40sp"
+        android:text="Foto maken"
+        tools:layout_editor_absoluteX="195dp"
+        tools:layout_editor_absoluteY="375dp" />
+
 
 </android.support.constraint.ConstraintLayout>
