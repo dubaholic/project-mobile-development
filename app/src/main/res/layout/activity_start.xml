@@ -7,12 +7,16 @@
     tools:context="org.ap.edu.reporteringapp.Start">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:layout_width="122dp"
+        android:layout_height="51dp"
+        android:gravity="center"
+        android:text="Start"
+        android:textSize="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.034"
+        tools:text="Start" />
 
 </android.support.constraint.ConstraintLayout>
