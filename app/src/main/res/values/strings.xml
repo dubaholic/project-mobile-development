@@ -53,4 +53,11 @@
         <item>Infrastructuur</item>
         <item>Andere</item>
     </string-array>
+    <string-array name="urgenties">
+        <item>Zeer laag</item>
+        <item>Laag</item>
+        <item>Gemiddeld</item>
+        <item>Hoog</item>
+        <item>Zeer hoog</item>
+    </string-array>
 </resources>

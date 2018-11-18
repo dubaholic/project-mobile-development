@@ -7,17 +7,16 @@
     tools:context="org.ap.edu.reportingapp.Start">
 
     <TextView
-        android:layout_width="122sp"
-        android:layout_height="51sp"
+        android:layout_width="300sp"
+        android:layout_height="50sp"
         android:gravity="center"
-        android:text="Start"
+        android:text="Schade vaststellen"
         android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.034"
-        tools:text="Start" />
+        app:layout_constraintVertical_bias="0.025" />
 
     <TextView
         android:id="@+id/txtViewApMail"
@@ -30,7 +29,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.200" />
+        app:layout_constraintVertical_bias="0.150" />
 
     <TextView
         android:id="@+id/txtViewVerdieping"
@@ -43,7 +42,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.350" />
+        app:layout_constraintVertical_bias="0.250" />
 
     <TextView
         android:id="@+id/txtViewLokaal"
@@ -56,7 +55,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.500" />
+        app:layout_constraintVertical_bias="0.350" />
 
     <TextView
         android:id="@+id/txtViewCategorie"
@@ -69,7 +68,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.650" />
+        app:layout_constraintVertical_bias="0.450" />
 
     <TextView
         android:id="@+id/txtViewFoto"
@@ -82,7 +81,20 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.800" />
+        app:layout_constraintVertical_bias="0.550" />
+
+    <TextView
+        android:id="@+id/txtViewOpmerking"
+        android:layout_width="130sp"
+        android:layout_height="40sp"
+        android:textSize="24sp"
+        android:text="Opmerking"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.075"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.825" />
 
     <EditText
         android:id="@+id/txtApMail"
@@ -90,13 +102,14 @@
         android:layout_height="40sp"
         android:ems="10"
         android:inputType="textEmailAddress"
-        android:text=""
+        android:backgroundTint="#ADD8E6"
+        android:textCursorDrawable="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.200" />
+        app:layout_constraintVertical_bias="0.150" />
 
     <Spinner
         android:id="@+id/cmbVerdieping"
@@ -107,7 +120,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.350" />
+        app:layout_constraintVertical_bias="0.250" />
 
     <Spinner
         android:id="@+id/cmbLokaal"
@@ -118,7 +131,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.500" />
+        app:layout_constraintVertical_bias="0.350" />
 
     <Spinner
         android:id="@+id/cmbCategorie"
@@ -129,7 +142,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.650" />
+        app:layout_constraintVertical_bias="0.450" />
 
     <Button
         android:id="@+id/btnFoto"
@@ -141,6 +154,76 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.800" />
+        app:layout_constraintVertical_bias="0.550" />
+
+    <EditText
+        android:id="@+id/txtOpmerking"
+        android:layout_width="160sp"
+        android:layout_height="40dp"
+        android:backgroundTint="#808080"
+        android:inputType="textPersonName"
+        android:textCursorDrawable="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.925"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.825" />
+
+    <TextView
+        android:id="@+id/txtUrgentie"
+        android:layout_width="160sp"
+        android:layout_height="40sp"
+        android:gravity="center"
+        android:text="Urgentie"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.500"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.625"/>
+
+    <SeekBar
+        android:id="@+id/sldUrgentie"
+        android:layout_width="300sp"
+        android:layout_height="40sp"
+        android:max="4"
+        android:progress="2"
+        android:thumbTint="#808080"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.500"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.700" />
+
+    <TextView
+        android:id="@+id/txtViewUrgentieValue"
+        android:layout_width="160sp"
+        android:layout_height="40sp"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="Urgentie waarde"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.500"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.750"/>
+
+    <Button
+        android:id="@+id/btnVerzenden"
+        android:layout_width="300sp"
+        android:layout_height="50sp"
+        android:gravity="center"
+        android:text="Verzenden"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.500"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.975" />
 
 </android.support.constraint.ConstraintLayout>
+
