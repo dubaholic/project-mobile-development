@@ -46,4 +46,11 @@
     <string-array name="lokaalDak">
         <item>Dak</item>
     </string-array>
+    <string-array name="categorie">
+        <item></item>
+        <item>Elektronisch</item>
+        <item>Meubilair</item>
+        <item>Infrastructuur</item>
+        <item>Andere</item>
+    </string-array>
 </resources>

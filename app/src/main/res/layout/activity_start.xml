@@ -135,13 +135,12 @@
         android:id="@+id/btnFoto"
         android:layout_width="160sp"
         android:layout_height="40sp"
-        android:text="Foto maken"
+        android:text="Foto kiezen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.800" />
-
 
 </android.support.constraint.ConstraintLayout>
