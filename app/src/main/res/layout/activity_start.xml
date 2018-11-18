@@ -22,12 +22,15 @@
     <TextView
         android:id="@+id/txtViewApMail"
         android:layout_width="130sp"
-        android:layout_height="35sp"
+        android:layout_height="40sp"
         android:text="AP Email"
         android:textSize="24sp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="30sp"
-        tools:layout_editor_absoluteY="75sp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.075"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.200" />
 
     <TextView
         android:id="@+id/txtViewVerdieping"
@@ -35,8 +38,12 @@
         android:layout_height="40sp"
         android:text="Verdieping"
         android:textSize="24sp"
-        tools:layout_editor_absoluteX="30sp"
-        tools:layout_editor_absoluteY="150sp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.075"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.350" />
 
     <TextView
         android:id="@+id/txtViewLokaal"
@@ -44,8 +51,12 @@
         android:layout_height="40sp"
         android:text="Lokaal"
         android:textSize="24sp"
-        tools:layout_editor_absoluteX="30sp"
-        tools:layout_editor_absoluteY="225sp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.075"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.500" />
 
     <TextView
         android:id="@+id/txtViewCategorie"
@@ -53,8 +64,12 @@
         android:layout_height="40sp"
         android:text="Categorie"
         android:textSize="24sp"
-        tools:layout_editor_absoluteX="30sp"
-        tools:layout_editor_absoluteY="300sp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.075"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.650" />
 
     <TextView
         android:id="@+id/txtViewFoto"
@@ -62,47 +77,71 @@
         android:layout_height="40sp"
         android:text="Foto toevoegen"
         android:textSize="24sp"
-        tools:layout_editor_absoluteX="30sp"
-        tools:layout_editor_absoluteY="375sp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.075"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.800" />
 
     <EditText
         android:id="@+id/txtApMail"
         android:layout_width="160sp"
         android:layout_height="40sp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:text=""
-        tools:layout_editor_absoluteX="195sp"
-        tools:layout_editor_absoluteY="75sp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.925"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.200" />
 
     <Spinner
-        android:id="@+id/cmbVerdiep"
+        android:id="@+id/cmbVerdieping"
         android:layout_width="160sp"
         android:layout_height="40sp"
-        tools:layout_editor_absoluteX="195sp"
-        tools:layout_editor_absoluteY="150sp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.925"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.350" />
 
     <Spinner
         android:id="@+id/cmbLokaal"
         android:layout_width="160sp"
         android:layout_height="40sp"
-        tools:layout_editor_absoluteX="195dp"
-        tools:layout_editor_absoluteY="225dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.925"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.500" />
 
     <Spinner
         android:id="@+id/cmbCategorie"
         android:layout_width="160sp"
         android:layout_height="40sp"
-        tools:layout_editor_absoluteX="195dp"
-        tools:layout_editor_absoluteY="300dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.925"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.650" />
 
     <Button
         android:id="@+id/btnFoto"
         android:layout_width="160sp"
         android:layout_height="40sp"
         android:text="Foto maken"
-        tools:layout_editor_absoluteX="195dp"
-        tools:layout_editor_absoluteY="375dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.925"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.800" />
 
 
 </android.support.constraint.ConstraintLayout>

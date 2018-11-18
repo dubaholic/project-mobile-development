@@ -1,12 +1,49 @@
 <resources>
     <string name="app_name">Reportering app</string>
     <string-array name="verdiepingen">
+        <item></item>
         <item>-1</item>
         <item>Gelijkvloers</item>
         <item>1ste</item>
         <item>2de</item>
         <item>3de</item>
         <item>4de</item>
+        <item>Dak</item>
+    </string-array>
+    <string-array name="lokaalMin1">
+        <item>Gang</item>
+        <item>WC</item>
+    </string-array>
+    <string-array name="lokaalGelijkVloers">
+        <item>Gang</item>
+        <item>WC</item>
+        <item>Onthaal</item>
+    </string-array>
+    <string-array name="lokaal1ste">
+        <item>Gang</item>
+        <item>WC</item>
+        <item>1.01</item>
+        <item>1.02</item>
+    </string-array>
+    <string-array name="lokaal2de">
+        <item>Gang</item>
+        <item>WC</item>
+        <item>2.01</item>
+        <item>2.02</item>
+    </string-array>
+    <string-array name="lokaal3de">
+        <item>Gang</item>
+        <item>WC</item>
+        <item>3.01</item>
+        <item>3.02</item>
+    </string-array>
+    <string-array name="lokaal4de">
+        <item>Gang</item>
+        <item>WC</item>
+        <item>4.01</item>
+        <item>4.02</item>
+    </string-array>
+    <string-array name="lokaalDak">
         <item>Dak</item>
     </string-array>
 </resources>
