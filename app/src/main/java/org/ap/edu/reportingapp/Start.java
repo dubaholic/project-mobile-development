@@ -5,8 +5,9 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +21,10 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -37,15 +41,17 @@ public class Start extends AppCompatActivity {
 
     private Spinner cmbLokaal, cmbVerdieping, cmbCategorie;
     private ArrayAdapter<String> adapterLokaal, adapterVerdieping, adapterCategorie;
-    private Button btnFoto, btnVerzenden;
+    private Button btnFoto, btnFotoMaken, btnVerzenden;
     private SeekBar sldUrgentie;
     private TextView txtUrgentieValue;
     private EditText txtApMail, txtOpmerking;
 
-    private Uri filePath;
+    private Uri filePath, photoURI;
+    File file = null;
     private Bitmap bitmap;
     Schade schadeMelding;
 
+    private static final int CREATE_IMAGE_REQUEST = 100;
     private final int PICK_IMAGE_REQUEST = 71;
 
     /*Firebase dingen
@@ -81,6 +87,7 @@ public class Start extends AppCompatActivity {
         cmbLokaal = findViewById(R.id.cmbLokaal);
         cmbCategorie = findViewById(R.id.cmbCategorie);
         btnFoto = findViewById(R.id.btnFoto);
+        btnFotoMaken = findViewById(R.id.btnFotoMaken);
         btnVerzenden = findViewById(R.id.btnVerzenden);
         sldUrgentie = findViewById(R.id.sldUrgentie);
         txtUrgentieValue = findViewById(R.id.txtViewUrgentieValue);
@@ -136,8 +143,6 @@ public class Start extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                //niet mogelijk denk ik? default waarde
-                //is deze code nodig?
                 cmbLokaal.setEnabled(false);
             }
         });
@@ -150,13 +155,6 @@ public class Start extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
                 //Do nothing
-            }
-        });
-
-        btnFoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                chooseImage();
             }
         });
 
@@ -186,6 +184,20 @@ public class Start extends AppCompatActivity {
             }
             public void onStopTrackingTouch(SeekBar seekBar) {
                 // TODO Auto-generated method stub
+            }
+        });
+
+        btnFoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chooseImage();
+            }
+        });
+
+        btnFotoMaken.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                takeImage();
             }
         });
 
@@ -225,12 +237,11 @@ public class Start extends AppCompatActivity {
                     uploadImage();
                     if (fotoNaam == null || fotoNaam.isEmpty()) {
                         fotoNaam = "images/" + UUID.randomUUID().toString(); //Tijdelijk, tot Firebase op staat
-                        //Log.d("FOTONAAM", "fotoNaam is leeg");
                     }
                     schadeMelding = new Schade(schadeId, isAfgehandeld, apMail, verdiepingValue, lokaalValue, categorieValue, fotoNaam, seekBarValue, opmerking);
                     Log.d("INGEZONDEN ITEM", schadeMelding.toString());
                     Toast.makeText(getApplicationContext(), "Item verzonden!", Toast.LENGTH_SHORT).show();
-
+                    resetScreen();
                     //Hier naar database sturen
                     /*DatabaseReference meldingenRef = databaseReference.child("meldingen");
                     Map<String, Schade> meldingen = new HashMap<>();
@@ -241,31 +252,48 @@ public class Start extends AppCompatActivity {
             }
         });
     }
+    private void resetScreen() {
+        txtApMail.setText("");
+        txtOpmerking.setText("");
+        cmbVerdieping.setSelection(0);
+        cmbLokaal.setSelection(0);
+        cmbCategorie.setSelection(0);
+        sldUrgentie.setProgress(2);
+
+        filePath = null;
+        bitmap = null;
+        fotoNaam = null;
+        apMail = null;
+        verdiepingValue = null;
+        seekBarValue = 2;
+        lokaalValue = null;
+        categorieValue = null;
+        opmerking = null;
+
+        Log.d("NIEUWE VALUES", txtApMail.getText().toString() + txtOpmerking.getText().toString() + cmbVerdieping.getSelectedItem() + cmbLokaal.getSelectedItem() + cmbCategorie.getSelectedItem() + sldUrgentie.getProgress());
+    }
     private void chooseImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Selecteer een foto"), PICK_IMAGE_REQUEST);
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
-                && data != null && data.getData() != null )
-        {
-            filePath = data.getData();
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                //Log.d("IMAGE", bitmap.toString() + " from: " + filePath);
-                //imgView.setImageBitmap(bitmap); //om imgView te veranderen naar de gekozen afbeelding
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+    private void takeImage() {
+        Intent intent = new Intent();
+        intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+        try {
+            file = createImageFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (file != null) {
+            filePath = FileProvider.getUriForFile(this,
+                    "org.ap.edu.reportingapp.provider",
+                    file);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, filePath);
+            startActivityForResult(intent, CREATE_IMAGE_REQUEST);
         }
     }
-
     private void uploadImage() {
         //Aanzetten als Firebase klaar is
         /*if(filePath != null)
@@ -294,4 +322,43 @@ public class Start extends AppCompatActivity {
                     });
         }*/
     }
+    private File createImageFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",   /* suffix */
+                storageDir      /* directory */
+        );
+        return image;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null )
+        {
+            filePath = data.getData();
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                Log.d("IMAGE", bitmap.toString() + filePath.toString());
+                //imgView.setImageBitmap(bitmap); //om imgView te veranderen naar de gekozen afbeelding
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        if (requestCode == CREATE_IMAGE_REQUEST && resultCode == RESULT_OK) {
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

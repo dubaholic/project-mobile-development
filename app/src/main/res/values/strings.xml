@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Reportering app</string>
+    <string name="app_name">Reporting app</string>
     <string-array name="verdiepingen">
         <item></item>
         <item>-1</item>
