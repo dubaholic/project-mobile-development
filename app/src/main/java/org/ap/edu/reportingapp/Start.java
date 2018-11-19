@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,29 +14,52 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class Start extends AppCompatActivity {
     //moet dit private zijn?
     private String[] verdiepingen, lokaalMin1, lokaalGelijkVloers, lokaal1ste, lokaal2de, lokaal3de,
             lokaal4de, lokaalDak, leeg = {""},  lokalen, categorie, urgenties;
-    private String verdiepingValue, urgentieColorString = "#FFA500";
+    private String verdiepingValue, lokaalValue, categorieValue, urgentieColorString = "#FFA500",
+            apMail, opmerking, fotoNaam;
     private int seekBarValue = 2;
+    private boolean isAfgehandeld = false;
+    private UUID schadeId;
 
     private Spinner cmbLokaal, cmbVerdieping, cmbCategorie;
     private ArrayAdapter<String> adapterLokaal, adapterVerdieping, adapterCategorie;
     private Button btnFoto, btnVerzenden;
     private SeekBar sldUrgentie;
     private TextView txtUrgentieValue;
+    private EditText txtApMail, txtOpmerking;
 
     private Uri filePath;
+    private Bitmap bitmap;
+    Schade schadeMelding;
 
     private final int PICK_IMAGE_REQUEST = 71;
+
+    /*Firebase dingen
+    //Storage is voor bestanden, Database is voor data
+    final FirebaseDatabase database;
+    final FirebaseStorage storage;
+    StorageReference storageReference;
+    DatabaseReference databaseReference;
+
+    storage = FirebaseStorage.getInstance();
+    storageReference = storage.getReference();
+    database = FirebaseDatabase.getInstance()
+    databaseReference = database.getReference()
+    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +84,8 @@ public class Start extends AppCompatActivity {
         btnVerzenden = findViewById(R.id.btnVerzenden);
         sldUrgentie = findViewById(R.id.sldUrgentie);
         txtUrgentieValue = findViewById(R.id.txtViewUrgentieValue);
+        txtApMail = findViewById(R.id.txtApMail);
+        txtOpmerking = findViewById(R.id.txtOpmerking);
 
         adapterVerdieping = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, verdiepingen);
         adapterCategorie = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categorie);
@@ -67,7 +93,7 @@ public class Start extends AppCompatActivity {
         cmbVerdieping.setAdapter(adapterVerdieping);
         cmbCategorie.setAdapter(adapterCategorie);
 
-        //Default values voor seekerbar
+        //Default values
         sldUrgentie.getProgressDrawable().setColorFilter(Color.parseColor(urgentieColorString), PorterDuff.Mode.MULTIPLY);
         txtUrgentieValue.setText(urgenties[seekBarValue]);
 
@@ -105,6 +131,7 @@ public class Start extends AppCompatActivity {
                 }
                 adapterLokaal = new ArrayAdapter<>(Start.this, android.R.layout.simple_spinner_dropdown_item, lokalen);
                 cmbLokaal.setAdapter(adapterLokaal);
+                lokaalValue = cmbLokaal.getSelectedItem().toString();
             }
 
             @Override
@@ -112,6 +139,17 @@ public class Start extends AppCompatActivity {
                 //niet mogelijk denk ik? default waarde
                 //is deze code nodig?
                 cmbLokaal.setEnabled(false);
+            }
+        });
+
+        cmbCategorie.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View selectedItemView, int position, long id) {
+                categorieValue = cmbCategorie.getSelectedItem().toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                //Do nothing
             }
         });
 
@@ -154,7 +192,52 @@ public class Start extends AppCompatActivity {
         btnVerzenden.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Item is verzonden
+                apMail = txtApMail.getText().toString();
+                opmerking = txtOpmerking.getText().toString();
+                schadeId = UUID.randomUUID();
+
+                //Invoer controle
+                if (opmerking.isEmpty()){opmerking = "NONE";}
+                if (apMail.isEmpty()){
+                    Toast.makeText(getApplicationContext(),"Vul je AP email adres in",Toast.LENGTH_SHORT).show();
+                }
+                else if (verdiepingValue.isEmpty()){
+                    Toast.makeText(getApplicationContext(),"Kies de juiste verdieping",Toast.LENGTH_SHORT).show();
+                }
+                else if (lokaalValue.isEmpty()){
+                    Toast.makeText(getApplicationContext(),"Kies het lokaal",Toast.LENGTH_SHORT).show();
+                }
+                else if (categorieValue.isEmpty()){
+                    Toast.makeText(getApplicationContext(),"Kies de categorie",Toast.LENGTH_SHORT).show();
+                }
+                else if (bitmap == null || filePath == null){
+                    Toast.makeText(getApplicationContext(),"Kies of maak een foto",Toast.LENGTH_SHORT).show();
+                }
+                else if (seekBarValue > 4 || seekBarValue < 0){
+                    Toast.makeText(getApplicationContext(),"Ongeldige urgentie",Toast.LENGTH_SHORT).show();
+                }
+                else if (!apMail.endsWith("@ap.be") && !apMail.endsWith("@student.ap.be")){
+                    Toast.makeText(getApplicationContext(),"Geef een geldig AP email adres op",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    //De gekozen foto uploaden op Firebase (voor het object zal worden aangemaakt)
+                    //-> fotoNaam wordt pas na uploadImage() gegenereerd
+                    uploadImage();
+                    if (fotoNaam == null || fotoNaam.isEmpty()) {
+                        fotoNaam = "images/" + UUID.randomUUID().toString(); //Tijdelijk, tot Firebase op staat
+                        //Log.d("FOTONAAM", "fotoNaam is leeg");
+                    }
+                    schadeMelding = new Schade(schadeId, isAfgehandeld, apMail, verdiepingValue, lokaalValue, categorieValue, fotoNaam, seekBarValue, opmerking);
+                    Log.d("INGEZONDEN ITEM", schadeMelding.toString());
+                    Toast.makeText(getApplicationContext(), "Item verzonden!", Toast.LENGTH_SHORT).show();
+
+                    //Hier naar database sturen
+                    /*DatabaseReference meldingenRef = databaseReference.child("meldingen");
+                    Map<String, Schade> meldingen = new HashMap<>();
+                    meldingenRef.put(schadeMelding.getSchadeId(), schadeMelding);
+                    meldingenRef.setValueAsync(meldingen);
+                    */
+                }
             }
         });
     }
@@ -172,8 +255,7 @@ public class Start extends AppCompatActivity {
         {
             filePath = data.getData();
             try {
-                //Bitmap is de afbeelding
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 //Log.d("IMAGE", bitmap.toString() + " from: " + filePath);
                 //imgView.setImageBitmap(bitmap); //om imgView te veranderen naar de gekozen afbeelding
             }
@@ -182,5 +264,34 @@ public class Start extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void uploadImage() {
+        //Aanzetten als Firebase klaar is
+        /*if(filePath != null)
+        {
+            //fotoNaam is de naam/ID van de foto die geupload zal worden
+            fotoNaam = "images/"+ UUID.randomUUID().toString()
+            StorageReference ref = storageReference.child(fotoNaam);
+            ref.putFile(filePath)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            //Hier toast voor success
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            //Hier toast voor failed
+                           }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            //Progressbalk nodig?
+                        }
+                    });
+        }*/
     }
 }
