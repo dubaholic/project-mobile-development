@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,22 +23,23 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 public class Start extends AppCompatActivity {
-    //moet dit private zijn?
     private String[] verdiepingen, lokaalMin1, lokaalGelijkVloers, lokaal1ste, lokaal2de, lokaal3de,
             lokaal4de, lokaalDak, leeg = {""},  lokalen, categorie, urgenties;
     private String verdiepingValue, lokaalValue, categorieValue, urgentieColorString = "#FFA500",
@@ -52,32 +55,29 @@ public class Start extends AppCompatActivity {
     private SeekBar sldUrgentie;
     private TextView txtUrgentieValue;
     private EditText txtApMail, txtOpmerking;
+    private ImageView imgThumbnail;
 
-    private Uri filePath, photoURI;
-    File file = null;
+    private Uri filePath;
+    File createdImage = null;
     private Bitmap bitmap;
     Schade schadeMelding;
 
-    private static final int CREATE_IMAGE_REQUEST = 100;
-    private final int PICK_IMAGE_REQUEST = 71;
+    private static final int CREATE_IMAGE_REQUEST = 1;
+    private final int PICK_IMAGE_REQUEST = 2;
 
-    private static final String FIREBASE_URL = "https://reportingapp-fd92a.firebaseio.com";
-
-    //Storage is voor bestanden, Database is voor data
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    //FirebaseStorage storage = FirebaseStorage.getInstance();
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+
+    final StorageReference storageReference = storage.getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        final DatabaseReference databaseReference = database.getReference("");
-        //final StorageReference storageReference = storage.getReference();
-        //FirebaseStorage.getInstance().setPersistenceEnabled(true);
 
-        final DatabaseReference meldingenRef = databaseReference.child("meldingen");
-        final Map<String, Schade> meldingen = new HashMap<>();
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        final DatabaseReference databaseReference = database.getReference();
+        final DatabaseReference meldingenReference = databaseReference.child("meldingen");
 
         verdiepingen = getResources().getStringArray(R.array.verdiepingen);
         lokaalMin1 = getResources().getStringArray(R.array.lokaalMin1);
@@ -100,6 +100,7 @@ public class Start extends AppCompatActivity {
         txtUrgentieValue = findViewById(R.id.txtViewUrgentieValue);
         txtApMail = findViewById(R.id.txtApMail);
         txtOpmerking = findViewById(R.id.txtOpmerking);
+        imgThumbnail = findViewById(R.id.imgThumbnail);
 
         adapterVerdieping = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, verdiepingen);
         adapterCategorie = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categorie);
@@ -117,7 +118,6 @@ public class Start extends AppCompatActivity {
                 verdiepingValue = cmbVerdieping.getSelectedItem().toString();
                 cmbLokaal.setEnabled(true);
 
-                //veranderen in switch?
                 if (verdiepingValue.equals("-1")){
                     lokalen = lokaalMin1;
                 }
@@ -187,10 +187,8 @@ public class Start extends AppCompatActivity {
                 sldUrgentie.getProgressDrawable().setColorFilter(Color.parseColor(urgentieColorString), PorterDuff.Mode.MULTIPLY);
             }
             public void onStartTrackingTouch(SeekBar seekBar) {
-                // TODO Auto-generated method stub
             }
             public void onStopTrackingTouch(SeekBar seekBar) {
-                // TODO Auto-generated method stub
             }
         });
 
@@ -216,8 +214,7 @@ public class Start extends AppCompatActivity {
                 schadeId = UUID.randomUUID();
                 now = new Date();
 
-                //Invoer controle
-                if (opmerking.isEmpty()){opmerking = "NONE";}
+                if (opmerking.isEmpty()){opmerking = "GEEN";}
                 if (apMail.isEmpty()){
                     Toast.makeText(getApplicationContext(),"Vul je AP email adres in",Toast.LENGTH_SHORT).show();
                 }
@@ -240,25 +237,18 @@ public class Start extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Geef een geldig AP email adres op",Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    //De gekozen foto uploaden op Firebase (voor het object zal worden aangemaakt)
-                    //-> fotoNaam wordt pas na uploadImage() gegenereerd
                     uploadImage();
-                    if (fotoNaam == null || fotoNaam.isEmpty()) {
-                        fotoNaam = "images/" + UUID.randomUUID().toString(); //Tijdelijk, tot Firebase op staat
-                    }
-                    schadeMelding = new Schade(schadeId, apMail, verdiepingValue, lokaalValue, categorieValue, fotoNaam, seekBarValue, opmerking, now, isAfgehandeld);
-                    Log.d("INGEZONDEN ITEM", schadeMelding.toString());
+                    schadeMelding = new Schade(apMail, verdiepingValue, lokaalValue, categorieValue, fotoNaam, seekBarValue, opmerking, now, isAfgehandeld);
                     Toast.makeText(getApplicationContext(), "Item verzonden!", Toast.LENGTH_SHORT).show();
-                    resetScreen();
 
-                    //Hier naar database sturen
-                    meldingenRef.
-                    meldingen.put(schadeMelding.getSchadeId().toString(), schadeMelding);
-                    meldingenRef.setValue(meldingen);
+                    meldingenReference.child(schadeId.toString()).setValue(schadeMelding);
+                    createdImage.delete();
+                    resetScreen();
                 }
             }
         });
     }
+
     private void resetScreen() {
         txtApMail.setText("");
         txtOpmerking.setText("");
@@ -277,8 +267,6 @@ public class Start extends AppCompatActivity {
         categorieValue = null;
         opmerking = null;
         schadeId = null;
-
-        Log.d("NIEUWE VALUES", txtApMail.getText().toString() + txtOpmerking.getText().toString() + cmbVerdieping.getSelectedItem() + cmbLokaal.getSelectedItem() + cmbCategorie.getSelectedItem() + sldUrgentie.getProgress());
     }
     private void chooseImage() {
         Intent intent = new Intent();
@@ -290,36 +278,34 @@ public class Start extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
         try {
-            file = createImageFile();
+            createdImage = createImageFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (file != null) {
+        if (createdImage != null) {
             filePath = FileProvider.getUriForFile(this,
                     "org.ap.edu.reportingapp.provider",
-                    file);
+                    createdImage);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, filePath);
             startActivityForResult(intent, CREATE_IMAGE_REQUEST);
         }
     }
     private void uploadImage() {
-        //Aanzetten als Firebase klaar is
-        /*if(filePath != null)
+        if(filePath != null)
         {
-            //fotoNaam is de naam/ID van de foto die geupload zal worden
-            fotoNaam = "images/"+ UUID.randomUUID().toString()
-            StorageReference ref = storageReference.child(fotoNaam);
+            fotoNaam = UUID.randomUUID().toString();
+            StorageReference ref = storageReference.child("fotos/" + fotoNaam);
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            //Hier toast voor success
+                            Toast.makeText(getApplicationContext(), "Foto Geupload!", Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            //Hier toast voor failed
+                            Toast.makeText(getApplicationContext(), "Foto niet verzonden", Toast.LENGTH_SHORT).show();
                            }
                     })
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -328,19 +314,13 @@ public class Start extends AppCompatActivity {
                             //Progressbalk nodig?
                         }
                     });
-        }*/
+        }
     }
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",   /* suffix */
-                storageDir      /* directory */
-        );
-        return image;
+        return File.createTempFile(imageFileName, ".jpg", storageDir);
     }
 
     @Override
@@ -352,11 +332,7 @@ public class Start extends AppCompatActivity {
             filePath = data.getData();
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                Log.d("IMAGE", bitmap.toString() + filePath.toString());
-                //imgView.setImageBitmap(bitmap); //om imgView te veranderen naar de gekozen afbeelding
-            }
-            catch (IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -367,8 +343,6 @@ public class Start extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+        imgThumbnail.setImageBitmap(bitmap);
     }
-
-
-
 }
