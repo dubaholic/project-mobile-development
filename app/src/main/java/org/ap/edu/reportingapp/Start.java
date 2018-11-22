@@ -63,28 +63,21 @@ public class Start extends AppCompatActivity {
 
     private static final String FIREBASE_URL = "https://reportingapp-fd92a.firebaseio.com";
 
-    /*Firebase dingen
     //Storage is voor bestanden, Database is voor data
-    final FirebaseDatabase database;
-    final FirebaseStorage storage;
-    StorageReference storageReference;
-    DatabaseReference databaseReference;
-
-    storage = FirebaseStorage.getInstance();
-    storageReference = storage.getReference();
-    database = FirebaseDatabase.getInstance()
-    databaseReference = database.getReference()
-        */
-
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("message");
-    myRef.setValue("Hello, World!");
+    //FirebaseStorage storage = FirebaseStorage.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        final DatabaseReference databaseReference = database.getReference("");
+        //final StorageReference storageReference = storage.getReference();
+        //FirebaseStorage.getInstance().setPersistenceEnabled(true);
+
+        final DatabaseReference meldingenRef = databaseReference.child("meldingen");
+        final Map<String, Schade> meldingen = new HashMap<>();
 
         verdiepingen = getResources().getStringArray(R.array.verdiepingen);
         lokaalMin1 = getResources().getStringArray(R.array.lokaalMin1);
@@ -255,15 +248,13 @@ public class Start extends AppCompatActivity {
                     }
                     schadeMelding = new Schade(schadeId, apMail, verdiepingValue, lokaalValue, categorieValue, fotoNaam, seekBarValue, opmerking, now, isAfgehandeld);
                     Log.d("INGEZONDEN ITEM", schadeMelding.toString());
-                    database.child("schade").child(schadeMelding.getUid()).setValue(schadeMelding);
                     Toast.makeText(getApplicationContext(), "Item verzonden!", Toast.LENGTH_SHORT).show();
                     resetScreen();
+
                     //Hier naar database sturen
-                    /*DatabaseReference meldingenRef = databaseReference.child("meldingen");
-                    Map<String, Schade> meldingen = new HashMap<>();
-                    meldingenRef.put(schadeMelding.getSchadeId(), schadeMelding);
-                    meldingenRef.setValueAsync(meldingen);
-                    */
+                    meldingenRef.
+                    meldingen.put(schadeMelding.getSchadeId().toString(), schadeMelding);
+                    meldingenRef.setValue(meldingen);
                 }
             }
         });
@@ -285,6 +276,7 @@ public class Start extends AppCompatActivity {
         lokaalValue = null;
         categorieValue = null;
         opmerking = null;
+        schadeId = null;
 
         Log.d("NIEUWE VALUES", txtApMail.getText().toString() + txtOpmerking.getText().toString() + cmbVerdieping.getSelectedItem() + cmbLokaal.getSelectedItem() + cmbCategorie.getSelectedItem() + sldUrgentie.getProgress());
     }

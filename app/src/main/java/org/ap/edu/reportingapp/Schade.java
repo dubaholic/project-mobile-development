@@ -1,5 +1,6 @@
 package org.ap.edu.reportingapp;
 
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -15,7 +16,7 @@ public class Schade {
     private String fotoNaam;
     private int urgentie;
     private String opmerking;
-    private Date now;
+    private Date timeStamp;
     private boolean isAfgehandeld;
 
     public UUID getSchadeId() {
@@ -82,12 +83,12 @@ public class Schade {
         this.opmerking = opmerking;
     }
 
-    public Date getNow() {
-        return now;
+    public Date getTimeStamp() {
+        return timeStamp;
     }
 
-    public void setNow(Date now) {
-        this.now = now;
+    public void setTimeStamp(Date timeStamp) {
+        this.timeStamp = timeStamp;
     }
 
     public boolean isAfgehandeld() {
@@ -98,7 +99,7 @@ public class Schade {
         isAfgehandeld = afgehandeld;
     }
 
-    public Schade(UUID schadeId, String email, String verdieping, String lokaal, String categorie, String fotoNaam, int urgentie, String opmerking, Date now, boolean isAfgehandeld) {
+    public Schade(UUID schadeId, String email, String verdieping, String lokaal, String categorie, String fotoNaam, int urgentie, String opmerking, Date timeStamp, boolean isAfgehandeld) {
         this.schadeId = schadeId;
         this.email = email;
         this.verdieping = verdieping;
@@ -107,7 +108,7 @@ public class Schade {
         this.fotoNaam = fotoNaam;
         this.urgentie = urgentie;
         this.opmerking = opmerking;
-        this.now = now;
+        this.timeStamp = timeStamp;
         this.isAfgehandeld = isAfgehandeld;
     }
 
@@ -122,8 +123,9 @@ public class Schade {
                 ", fotoNaam='" + fotoNaam + '\'' +
                 ", urgentie=" + urgentie +
                 ", opmerking='" + opmerking + '\'' +
-                ", now=" + now +
+                ", timeStamp=" + timeStamp +
                 ", isAfgehandeld=" + isAfgehandeld +
                 '}';
     }
+
 }
