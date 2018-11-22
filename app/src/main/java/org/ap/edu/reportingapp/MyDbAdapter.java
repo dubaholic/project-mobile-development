@@ -1,11 +1,11 @@
-package org.ap.edu.reporteringapp;
+package org.ap.edu.reportingapp;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 public class MyDbAdapter {
-    MyDbHelper myHelper;
+  /*  MyDbHelper myHelper;
     public MyDbAdapter (Context context)
     {
         myHelper = new MyDbHelper(context);
@@ -49,5 +49,5 @@ public class MyDbAdapter {
         String[] whereArgs = {oudEmailAdres};
         int count = db.update(myDbHelper.TABLE_NAME, contentValues, myDbHelper.EMAILDRES+=" =?", whereArgs);
         return count;
-    }
+    } */
 }
