@@ -8,7 +8,6 @@ import java.util.UUID;
 
 public class Schade {
     private UUID schadeId;
-    private boolean isAfgehandeld;
     private String email;
     private String verdieping;
     private String lokaal;
@@ -16,6 +15,16 @@ public class Schade {
     private String fotoNaam;
     private int urgentie;
     private String opmerking;
+    private Date now;
+    private boolean isAfgehandeld;
+
+    public UUID getSchadeId() {
+        return schadeId;
+    }
+
+    public void setSchadeId(UUID schadeId) {
+        this.schadeId = schadeId;
+    }
 
     public String getEmail() {
         return email;
@@ -49,6 +58,14 @@ public class Schade {
         this.categorie = categorie;
     }
 
+    public String getFotoNaam() {
+        return fotoNaam;
+    }
+
+    public void setFotoNaam(String fotoNaam) {
+        this.fotoNaam = fotoNaam;
+    }
+
     public int getUrgentie() {
         return urgentie;
     }
@@ -65,20 +82,12 @@ public class Schade {
         this.opmerking = opmerking;
     }
 
-    public UUID getSchadeId() {
-        return schadeId;
+    public Date getNow() {
+        return now;
     }
 
-    public void setSchadeId(UUID schadeId) {
-        this.schadeId = schadeId;
-    }
-
-    public String getFotoNaam() {
-        return fotoNaam;
-    }
-
-    public void setFotoNaam(String fotoNaam) {
-        this.fotoNaam = fotoNaam;
+    public void setNow(Date now) {
+        this.now = now;
     }
 
     public boolean isAfgehandeld() {
@@ -89,9 +98,8 @@ public class Schade {
         isAfgehandeld = afgehandeld;
     }
 
-    public Schade(UUID schadeId, boolean isAfgehandeld, String email, String verdieping, String lokaal, String categorie, String fotoNaam, int urgentie, String opmerking) {
+    public Schade(UUID schadeId, String email, String verdieping, String lokaal, String categorie, String fotoNaam, int urgentie, String opmerking, Date now, boolean isAfgehandeld) {
         this.schadeId = schadeId;
-        this.isAfgehandeld = isAfgehandeld;
         this.email = email;
         this.verdieping = verdieping;
         this.lokaal = lokaal;
@@ -99,13 +107,14 @@ public class Schade {
         this.fotoNaam = fotoNaam;
         this.urgentie = urgentie;
         this.opmerking = opmerking;
+        this.now = now;
+        this.isAfgehandeld = isAfgehandeld;
     }
 
     @Override
     public String toString() {
         return "Schade{" +
                 "schadeId=" + schadeId +
-                ", isAfgehandeld=" + isAfgehandeld +
                 ", email='" + email + '\'' +
                 ", verdieping='" + verdieping + '\'' +
                 ", lokaal='" + lokaal + '\'' +
@@ -113,6 +122,8 @@ public class Schade {
                 ", fotoNaam='" + fotoNaam + '\'' +
                 ", urgentie=" + urgentie +
                 ", opmerking='" + opmerking + '\'' +
+                ", now=" + now +
+                ", isAfgehandeld=" + isAfgehandeld +
                 '}';
     }
 }

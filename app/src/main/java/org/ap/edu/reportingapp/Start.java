@@ -44,6 +44,7 @@ public class Start extends AppCompatActivity {
     private int seekBarValue = 2;
     private boolean isAfgehandeld = false;
     private UUID schadeId;
+    private Date now;
 
     private Spinner cmbLokaal, cmbVerdieping, cmbCategorie;
     private ArrayAdapter<String> adapterLokaal, adapterVerdieping, adapterCategorie;
@@ -220,6 +221,7 @@ public class Start extends AppCompatActivity {
                 apMail = txtApMail.getText().toString();
                 opmerking = txtOpmerking.getText().toString();
                 schadeId = UUID.randomUUID();
+                now = new Date();
 
                 //Invoer controle
                 if (opmerking.isEmpty()){opmerking = "NONE";}
@@ -251,7 +253,7 @@ public class Start extends AppCompatActivity {
                     if (fotoNaam == null || fotoNaam.isEmpty()) {
                         fotoNaam = "images/" + UUID.randomUUID().toString(); //Tijdelijk, tot Firebase op staat
                     }
-                    schadeMelding = new Schade(schadeId, isAfgehandeld, apMail, verdiepingValue, lokaalValue, categorieValue, fotoNaam, seekBarValue, opmerking);
+                    schadeMelding = new Schade(schadeId, apMail, verdiepingValue, lokaalValue, categorieValue, fotoNaam, seekBarValue, opmerking, now, isAfgehandeld);
                     Log.d("INGEZONDEN ITEM", schadeMelding.toString());
                     database.child("schade").child(schadeMelding.getUid()).setValue(schadeMelding);
                     Toast.makeText(getApplicationContext(), "Item verzonden!", Toast.LENGTH_SHORT).show();
