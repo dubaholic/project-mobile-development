@@ -29,6 +29,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class Start extends AppCompatActivity {
     //moet dit private zijn?
     private String[] verdiepingen, lokaalMin1, lokaalGelijkVloers, lokaal1ste, lokaal2de, lokaal3de,
@@ -54,6 +60,8 @@ public class Start extends AppCompatActivity {
     private static final int CREATE_IMAGE_REQUEST = 100;
     private final int PICK_IMAGE_REQUEST = 71;
 
+    private static final String FIREBASE_URL = "https://reportingapp-fd92a.firebaseio.com";
+
     /*Firebase dingen
     //Storage is voor bestanden, Database is voor data
     final FirebaseDatabase database;
@@ -65,12 +73,17 @@ public class Start extends AppCompatActivity {
     storageReference = storage.getReference();
     database = FirebaseDatabase.getInstance()
     databaseReference = database.getReference()
-    */
+        */
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("message");
+    myRef.setValue("Hello, World!");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         verdiepingen = getResources().getStringArray(R.array.verdiepingen);
         lokaalMin1 = getResources().getStringArray(R.array.lokaalMin1);
@@ -240,6 +253,7 @@ public class Start extends AppCompatActivity {
                     }
                     schadeMelding = new Schade(schadeId, isAfgehandeld, apMail, verdiepingValue, lokaalValue, categorieValue, fotoNaam, seekBarValue, opmerking);
                     Log.d("INGEZONDEN ITEM", schadeMelding.toString());
+                    database.child("schade").child(schadeMelding.getUid()).setValue(schadeMelding);
                     Toast.makeText(getApplicationContext(), "Item verzonden!", Toast.LENGTH_SHORT).show();
                     resetScreen();
                     //Hier naar database sturen
@@ -360,5 +374,7 @@ public class Start extends AppCompatActivity {
             }
         }
     }
+
+
 
 }

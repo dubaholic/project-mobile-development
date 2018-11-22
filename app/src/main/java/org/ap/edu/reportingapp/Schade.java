@@ -1,7 +1,5 @@
 package org.ap.edu.reportingapp;
 
-import android.graphics.Bitmap;
-
 import java.util.UUID;
 
 /**
