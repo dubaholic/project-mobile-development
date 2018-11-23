@@ -45,7 +45,7 @@ public class Start extends AppCompatActivity {
     private String verdiepingValue, lokaalValue, categorieValue, urgentieColorString = "#FFA500",
             apMail, opmerking, fotoNaam;
     private int seekBarValue = 2;
-    private boolean isAfgehandeld = false;
+    private boolean isAfgehandeld = false, isNewImage = false;
     private UUID schadeId;
     private Date now;
 
@@ -242,7 +242,9 @@ public class Start extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Item verzonden!", Toast.LENGTH_SHORT).show();
 
                     meldingenReference.child(schadeId.toString()).setValue(schadeMelding);
-                    createdImage.delete();
+                    if (isNewImage) {
+                        createdImage.delete();
+                    }
                     resetScreen();
                 }
             }
@@ -311,7 +313,6 @@ public class Start extends AppCompatActivity {
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            //Progressbalk nodig?
                         }
                     });
         }
@@ -332,6 +333,7 @@ public class Start extends AppCompatActivity {
             filePath = data.getData();
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                isNewImage = false;
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -339,6 +341,7 @@ public class Start extends AppCompatActivity {
         if (requestCode == CREATE_IMAGE_REQUEST && resultCode == RESULT_OK) {
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                isNewImage = true;
             } catch (IOException e) {
                 e.printStackTrace();
             }
