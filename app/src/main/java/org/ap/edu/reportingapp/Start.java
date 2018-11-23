@@ -210,11 +210,6 @@ public class Start extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 apMail = txtApMail.getText().toString();
-                opmerking = txtOpmerking.getText().toString();
-                schadeId = UUID.randomUUID();
-                now = new Date();
-
-                if (opmerking.isEmpty()){opmerking = "GEEN";}
                 if (apMail.isEmpty()){
                     Toast.makeText(getApplicationContext(),"Vul je AP email adres in",Toast.LENGTH_SHORT).show();
                 }
@@ -237,8 +232,13 @@ public class Start extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Geef een geldig AP email adres op",Toast.LENGTH_SHORT).show();
                 }
                 else {
+                    opmerking = txtOpmerking.getText().toString();
+                    if (opmerking.isEmpty()){opmerking = "GEEN";}
+                    schadeId = UUID.randomUUID();
+                    now = new Date();
+
                     uploadImage();
-                    schadeMelding = new Schade(apMail, verdiepingValue, lokaalValue, categorieValue, fotoNaam, seekBarValue, opmerking, now, isAfgehandeld);
+                    schadeMelding = new Schade(schadeId.toString(), apMail, verdiepingValue, lokaalValue, categorieValue, fotoNaam, seekBarValue, opmerking, now, isAfgehandeld);
                     Toast.makeText(getApplicationContext(), "Item verzonden!", Toast.LENGTH_SHORT).show();
 
                     meldingenReference.child(schadeId.toString()).setValue(schadeMelding);

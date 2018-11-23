@@ -1,13 +1,13 @@
 package org.ap.edu.reportingapp;
 
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * Created by Maarten on 19/11/2018.
  */
 
 public class Schade {
+    private String schadeId;
     private String email;
     private String verdieping;
     private String lokaal;
@@ -17,6 +17,14 @@ public class Schade {
     private String opmerking;
     private Date timeStamp;
     private boolean isAfgehandeld;
+
+    public String getSchadeId() {
+        return schadeId;
+    }
+
+    public void setSchadeId(String schadeId) {
+        this.schadeId = schadeId;
+    }
 
     public String getEmail() {
         return email;
@@ -90,7 +98,8 @@ public class Schade {
         isAfgehandeld = afgehandeld;
     }
 
-    public Schade(String email, String verdieping, String lokaal, String categorie, String fotoNaam, int urgentie, String opmerking, Date timeStamp, boolean isAfgehandeld) {
+    public Schade(String schadeId, String email, String verdieping, String lokaal, String categorie, String fotoNaam, int urgentie, String opmerking, Date timeStamp, boolean isAfgehandeld) {
+        this.schadeId = schadeId;
         this.email = email;
         this.verdieping = verdieping;
         this.lokaal = lokaal;
@@ -105,6 +114,7 @@ public class Schade {
     @Override
     public String toString() {
         return "Schade{" +
+                "schadeId=" + schadeId +
                 ", email='" + email + '\'' +
                 ", verdieping='" + verdieping + '\'' +
                 ", lokaal='" + lokaal + '\'' +
@@ -116,5 +126,4 @@ public class Schade {
                 ", isAfgehandeld=" + isAfgehandeld +
                 '}';
     }
-
 }
