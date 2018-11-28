@@ -215,9 +215,14 @@
     </string-array>
     <string-array name="categorie">
         <item></item>
-        <item>Elektronisch</item>
+        <item>Deur</item>
         <item>Meubilair</item>
-        <item>Infrastructuur</item>
+        <item>Sanitair</item>
+        <item>Stopcontact</item>
+        <item>Raam</item>
+        <item>Verlichting</item>
+        <item>Verluchting</item>
+        <item>Verwarming</item>
         <item>Andere</item>
     </string-array>
     <string-array name="urgenties">
