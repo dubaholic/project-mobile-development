@@ -11,7 +11,7 @@
         android:layout_width="300sp"
         android:layout_height="50sp"
         android:gravity="center"
-        android:text="Bekijk de bestaande meldingen"
+        android:text="Overzicht"
         android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -77,6 +77,17 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.950" />
+        app:layout_constraintVertical_bias="0.975" />
+
+    <ListView
+        android:id="@+id/lstBestaand"
+        android:layout_width="344dp"
+        android:layout_height="274dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.500"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.725" />
 
 </android.support.constraint.ConstraintLayout>

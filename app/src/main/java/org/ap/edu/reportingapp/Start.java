@@ -75,7 +75,7 @@ public class Start extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         final DatabaseReference databaseReference = database.getReference();
         final DatabaseReference meldingenReference = databaseReference.child("meldingen");
 
@@ -145,12 +145,21 @@ public class Start extends AppCompatActivity {
                 }
                 adapterLokaal = new ArrayAdapter<>(Start.this, android.R.layout.simple_spinner_dropdown_item, lokalen);
                 cmbLokaal.setAdapter(adapterLokaal);
-                lokaalValue = cmbLokaal.getSelectedItem().toString();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
                 cmbLokaal.setEnabled(false);
+            }
+        });
+
+        cmbLokaal.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override public void onItemSelected(AdapterView<?> parent, View selectedItemView, int position, long id) {
+                lokaalValue = cmbLokaal.getSelectedItem().toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
 
@@ -233,7 +242,7 @@ public class Start extends AppCompatActivity {
                 }
                 else {
                     opmerking = txtOpmerking.getText().toString();
-                    if (opmerking.isEmpty()){opmerking = "GEEN";}
+                    if (opmerking.isEmpty()){opmerking = "Geen opmerking";}
                     schadeId = UUID.randomUUID();
                     now = new Date();
 
