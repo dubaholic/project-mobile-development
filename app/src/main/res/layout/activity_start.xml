@@ -20,7 +20,7 @@
 
     <TextView
         android:id="@+id/txtViewApMail"
-        android:layout_width="130sp"
+        android:layout_width="140sp"
         android:layout_height="40sp"
         android:text="AP Email"
         android:textSize="24sp"
@@ -98,11 +98,11 @@
 
     <EditText
         android:id="@+id/txtApMail"
-        android:layout_width="160sp"
+        android:layout_width="190sp"
         android:layout_height="40sp"
+        android:backgroundTint="#ADD8E6"
         android:ems="10"
         android:inputType="textEmailAddress"
-        android:backgroundTint="#ADD8E6"
         android:textCursorDrawable="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
@@ -113,7 +113,7 @@
 
     <Spinner
         android:id="@+id/cmbVerdieping"
-        android:layout_width="160sp"
+        android:layout_width="190sp"
         android:layout_height="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
@@ -124,7 +124,7 @@
 
     <Spinner
         android:id="@+id/cmbLokaal"
-        android:layout_width="160sp"
+        android:layout_width="190sp"
         android:layout_height="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
@@ -135,7 +135,7 @@
 
     <Spinner
         android:id="@+id/cmbCategorie"
-        android:layout_width="160sp"
+        android:layout_width="190sp"
         android:layout_height="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
@@ -171,7 +171,7 @@
 
     <EditText
         android:id="@+id/txtOpmerking"
-        android:layout_width="160sp"
+        android:layout_width="190sp"
         android:layout_height="40dp"
         android:backgroundTint="#808080"
         android:inputType="textPersonName"
