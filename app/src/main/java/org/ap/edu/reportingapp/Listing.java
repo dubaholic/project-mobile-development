@@ -35,6 +35,7 @@ public class Listing extends Activity {
     private Button btnNieuw;
     private ArrayAdapter<String> adapterLokaal, adapterVerdieping, bestaandDataAdapter;
     ArrayList<String> bestaandDataArrayList = new ArrayList<>();
+    ArrayList<String> bestaandDataIdArrayList = new ArrayList<>();
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
@@ -104,19 +105,26 @@ public class Listing extends Activity {
 
         cmbLokaal.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View selectedItemView, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View selectedItemView, final int position, long id) {
                 lokaalValue = cmbLokaal.getSelectedItem().toString();
+                bestaandDataIdArrayList = new ArrayList<>();
+                bestaandDataAdapter.clear();
                 databaseReference.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
-                        bestaandDataAdapter.clear();
                         for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                            String verdieping = postSnapshot.child("verdieping").getValue().toString();
-                            String lokaal = postSnapshot.child("lokaal").getValue().toString();
-                            if (verdiepingValue.equals(verdieping) && lokaalValue.equals(lokaal)){
-                                String categorie = postSnapshot.child("categorie").getValue().toString();
-                                String opmerking = postSnapshot.child("opmerking").getValue().toString();
-                                bestaandDataAdapter.add(categorie + " - " + opmerking);
+                            if (postSnapshot.child("verdieping").getValue() != null
+                                    || postSnapshot.child("lokaal").getValue() != null){
+                                String verdieping = postSnapshot.child("verdieping").getValue().toString();
+                                String lokaal = postSnapshot.child("lokaal").getValue().toString();
+                                if (verdiepingValue.equals(verdieping) && lokaalValue.equals(lokaal)) {
+                                    String categorie = postSnapshot.child("categorie").getValue().toString();
+                                    String opmerking = postSnapshot.child("opmerking").getValue().toString();
+                                    String id = postSnapshot.child("schadeId").getValue().toString();
+                                    bestaandDataIdArrayList.add(id);
+                                    bestaandDataAdapter.add(categorie + " - " + opmerking);
+
+                                }
                             }
                         }
                     }
@@ -143,6 +151,16 @@ public class Listing extends Activity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+        lstBestaand.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(Listing.this, Details.class);
+                intent.putExtra("id", bestaandDataIdArrayList.get(position));
+                startActivity(intent);
             }
         });
 
