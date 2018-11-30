@@ -32,7 +32,7 @@ public class Listing extends Activity {
 
     private ListView lstBestaand;
     private Spinner cmbLokaal, cmbVerdieping;
-    private Button btnNieuw;
+    private Button btnNieuw, btnScoreboard;
     private ArrayAdapter<String> adapterLokaal, adapterVerdieping, bestaandDataAdapter;
     ArrayList<String> bestaandDataArrayList = new ArrayList<>();
 
@@ -43,7 +43,7 @@ public class Listing extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        //FirebaseDatabase.getInstance().setPersistenceEnabled(false);
         final DatabaseReference databaseReference = database.getReference();
         final DatabaseReference meldingenReference = databaseReference.child("meldingen");
 
@@ -59,7 +59,9 @@ public class Listing extends Activity {
         cmbVerdieping = findViewById(R.id.cmbVerdieping);
         cmbLokaal = findViewById(R.id.cmbLokaal);
         lstBestaand = findViewById(R.id.lstBestaand);
+
         btnNieuw = findViewById(R.id.btnNieuw);
+        btnScoreboard = findViewById(R.id.btnScoreBoard);
 
         adapterVerdieping = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, verdiepingen);
         bestaandDataAdapter = new ArrayAdapter<>(Listing.this, android.R.layout.simple_list_item_1, bestaandDataArrayList);
@@ -119,6 +121,7 @@ public class Listing extends Activity {
                                 bestaandDataAdapter.add(categorie + " - " + opmerking);
                             }
                         }
+
                     }
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -150,6 +153,14 @@ public class Listing extends Activity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Listing.this, Start.class));
+
+            }
+        });
+
+        btnScoreboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Listing.this, Scoreboard.class));
             }
         });
 

@@ -249,6 +249,7 @@ public class Start extends AppCompatActivity {
                     uploadImage();
                     schadeMelding = new Schade(schadeId.toString(), apMail, verdiepingValue, lokaalValue, categorieValue, fotoNaam, seekBarValue, opmerking, now, isAfgehandeld);
                     Toast.makeText(getApplicationContext(), "Item verzonden!", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(Start.this, Listing.class));
 
                     meldingenReference.child(schadeId.toString()).setValue(schadeMelding);
                     if (isNewImage) {
