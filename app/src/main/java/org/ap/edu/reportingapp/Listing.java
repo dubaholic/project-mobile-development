@@ -107,18 +107,22 @@ public class Listing extends Activity {
         cmbLokaal.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View selectedItemView, int position, long id) {
+                bestaandDataAdapter.clear();
                 lokaalValue = cmbLokaal.getSelectedItem().toString();
                 databaseReference.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
-                        bestaandDataAdapter.clear();
+
                         for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                            String verdieping = postSnapshot.child("verdieping").getValue().toString();
-                            String lokaal = postSnapshot.child("lokaal").getValue().toString();
-                            if (verdiepingValue.equals(verdieping) && lokaalValue.equals(lokaal)){
-                                String categorie = postSnapshot.child("categorie").getValue().toString();
-                                String opmerking = postSnapshot.child("opmerking").getValue().toString();
-                                bestaandDataAdapter.add(categorie + " - " + opmerking);
+                            if (postSnapshot.child("verdieping").getValue() != null
+                                    || postSnapshot.child("lokaal").getValue() != null) {
+                                String verdieping = postSnapshot.child("verdieping").getValue().toString();
+                                String lokaal = postSnapshot.child("lokaal").getValue().toString();
+                                if (verdiepingValue.equals(verdieping) && lokaalValue.equals(lokaal)) {
+                                    String categorie = postSnapshot.child("categorie").getValue().toString();
+                                    String opmerking = postSnapshot.child("opmerking").getValue().toString();
+                                    bestaandDataAdapter.add(categorie + " - " + opmerking);
+                                }
                             }
                         }
 

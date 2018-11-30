@@ -71,6 +71,7 @@ public class Start extends AppCompatActivity {
 
     final StorageReference storageReference = storage.getReference();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +81,7 @@ public class Start extends AppCompatActivity {
         final DatabaseReference databaseReference = database.getReference();
         final DatabaseReference meldingenReference = databaseReference.child("meldingen");
         final DatabaseReference scoresReference = databaseReference.child("scores");
+       // final DatabaseReference emailReference = scoresReference.child(apMail);
 
         verdiepingen = getResources().getStringArray(R.array.verdiepingen);
         lokaalMin1 = getResources().getStringArray(R.array.lokaalMin1);
@@ -260,13 +262,14 @@ public class Start extends AppCompatActivity {
                         apMail.replace("@ap.be", " ");
                         String cleanMail = apMail.replace("@ap.be", "");
                         System.out.println(cleanMail);
-                        scoresReference.child(cleanMail.toString()).setValue(scorenMelding);
+                        scoresReference.child(cleanMail.toString()).child(schadeId.toString()).setValue(scorenMelding);
+
                     }
-                    if(apMail.contains("@student.ap.be")) {
+                    else if(apMail.contains("@student.ap.be")) {
                         apMail.replace("@student.ap.be", "");
                         String cleanMail = apMail.replace("@student.ap.be", "");
                         System.out.println(cleanMail);
-                        scoresReference.child(cleanMail.toString()).setValue(scorenMelding);
+                        scoresReference.child(cleanMail.toString()).child(schadeId.toString()).setValue(scorenMelding);
                     }
                     if (isNewImage) {
                         createdImage.delete();

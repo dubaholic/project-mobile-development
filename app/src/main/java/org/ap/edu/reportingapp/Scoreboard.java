@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -37,7 +38,8 @@ public class Scoreboard extends Activity {
 
         //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         final DatabaseReference databaseReference = database.getReference();
-        final DatabaseReference meldingenReference = databaseReference.child("meldingen");
+        final DatabaseReference scoresReference = databaseReference.child("scores");
+
 
         lstScores = findViewById(R.id.lstScores);
         btnTerug = findViewById(R.id.btnTerug);
@@ -46,21 +48,43 @@ public class Scoreboard extends Activity {
 
         lstScores.setAdapter(scoresAadapter);
 
-        databaseReference.addChildEventListener(new ChildEventListener() {
+        scoresReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
                 scoresAadapter.clear();
 
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    int teller = 0;
-                    databaseReference.orderByChild("email");
-                    String email = postSnapshot.child("email").getValue().toString();
-                    if(!uniekeEmails.contains(email)) {
-                        uniekeEmails.add(email);
-                        scoresAadapter.add(email + " - " +  dataSnapshot.getChildrenCount());
+                   // if(postSnapshot.child("scores").getValue() != null) {
+                        databaseReference.orderByChild("email");
+                        String apMail = postSnapshot.child("email").getValue().toString();
+                        if(apMail.contains("@ap.be")) {
+                            apMail.replace("@ap.be", " ");
+                            String cleanMail = apMail.replace("@ap.be", "");
+                            System.out.println(cleanMail);
+                           // scoresReference.child(cleanMail.toString()).child(schadeId.toString()).setValue(scorenMelding);
+                            if (!uniekeEmails.contains(apMail)) {
+                                uniekeEmails.add(apMail);
+                                System.out.println(dataSnapshot.child(cleanMail).getChildrenCount());
+                                scoresAadapter.add(apMail + " - " + (int)dataSnapshot.child(cleanMail).getChildrenCount());
 
+                            }
                         }
-                }
+                        if(apMail.contains("@student.ap.be")) {
+                            apMail.replace("@student.ap.be", "");
+                            String cleanMail = apMail.replace("@student.ap.be", "");
+                            System.out.println(cleanMail);
+                            if (!uniekeEmails.contains(apMail)) {
+                                uniekeEmails.add(apMail);
+                                scoresAadapter.add(apMail + " - " + dataSnapshot.child(cleanMail).getChildrenCount()+1);
+                                Log.d("Test", "komt wel hier");
+                            }
+
+                           // scoresReference.child(cleanMail.toString()).child(schadeId.toString()).setValue(scorenMelding);
+                        }
+
+                    }
+                    Log.d("Test", "komt niet hier");
+               // }
 
                 }
                 @Override
