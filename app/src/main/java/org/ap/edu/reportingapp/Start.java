@@ -61,6 +61,7 @@ public class Start extends AppCompatActivity {
     File createdImage = null;
     private Bitmap bitmap;
     Schade schadeMelding;
+    Scoren scorenMelding;
 
     private static final int CREATE_IMAGE_REQUEST = 1;
     private final int PICK_IMAGE_REQUEST = 2;
@@ -78,6 +79,7 @@ public class Start extends AppCompatActivity {
         //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         final DatabaseReference databaseReference = database.getReference();
         final DatabaseReference meldingenReference = databaseReference.child("meldingen");
+        final DatabaseReference scoresReference = databaseReference.child("scores");
 
         verdiepingen = getResources().getStringArray(R.array.verdiepingen);
         lokaalMin1 = getResources().getStringArray(R.array.lokaalMin1);
@@ -248,10 +250,24 @@ public class Start extends AppCompatActivity {
 
                     uploadImage();
                     schadeMelding = new Schade(schadeId.toString(), apMail, verdiepingValue, lokaalValue, categorieValue, fotoNaam, seekBarValue, opmerking, now, isAfgehandeld);
+                    scorenMelding = new Scoren(apMail, schadeId.toString());
                     Toast.makeText(getApplicationContext(), "Item verzonden!", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(Start.this, Listing.class));
 
                     meldingenReference.child(schadeId.toString()).setValue(schadeMelding);
+
+                    if(apMail.contains("@ap.be")) {
+                        apMail.replace("@ap.be", " ");
+                        String cleanMail = apMail.replace("@ap.be", "");
+                        System.out.println(cleanMail);
+                        scoresReference.child(cleanMail.toString()).setValue(scorenMelding);
+                    }
+                    if(apMail.contains("@student.ap.be")) {
+                        apMail.replace("@student.ap.be", "");
+                        String cleanMail = apMail.replace("@student.ap.be", "");
+                        System.out.println(cleanMail);
+                        scoresReference.child(cleanMail.toString()).setValue(scorenMelding);
+                    }
                     if (isNewImage) {
                         createdImage.delete();
                     }

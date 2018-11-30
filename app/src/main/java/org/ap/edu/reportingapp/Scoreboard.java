@@ -53,10 +53,12 @@ public class Scoreboard extends Activity {
 
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     int teller = 0;
+                    databaseReference.orderByChild("email");
                     String email = postSnapshot.child("email").getValue().toString();
                     if(!uniekeEmails.contains(email)) {
                         uniekeEmails.add(email);
-                        scoresAadapter.add(email + " - ");
+                        scoresAadapter.add(email + " - " +  dataSnapshot.getChildrenCount());
+
                         }
                 }
 
