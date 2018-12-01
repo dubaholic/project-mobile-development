@@ -72,19 +72,6 @@
         app:layout_constraintVertical_bias="0.450" />
 
     <TextView
-        android:id="@+id/txtViewFoto"
-        android:layout_width="130sp"
-        android:layout_height="40sp"
-        android:text="Foto"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.075"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.550" />
-
-    <TextView
         android:id="@+id/txtViewOpmerking"
         android:layout_width="130sp"
         android:layout_height="40sp"
@@ -95,12 +82,24 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.550" />
+    <TextView
+        android:id="@+id/txtViewUrgentieValue"
+        android:layout_width="130sp"
+        android:layout_height="40sp"
+        android:textSize="24sp"
+        android:text="Urgentie"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.075"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.650" />
 
 
     <TextView
         android:id="@+id/txtViewApMailIngevuld"
-        android:layout_width="175sp"
+        android:layout_width="200sp"
         android:layout_height="40sp"
         android:text="AP Email"
         android:textSize="16sp"
@@ -113,10 +112,10 @@
 
     <TextView
         android:id="@+id/txtViewVerdiepingIngevuld"
-        android:layout_width="175sp"
+        android:layout_width="200sp"
         android:layout_height="40sp"
         android:text="Verdieping"
-        android:textSize="16sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -126,10 +125,10 @@
 
     <TextView
         android:id="@+id/txtViewLokaalIngevuld"
-        android:layout_width="175sp"
+        android:layout_width="200sp"
         android:layout_height="40sp"
         android:text="Lokaal"
-        android:textSize="16sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -139,10 +138,10 @@
 
     <TextView
         android:id="@+id/txtViewCategorieIngevuld"
-        android:layout_width="175sp"
+        android:layout_width="200sp"
         android:layout_height="40sp"
         android:text="Categorie"
-        android:textSize="16sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -151,21 +150,8 @@
         app:layout_constraintVertical_bias="0.450" />
 
     <TextView
-        android:id="@+id/txtViewFotoIngevuld"
-        android:layout_width="175sp"
-        android:layout_height="40sp"
-        android:text="Foto"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.925"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.550" />
-
-    <TextView
         android:id="@+id/txtViewOpmerkingIngevuld"
-        android:layout_width="175sp"
+        android:layout_width="200sp"
         android:layout_height="40sp"
         android:textSize="16sp"
         android:text="Opmerking"
@@ -174,10 +160,37 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.550" />
+
+    <TextView
+        android:id="@+id/txtViewUrgentieValueIngevuld"
+        android:layout_width="200sp"
+        android:layout_height="40sp"
+        android:textSize="24sp"
+        android:text="Urgentie"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.925"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.650" />
 
+    <TextView
+        android:id="@+id/txtViewTimeIngevuld"
+        android:layout_width="300sp"
+        android:layout_height="40sp"
+        android:textSize="16sp"
+        android:text="timeStamp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.500"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.750" />
+
     <Button
-        android:id="@+id/btnVerzenden"
+        android:id="@+id/btnTerug"
         android:layout_width="300sp"
         android:layout_height="50sp"
         android:gravity="center"
