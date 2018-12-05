@@ -90,4 +90,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.725" />
 
+    <Button
+        android:id="@+id/btnAdmin"
+        android:layout_width="75sp"
+        android:layout_height="50sp"
+        android:text="Admin"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.975"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.025" />
+
 </android.support.constraint.ConstraintLayout>
