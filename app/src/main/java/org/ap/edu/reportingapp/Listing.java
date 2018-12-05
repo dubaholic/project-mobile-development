@@ -44,7 +44,6 @@ public class Listing extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         final DatabaseReference databaseReference = database.getReference();
         final DatabaseReference meldingenReference = databaseReference.child("meldingen");
         final String apMailAuth = getIntent().getExtras().getString("apMailAuth","Leeg");
