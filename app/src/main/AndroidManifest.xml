@@ -24,8 +24,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Start" />
-
+        <activity android:name="org.ap.edu.reportingapp.Start"></activity>
+        <activity android:name="org.ap.edu.reportingapp.Details"></activity>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"
