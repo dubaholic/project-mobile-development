@@ -47,6 +47,7 @@ public class Listing extends Activity {
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         final DatabaseReference databaseReference = database.getReference();
         final DatabaseReference meldingenReference = databaseReference.child("meldingen");
+        final String apMailAuth = getIntent().getExtras().getString("apMailAuth","Leeg");
 
         verdiepingen = getResources().getStringArray(R.array.verdiepingen);
         lokaalMin1 = getResources().getStringArray(R.array.lokaalMin1);
