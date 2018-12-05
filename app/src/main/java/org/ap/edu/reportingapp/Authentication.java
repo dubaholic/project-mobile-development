@@ -29,7 +29,7 @@ public class Authentication extends Activity {
 
     private Button btnInvoeren;
     private EditText txtApMailAuth, input;
-    private TextView adminPass;
+    private TextView txtViewAdminPass;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
@@ -42,7 +42,7 @@ public class Authentication extends Activity {
 
         txtApMailAuth = findViewById(R.id.txtApMailAuth);
         btnInvoeren = findViewById(R.id.btnInvoeren);
-        adminPass = findViewById(R.id.adminPass);
+        txtViewAdminPass = findViewById(R.id.txtViewAdminPass);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
