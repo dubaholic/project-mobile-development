@@ -201,18 +201,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.975" />
 
-    <ImageView
-        android:id="@+id/imgMelding"
-        android:layout_width="1050dp"
-        android:layout_height="112dp"
-        android:src="@mipmap/ic_launcher"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.459"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.755" />
-
     <TextView
         android:id="@+id/txtFoto"
         android:layout_width="123dp"
@@ -225,6 +213,14 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.753" />
+
+    <ImageView
+        android:id="@+id/imgMelding"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:src="@mipmap/ic_launcher"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
 
 </android.support.constraint.ConstraintLayout>
 

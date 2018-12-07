@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -90,6 +91,8 @@ public class Details extends Activity {
                         fotoNaam = postSnapshot.child("fotoNaam").getValue().toString();
                         Log.d("fotolog", fotoNaam);
                         Log.d("fotoUrl", String.valueOf(storageReference.child("fotos/" + fotoNaam +".jpg").getDownloadUrl()));
+
+
                         Picasso.with(Details.this)
                                 .load(storageReference.child("fotos/"+fotoNaam+".jpg").getDownloadUrl().toString())
                                 .into(imgMelding);
