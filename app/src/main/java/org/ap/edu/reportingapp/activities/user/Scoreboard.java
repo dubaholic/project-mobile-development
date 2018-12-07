@@ -110,7 +110,7 @@ public class Scoreboard extends Activity {
         btnTerug.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Scoreboard.this, Listing.class));
+                finish();
 
             }
         });

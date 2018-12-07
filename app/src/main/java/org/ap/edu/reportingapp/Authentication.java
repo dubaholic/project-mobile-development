@@ -19,6 +19,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.ap.edu.reportingapp.activities.user.Listing;
+
 /**
  * Created by Maarten on 5/12/2018.
  */

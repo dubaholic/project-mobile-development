@@ -33,7 +33,7 @@ public class Listing extends Activity {
 
     private ListView lstBestaand;
     private Spinner cmbLokaal, cmbVerdieping;
-    private Button btnNieuw, btnScoreboard;
+    private Button btnNieuw, btnScoreboard, btnAdmin;
     private ArrayAdapter<String> adapterLokaal, adapterVerdieping, bestaandDataAdapter;
     ArrayList<String> bestaandDataArrayList = new ArrayList<>();
     ArrayList<String> bestaandDataIdArrayList = new ArrayList<>();
@@ -48,7 +48,7 @@ public class Listing extends Activity {
         //FirebaseDatabase.getInstance().setPersistenceEnabled(false);
         final DatabaseReference databaseReference = database.getReference();
         final DatabaseReference meldingenReference = databaseReference.child("meldingen");
-        final String apMailAuth = getIntent().getExtras().getString("apMailAuth","Leeg");
+        //final String apMailAuth = getIntent().getExtras().getString("apMailAuth","Leeg");
         final Boolean isAdmin = getIntent().getExtras().getBoolean("isAdmin",false);
 
         verdiepingen = getResources().getStringArray(R.array.verdiepingen);
@@ -66,6 +66,7 @@ public class Listing extends Activity {
 
         btnNieuw = findViewById(R.id.btnNieuw);
         btnScoreboard = findViewById(R.id.btnScoreBoard);
+        btnAdmin = findViewById(R.id.btnAdmin);
 
         adapterVerdieping = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, verdiepingen);
         bestaandDataAdapter = new ArrayAdapter<>(Listing.this, android.R.layout.simple_list_item_1, bestaandDataArrayList);
