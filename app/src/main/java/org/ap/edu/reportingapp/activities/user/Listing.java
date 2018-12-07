@@ -1,11 +1,10 @@
-package org.ap.edu.reportingapp;
+package org.ap.edu.reportingapp.activities.user;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,6 +17,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import org.ap.edu.reportingapp.R;
 
 import java.util.ArrayList;
 
@@ -32,7 +33,7 @@ public class Listing extends Activity {
 
     private ListView lstBestaand;
     private Spinner cmbLokaal, cmbVerdieping;
-    private Button btnNieuw, btnAdmin;
+    private Button btnNieuw, btnScoreboard;
     private ArrayAdapter<String> adapterLokaal, adapterVerdieping, bestaandDataAdapter;
     ArrayList<String> bestaandDataArrayList = new ArrayList<>();
     ArrayList<String> bestaandDataIdArrayList = new ArrayList<>();
@@ -44,6 +45,7 @@ public class Listing extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
+        //FirebaseDatabase.getInstance().setPersistenceEnabled(false);
         final DatabaseReference databaseReference = database.getReference();
         final DatabaseReference meldingenReference = databaseReference.child("meldingen");
         final String apMailAuth = getIntent().getExtras().getString("apMailAuth","Leeg");
@@ -61,8 +63,9 @@ public class Listing extends Activity {
         cmbVerdieping = findViewById(R.id.cmbVerdieping);
         cmbLokaal = findViewById(R.id.cmbLokaal);
         lstBestaand = findViewById(R.id.lstBestaand);
+
         btnNieuw = findViewById(R.id.btnNieuw);
-        btnAdmin = findViewById(R.id.btnAdmin);
+        btnScoreboard = findViewById(R.id.btnScoreBoard);
 
         adapterVerdieping = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, verdiepingen);
         bestaandDataAdapter = new ArrayAdapter<>(Listing.this, android.R.layout.simple_list_item_1, bestaandDataArrayList);
@@ -133,6 +136,7 @@ public class Listing extends Activity {
                                 }
                             }
                         }
+
                     }
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -174,6 +178,14 @@ public class Listing extends Activity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Listing.this, Start.class));
+
+            }
+        });
+
+        btnScoreboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Listing.this, Scoreboard.class));
             }
         });
 

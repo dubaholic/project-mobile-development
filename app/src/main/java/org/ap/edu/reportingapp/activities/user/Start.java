@@ -1,18 +1,16 @@
-package org.ap.edu.reportingapp;
+package org.ap.edu.reportingapp.activities.user;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -39,7 +37,11 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-public class Start extends AppCompatActivity {
+import org.ap.edu.reportingapp.R;
+import org.ap.edu.reportingapp.models.Schade;
+import org.ap.edu.reportingapp.models.Scoren;
+
+public class Start extends Activity {
     private String[] verdiepingen, lokaalMin1, lokaalGelijkVloers, lokaal1ste, lokaal2de, lokaal3de,
             lokaal4de, lokaalDak, leeg = {""},  lokalen, categorie, urgenties;
     private String verdiepingValue, lokaalValue, categorieValue, urgentieColorString = "#FFA500",
@@ -61,6 +63,7 @@ public class Start extends AppCompatActivity {
     File createdImage = null;
     private Bitmap bitmap;
     Schade schadeMelding;
+    Scoren scorenMelding;
 
     private static final int CREATE_IMAGE_REQUEST = 1;
     private final int PICK_IMAGE_REQUEST = 2;
@@ -70,6 +73,7 @@ public class Start extends AppCompatActivity {
 
     final StorageReference storageReference = storage.getReference();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +82,8 @@ public class Start extends AppCompatActivity {
         //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         final DatabaseReference databaseReference = database.getReference();
         final DatabaseReference meldingenReference = databaseReference.child("meldingen");
+        final DatabaseReference scoresReference = databaseReference.child("scores");
+       // final DatabaseReference emailReference = scoresReference.child(apMail);
 
         verdiepingen = getResources().getStringArray(R.array.verdiepingen);
         lokaalMin1 = getResources().getStringArray(R.array.lokaalMin1);
@@ -248,9 +254,25 @@ public class Start extends AppCompatActivity {
 
                     uploadImage();
                     schadeMelding = new Schade(schadeId.toString(), apMail, verdiepingValue, lokaalValue, categorieValue, fotoNaam, seekBarValue, opmerking, now, isAfgehandeld);
+                    scorenMelding = new Scoren(apMail, schadeId.toString());
                     Toast.makeText(getApplicationContext(), "Item verzonden!", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(Start.this, Listing.class));
 
                     meldingenReference.child(schadeId.toString()).setValue(schadeMelding);
+
+                    if(apMail.contains("@ap.be")) {
+                        apMail.replace("@ap.be", " ");
+                        String cleanMail = apMail.replace("@ap.be", "");
+                        System.out.println(cleanMail);
+                        scoresReference.child(cleanMail.toString()).child(schadeId.toString()).setValue(scorenMelding);
+
+                    }
+                    else if(apMail.contains("@student.ap.be")) {
+                        apMail.replace("@student.ap.be", "");
+                        String cleanMail = apMail.replace("@student.ap.be", "");
+                        System.out.println(cleanMail);
+                        scoresReference.child(cleanMail.toString()).child(schadeId.toString()).setValue(scorenMelding);
+                    }
                     if (isNewImage) {
                         createdImage.delete();
                     }

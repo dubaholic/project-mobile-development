@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.ap.edu.reportingapp">
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+
+    <uses-permission
+        android:name="android.permission.INTERNET"/>
+
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -11,15 +24,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="org.ap.edu.reportingapp.Authentication">
+        <activity android:name=".activities.user.Listing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="org.ap.edu.reportingapp.Start"></activity>
-        <activity android:name="org.ap.edu.reportingapp.Details"></activity>
-        <activity android:name="org.ap.edu.reportingapp.Listing"></activity>
+        <activity android:name="org.ap.edu.reportingapp.activities.user.Start"></activity>
+        <activity android:name="org.ap.edu.reportingapp.activities.user.Details"></activity>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -27,13 +40,10 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
-    </application>
-    <uses-feature android:name="android.hardware.camera"
-        android:required="true" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="18" />
 
+        <activity android:name=".activities.user.Scoreboard"></activity>
+    </application>
 
 </manifest>

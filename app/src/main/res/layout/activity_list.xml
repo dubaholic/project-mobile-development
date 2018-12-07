@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.ap.edu.reportingapp.Listing">
+    tools:context="org.ap.edu.reportingapp.activities.user.Listing">
 
     <TextView
         android:layout_width="300sp"
@@ -68,9 +68,22 @@
         app:layout_constraintVertical_bias="0.250" />
 
     <Button
+        android:id="@+id/btnScoreBoard"
+        android:layout_width="160sp"
+        android:layout_height="40sp"
+        android:text="Scoreboard"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.089"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.974" />
+
+    <Button
         android:id="@+id/btnNieuw"
         android:layout_width="160sp"
         android:layout_height="40sp"
+        android:layout_marginBottom="2dp"
         android:text="Nieuwe melding"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
