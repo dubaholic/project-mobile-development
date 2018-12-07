@@ -24,7 +24,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name="org.ap.edu.reportingapp.Authentication">
+        <activity android:name="org.ap.edu.reportingapp.activities.admin.Authentication">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
