@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "406203913210-k10cflp38aujcmfpkcnc3gvpkpp781rb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.ap.edu.reportingapp",
+            "certificate_hash": "b010d35675b6a54190cd04d3a807ca7e7292ff2b"
+          }
+        },
+        {
           "client_id": "406203913210-m2ht8r8nu7skahc4l7e9jkvd0ophvqem.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "406203913210-m2ht8r8nu7skahc4l7e9jkvd0ophvqem.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
