@@ -1,4 +1,4 @@
-package org.ap.edu.reportingapp;
+package org.ap.edu.reportingapp.models;
 
 public class Scoren {
     private String email;

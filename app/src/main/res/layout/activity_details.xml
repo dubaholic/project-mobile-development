@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.ap.edu.reportingapp.Details">
+    tools:context="org.ap.edu.reportingapp.activities.user.Details">
 
     <TextView
         android:layout_width="300sp"
@@ -153,8 +153,8 @@
         android:id="@+id/txtViewOpmerkingIngevuld"
         android:layout_width="200sp"
         android:layout_height="40sp"
-        android:textSize="16sp"
         android:text="Opmerking"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -179,15 +179,14 @@
         android:id="@+id/txtViewTimeIngevuld"
         android:layout_width="300sp"
         android:layout_height="40sp"
-        android:textSize="16sp"
-        android:text="timeStamp"
         android:gravity="center"
+        android:text="timeStamp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.500"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.750" />
+        app:layout_constraintVertical_bias="0.87" />
 
     <Button
         android:id="@+id/btnTerug"
@@ -201,6 +200,31 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.975" />
+
+    <ImageView
+        android:id="@+id/imgMelding"
+        android:layout_width="1050dp"
+        android:layout_height="112dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.459"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.755" />
+
+    <TextView
+        android:id="@+id/txtFoto"
+        android:layout_width="123dp"
+        android:layout_height="40sp"
+        android:text="Foto"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.086"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.753" />
 
 </android.support.constraint.ConstraintLayout>
 

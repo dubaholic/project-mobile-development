@@ -1,18 +1,16 @@
-package org.ap.edu.reportingapp;
+package org.ap.edu.reportingapp.activities.user;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -39,7 +37,11 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-public class Start extends AppCompatActivity {
+import org.ap.edu.reportingapp.R;
+import org.ap.edu.reportingapp.models.Schade;
+import org.ap.edu.reportingapp.models.Scoren;
+
+public class Start extends Activity {
     private String[] verdiepingen, lokaalMin1, lokaalGelijkVloers, lokaal1ste, lokaal2de, lokaal3de,
             lokaal4de, lokaalDak, leeg = {""},  lokalen, categorie, urgenties;
     private String verdiepingValue, lokaalValue, categorieValue, urgentieColorString = "#FFA500",

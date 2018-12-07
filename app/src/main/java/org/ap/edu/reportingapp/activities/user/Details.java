@@ -1,12 +1,17 @@
-package org.ap.edu.reportingapp;
+package org.ap.edu.reportingapp.activities.user;
 
+import android.Manifest;
 import android.app.Activity;
-import android.content.Intent;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
@@ -14,6 +19,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
+
+import org.ap.edu.reportingapp.R;
 
 import static java.lang.Integer.parseInt;
 
@@ -24,15 +34,20 @@ import static java.lang.Integer.parseInt;
 public class Details extends Activity {
     private String[] urgenties;
     private String apMail, verdieping, lokaal, categorie, opmerking, timeStampStringDag,
-            timeStampStringMaand, timeStampStringUur, timeStampStringMinuut;
+            timeStampStringMaand, timeStampStringUur, timeStampStringMinuut, fotoNaam;
     private int urgentie;
-
     private TextView txtViewApMailIngevuld, txtViewVerdiepingIngevuld, txtViewLokaalIngevuld,
             txtViewCategorieIngevuld, txtViewOpmerkingIngevuld, txtViewTimeIngevuld,
             txtUrgentieValueIngevuld;
     private Button btnTerug;
 
+    private ImageView imgMelding;
+
+    private static final int MY_PERMISSIONS_REQUEST = 100;
+    private Context context = Details.this;
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
+    FirebaseStorage storage = FirebaseStorage.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +56,7 @@ public class Details extends Activity {
 
         final String id = getIntent().getExtras().getString("id","Leeg");
         final DatabaseReference databaseReference = database.getReference();
+        final StorageReference storageReference = storage.getReference();
 
         urgenties = getResources().getStringArray(R.array.urgenties);
 
@@ -51,7 +67,9 @@ public class Details extends Activity {
         txtViewOpmerkingIngevuld = findViewById(R.id.txtViewOpmerkingIngevuld);
         txtViewTimeIngevuld = findViewById(R.id.txtViewTimeIngevuld);
         txtUrgentieValueIngevuld = findViewById(R.id.txtViewUrgentieValueIngevuld);
+        imgMelding = findViewById(R.id.imgMelding);
         btnTerug = findViewById(R.id.btnTerug);
+        requestStoragePermission();
 
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
@@ -69,6 +87,29 @@ public class Details extends Activity {
                         timeStampStringMaand = postSnapshot.child("timeStamp/month").getValue().toString();
                         timeStampStringUur = postSnapshot.child("timeStamp/hours").getValue().toString();
                         timeStampStringMinuut = postSnapshot.child("timeStamp/minutes").getValue().toString();
+                        fotoNaam = postSnapshot.child("fotoNaam").getValue().toString();
+                        Log.d("fotolog", fotoNaam);
+                        Log.d("fotoUrl", String.valueOf(storageReference.child("fotos/" + fotoNaam +".jpg").getDownloadUrl()));
+                        Picasso.with(Details.this)
+                                .load(storageReference.child("fotos/"+fotoNaam+".jpg").getDownloadUrl().toString())
+                                .into(imgMelding);
+
+                        /*storageReference.child("fotos/" + fotoNaam +".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                Log.d("fotoLog", "de foto is succesvol ingeladen");
+                                Glide.with(Details.this)
+                                        .load(storageReference.child("fotos/"+fotoNaam+".jpg").getStream())
+                                        .fitCenter()
+                                        .into(imgMelding);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                // Handle any errors
+                            }
+                        }); */
+
 
                         txtViewApMailIngevuld.setText(apMail);
                         txtViewVerdiepingIngevuld.setText(verdieping);
@@ -76,6 +117,9 @@ public class Details extends Activity {
                         txtViewCategorieIngevuld.setText(categorie);
                         txtViewOpmerkingIngevuld.setText(opmerking);
                         txtUrgentieValueIngevuld.setText(urgenties[urgentie]);
+
+
+
                         txtViewTimeIngevuld.setText("Melding gemaakt op " +
                                 String.format("%02d", Integer.parseInt(timeStampStringDag)) + "/" +
                                 String.format("%02d", Integer.parseInt(timeStampStringMaand)) + " om " +
@@ -104,5 +148,19 @@ public class Details extends Activity {
                 finish();
             }
         });
+    }
+
+    private void requestStoragePermission() {
+        if (ContextCompat.checkSelfPermission(Details.this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(Details.this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    MY_PERMISSIONS_REQUEST);
+        }
+    }
+
+    private void loadImageFromFirebase() {
+
     }
 }

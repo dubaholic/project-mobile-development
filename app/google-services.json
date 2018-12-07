@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "406203913210",
+    "firebase_url": "https://reportingapp-fd92a.firebaseio.com",
+    "project_id": "reportingapp-fd92a",
+    "storage_bucket": "reportingapp-fd92a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:406203913210:android:5b151133c60b7cb8",
+        "android_client_info": {
+          "package_name": "org.ap.edu.reportingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "406203913210-m2ht8r8nu7skahc4l7e9jkvd0ophvqem.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkaq9oE4abskG6BOeu2m3XxNfmRIj-hYs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

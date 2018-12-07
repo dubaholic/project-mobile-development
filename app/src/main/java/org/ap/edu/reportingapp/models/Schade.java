@@ -1,4 +1,4 @@
-package org.ap.edu.reportingapp;
+package org.ap.edu.reportingapp.models;
 
 import java.util.Date;
 

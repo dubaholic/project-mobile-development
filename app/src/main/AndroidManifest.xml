@@ -10,6 +10,12 @@
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
 
+    <uses-permission
+        android:name="android.permission.INTERNET"/>
+
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,15 +23,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Listing">
+        <activity android:name=".activities.user.Listing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="org.ap.edu.reportingapp.Start"></activity>
-        <activity android:name="org.ap.edu.reportingapp.Details"></activity>
+        <activity android:name="org.ap.edu.reportingapp.activities.user.Start"></activity>
+        <activity android:name="org.ap.edu.reportingapp.activities.user.Details"></activity>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -36,7 +42,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".Scoreboard"></activity>
+        <activity android:name=".activities.user.Scoreboard"></activity>
     </application>
 
 </manifest>

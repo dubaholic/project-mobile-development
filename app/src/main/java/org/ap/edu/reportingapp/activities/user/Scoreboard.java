@@ -1,10 +1,9 @@
-package org.ap.edu.reportingapp;
+package org.ap.edu.reportingapp.activities.user;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +16,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import org.ap.edu.reportingapp.R;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -66,7 +67,7 @@ public class Scoreboard extends Activity {
                                 uniekeEmails.add(apMail);
                                 System.out.println(dataSnapshot.child(cleanMail).getChildrenCount());
                                 scoresAadapter.add(apMail + " - " + (int)dataSnapshot.child(cleanMail).getChildrenCount());
-
+                                Log.d("Test", "komt wel hier");
                             }
                         }
                         if(apMail.contains("@student.ap.be")) {
@@ -75,7 +76,7 @@ public class Scoreboard extends Activity {
                             System.out.println(cleanMail);
                             if (!uniekeEmails.contains(apMail)) {
                                 uniekeEmails.add(apMail);
-                                scoresAadapter.add(apMail + " - " + dataSnapshot.child(cleanMail).getChildrenCount()+1);
+                                scoresAadapter.add(apMail + " - " + dataSnapshot.child(cleanMail).getChildrenCount());
                                 Log.d("Test", "komt wel hier");
                             }
 
