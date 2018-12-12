@@ -55,18 +55,20 @@ public class Scoreboard extends Activity {
 
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                    // if(postSnapshot.child("scores").getValue() != null) {
-                        //databaseReference.orderByChild("email");
+                        databaseReference.orderByChild("email");
+                        int score = 1;
                         String apMail = postSnapshot.child("email").getValue().toString();
                         Log.d("email", apMail);
                         if(apMail.contains("@ap.be")) {
                             //apMail.replace("@ap.be", " ");
+                            score++;
                             String cleanMail = apMail.replace("@ap.be", "");
                             Log.d("cleanmail", cleanMail);
                            // scoresReference.child(cleanMail.toString()).child(schadeId.toString()).setValue(scorenMelding);
                             if (!uniekeEmails.contains(apMail)) {
                                 uniekeEmails.add(apMail);
                                 Log.d("uniekeMail", cleanMail);
-                                int score = (int) dataSnapshot.child(cleanMail).getChildrenCount();
+                                //int score = (int) dataSnapshot.child(cleanMail).getChildrenCount();
                                 Log.d("scoren",cleanMail + String.valueOf(score));
                                 scoreArrayList.add(apMail + " - " + score);
 
@@ -75,11 +77,12 @@ public class Scoreboard extends Activity {
                         else if(apMail.contains("@student.ap.be")) {
                             apMail.replace("@student.ap.be", "");
                             String cleanMail = apMail.replace("@student.ap.be", "");
+                            score++;
                             Log.d("cleanmail", cleanMail);
                             if (!uniekeEmails.contains(apMail)) {
                                 uniekeEmails.add(apMail);
                                 Log.d("uniekeMail", cleanMail);
-                                int score = (int) dataSnapshot.child(cleanMail).getChildrenCount();
+                               // int score = (int) dataSnapshot.child(cleanMail).getChildrenCount();
                                 Log.d("scoren", cleanMail + String.valueOf(score));
                                 scoreArrayList.add(apMail + " - " + score);
                                 }
