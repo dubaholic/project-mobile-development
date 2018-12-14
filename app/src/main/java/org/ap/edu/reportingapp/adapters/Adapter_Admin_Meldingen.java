@@ -74,10 +74,6 @@ public class Adapter_Admin_Meldingen extends RecyclerView.Adapter<Adapter_Admin_
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
         }
     }
-
-
-
-
     // parent activity will implement this method to respond to click events
     public interface ItemClickListener {
         void onItemClick(View view, int position);

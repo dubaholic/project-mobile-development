@@ -232,4 +232,10 @@
         <item>Hoog</item>
         <item>Zeer hoog</item>
     </string-array>
+    <string-array name="uitvoering">
+        <item></item>
+        <item>AP</item>
+        <item>Provincie</item>
+        <item>Andere</item>
+    </string-array>
 </resources>

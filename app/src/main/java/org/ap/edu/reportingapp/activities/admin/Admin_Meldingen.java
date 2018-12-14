@@ -98,7 +98,7 @@ public class Admin_Meldingen extends Activity implements Adapter_Admin_Meldingen
     }
     @Override
     public void onItemClick(View view, int position) {
-        Intent intent = new Intent(Admin_Meldingen.this, Details.class);
+        Intent intent = new Intent(Admin_Meldingen.this, Admin_Melding_Afhandeling.class);
         intent.putExtra("id", bestaandDataIdArrayList.get(position));
         startActivity(intent);
     }
