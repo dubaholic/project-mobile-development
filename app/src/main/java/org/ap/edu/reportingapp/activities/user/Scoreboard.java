@@ -1,14 +1,11 @@
 package org.ap.edu.reportingapp.activities.user;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.firebase.database.ChildEventListener;
@@ -22,32 +19,27 @@ import org.ap.edu.reportingapp.R;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class Scoreboard extends Activity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-    private ListView lstScores;
-    private Button btnTerug;
+public class Scoreboard extends Activity {
     private ArrayList<String> scoreArrayList = new ArrayList<>();
     private HashSet<String> uniekeEmails = new HashSet<>();
     private ArrayAdapter<String> scoresAadapter;
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    final DatabaseReference scoresReference = databaseReference.child("scores");
+
+    @BindView(R.id.lstScores) ListView lstScores;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard);
-
-        //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        final DatabaseReference databaseReference = database.getReference();
-        final DatabaseReference scoresReference = databaseReference.child("scores");
-
-
-        lstScores = findViewById(R.id.lstScores);
-        btnTerug = findViewById(R.id.btnTerug);
-
+        ButterKnife.bind(this);
 
         scoresAadapter = new ArrayAdapter<>(Scoreboard.this, android.R.layout.simple_list_item_1, scoreArrayList );
-
         scoresReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
@@ -110,19 +102,11 @@ public class Scoreboard extends Activity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-
         });
-
-        btnTerug.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-
-            }
-        });
-
     }
 
-
-
+    @OnClick(R.id.btnTerug)
+    public void submit() {
+        finish();
+    }
 }

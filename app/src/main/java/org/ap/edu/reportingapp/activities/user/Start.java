@@ -41,6 +41,12 @@ import org.ap.edu.reportingapp.R;
 import org.ap.edu.reportingapp.models.Schade;
 import org.ap.edu.reportingapp.models.Scoren;
 
+import butterknife.ButterKnife;
+import butterknife.BindView;
+import butterknife.OnClick;
+import butterknife.OnItemSelected;
+
+
 public class Start extends Activity {
     private String[] verdiepingen, lokaalMin1, lokaalGelijkVloers, lokaal1ste, lokaal2de, lokaal3de,
             lokaal4de, lokaalDak, leeg = {""},  lokalen, categorie, urgenties;
@@ -51,13 +57,7 @@ public class Start extends Activity {
     private UUID schadeId;
     private Date now;
 
-    private Spinner cmbLokaal, cmbVerdieping, cmbCategorie;
     private ArrayAdapter<String> adapterLokaal, adapterVerdieping, adapterCategorie;
-    private Button btnFoto, btnFotoMaken, btnVerzenden;
-    private SeekBar sldUrgentie;
-    private TextView txtUrgentieValue;
-    private EditText txtApMail, txtOpmerking;
-    private ImageView imgThumbnail;
 
     private Uri filePath;
     File createdImage = null;
@@ -68,221 +68,112 @@ public class Start extends Activity {
     private static final int CREATE_IMAGE_REQUEST = 1;
     private final int PICK_IMAGE_REQUEST = 2;
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    FirebaseStorage storage = FirebaseStorage.getInstance();
+    final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    final DatabaseReference meldingenReference = databaseReference.child("meldingen");
+    final DatabaseReference scoresReference = databaseReference.child("scores");
+    final StorageReference storageReference = FirebaseStorage.getInstance().getReference();
 
-    final StorageReference storageReference = storage.getReference();
-
+    @BindView(R.id.txtApMail) EditText txtApMail;
+    @BindView(R.id.txtOpmerking) EditText txtOpmerking;
+    @BindView(R.id.cmbVerdieping) Spinner cmbVerdieping;
+    @BindView(R.id.cmbLokaal) Spinner cmbLokaal;
+    @BindView(R.id.cmbCategorie) Spinner cmbCategorie;
+    @BindView(R.id.txtViewUrgentieValue) TextView txtUrgentieValue;
+    @BindView(R.id.imgThumbnail) ImageView imgThumbnail;
+    @BindView(R.id.sldUrgentie) SeekBar sldUrgentie;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-
-        //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        final DatabaseReference databaseReference = database.getReference();
-        final DatabaseReference meldingenReference = databaseReference.child("meldingen");
-        final DatabaseReference scoresReference = databaseReference.child("scores");
-       // final DatabaseReference emailReference = scoresReference.child(apMail);
-
-        verdiepingen = getResources().getStringArray(R.array.verdiepingen);
-        lokaalMin1 = getResources().getStringArray(R.array.lokaalMin1);
-        lokaalGelijkVloers = getResources().getStringArray(R.array.lokaalGelijkVloers);
-        lokaal1ste = getResources().getStringArray(R.array.lokaal1ste);
-        lokaal2de = getResources().getStringArray(R.array.lokaal2de);
-        lokaal3de = getResources().getStringArray(R.array.lokaal3de);
-        lokaal4de = getResources().getStringArray(R.array.lokaal4de);
-        lokaalDak = getResources().getStringArray(R.array.lokaalDak);
-        categorie = getResources().getStringArray(R.array.categorie);
-        urgenties = getResources().getStringArray(R.array.urgenties);
-
-        cmbVerdieping = findViewById(R.id.cmbVerdieping);
-        cmbLokaal = findViewById(R.id.cmbLokaal);
-        cmbCategorie = findViewById(R.id.cmbCategorie);
-        btnFoto = findViewById(R.id.btnFoto);
-        btnFotoMaken = findViewById(R.id.btnFotoMaken);
-        btnVerzenden = findViewById(R.id.btnVerzenden);
-        sldUrgentie = findViewById(R.id.sldUrgentie);
-        txtUrgentieValue = findViewById(R.id.txtViewUrgentieValue);
-        txtApMail = findViewById(R.id.txtApMail);
-        txtOpmerking = findViewById(R.id.txtOpmerking);
-        imgThumbnail = findViewById(R.id.imgThumbnail);
-
-        adapterVerdieping = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, verdiepingen);
-        adapterCategorie = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categorie);
-
-        cmbVerdieping.setAdapter(adapterVerdieping);
-        cmbCategorie.setAdapter(adapterCategorie);
-
-        //Default values
-        sldUrgentie.getProgressDrawable().setColorFilter(Color.parseColor(urgentieColorString), PorterDuff.Mode.MULTIPLY);
-        txtUrgentieValue.setText(urgenties[seekBarValue]);
-
-        cmbVerdieping.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View selectedItemView, int position, long id) {
-                verdiepingValue = cmbVerdieping.getSelectedItem().toString();
-                cmbLokaal.setEnabled(true);
-
-                if (verdiepingValue.equals("-1")){
-                    lokalen = lokaalMin1;
-                }
-                else if (verdiepingValue.equals("Gelijkvloers")){
-                    lokalen = lokaalGelijkVloers;
-                }
-                else if (verdiepingValue.equals("1ste")){
-                    lokalen = lokaal1ste;
-                }
-                else if (verdiepingValue.equals("2de")){
-                    lokalen = lokaal2de;
-                }
-                else if (verdiepingValue.equals("3de")){
-                    lokalen = lokaal3de;
-                }
-                else if (verdiepingValue.equals("4de")){
-                    lokalen = lokaal4de;
-                }
-                else if (verdiepingValue.equals("Dak")){
-                    lokalen = lokaalDak;
-                }
-                else{
-                    lokalen = leeg;
-                    cmbLokaal.setEnabled(false);
-                }
-                adapterLokaal = new ArrayAdapter<>(Start.this, android.R.layout.simple_spinner_dropdown_item, lokalen);
-                cmbLokaal.setAdapter(adapterLokaal);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                cmbLokaal.setEnabled(false);
-            }
-        });
-
-        cmbLokaal.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override public void onItemSelected(AdapterView<?> parent, View selectedItemView, int position, long id) {
-                lokaalValue = cmbLokaal.getSelectedItem().toString();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        cmbCategorie.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View selectedItemView, int position, long id) {
-                categorieValue = cmbCategorie.getSelectedItem().toString();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                //Do nothing
-            }
-        });
-
-        sldUrgentie.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                seekBarValue = progress;
-                txtUrgentieValue.setText(urgenties[seekBarValue]);
-                if (seekBarValue == 0){
-                    urgentieColorString = "#00FF00";
-                }
-                else if (seekBarValue == 1){
-                    urgentieColorString = "#FFFF00";
-                }
-                else if (seekBarValue == 2){
-                    urgentieColorString = "#FFA500";
-                }
-                else if (seekBarValue == 3){
-                    urgentieColorString = "#FF0000";
-                }
-                else {
-                    urgentieColorString = "#8B0000";
-                }
-                sldUrgentie.getProgressDrawable().setColorFilter(Color.parseColor(urgentieColorString), PorterDuff.Mode.MULTIPLY);
-            }
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
-        });
-
-        btnFoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                chooseImage();
-            }
-        });
-
-        btnFotoMaken.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                takeImage();
-            }
-        });
-
-        btnVerzenden.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                apMail = txtApMail.getText().toString();
-                if (apMail.isEmpty()){
-                    Toast.makeText(getApplicationContext(),"Vul je AP email adres in",Toast.LENGTH_SHORT).show();
-                }
-                else if (verdiepingValue.isEmpty()){
-                    Toast.makeText(getApplicationContext(),"Kies de juiste verdieping",Toast.LENGTH_SHORT).show();
-                }
-                else if (lokaalValue.isEmpty()){
-                    Toast.makeText(getApplicationContext(),"Kies het lokaal",Toast.LENGTH_SHORT).show();
-                }
-                else if (categorieValue.isEmpty()){
-                    Toast.makeText(getApplicationContext(),"Kies de categorie",Toast.LENGTH_SHORT).show();
-                }
-                else if (bitmap == null || filePath == null){
-                    Toast.makeText(getApplicationContext(),"Kies of maak een foto",Toast.LENGTH_SHORT).show();
-                }
-                else if (seekBarValue > 4 || seekBarValue < 0){
-                    Toast.makeText(getApplicationContext(),"Ongeldige urgentie",Toast.LENGTH_SHORT).show();
-                }
-                else if (!apMail.endsWith("@ap.be") && !apMail.endsWith("@student.ap.be")){
-                    Toast.makeText(getApplicationContext(),"Geef een geldig AP email adres op",Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    opmerking = txtOpmerking.getText().toString();
-                    if (opmerking.isEmpty()){opmerking = "Geen opmerking";}
-                    schadeId = UUID.randomUUID();
-                    now = new Date();
-
-                    uploadImage();
-                    schadeMelding = new Schade(schadeId.toString(), apMail, verdiepingValue, lokaalValue, categorieValue, fotoNaam, seekBarValue, opmerking, now, isAfgehandeld);
-                    scorenMelding = new Scoren(apMail, schadeId.toString());
-                    Toast.makeText(getApplicationContext(), "Item verzonden!", Toast.LENGTH_SHORT).show();
-                    finish();
-                    //startActivity(new Intent(Start.this, Listing.class));
-
-                    meldingenReference.child(schadeId.toString()).setValue(schadeMelding);
-
-                    if(apMail.contains("@ap.be")) {
-                        apMail.replace("@ap.be", " ");
-                        String cleanMail = apMail.replace("@ap.be", "");
-                        System.out.println(cleanMail);
-                        scoresReference.child(cleanMail.toString()).child(schadeId.toString()).setValue(scorenMelding);
-
-                    }
-                    else if(apMail.contains("@student.ap.be")) {
-                        apMail.replace("@student.ap.be", "");
-                        String cleanMail = apMail.replace("@student.ap.be", "");
-                        System.out.println(cleanMail);
-                        scoresReference.child(cleanMail.toString()).child(schadeId.toString()).setValue(scorenMelding);
-                    }
-                    if (isNewImage) {
-                        createdImage.delete();
-                    }
-                    resetScreen();
-                }
-            }
-        });
+        ButterKnife.bind(this);
+        fillDatabase();
     }
 
+    @OnClick(R.id.btnFoto)
+    public void chooseImage(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Selecteer een foto"), PICK_IMAGE_REQUEST);
+    }
+
+    @OnClick(R.id.btnFotoMaken)
+    public void takeImage() {
+        Intent intent = new Intent();
+        intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+        try {
+            createdImage = createImageFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (createdImage != null) {
+            filePath = FileProvider.getUriForFile(this,
+                    "org.ap.edu.reportingapp.provider",
+                    createdImage);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, filePath);
+            startActivityForResult(intent, CREATE_IMAGE_REQUEST);
+        }
+    }
+
+    @OnClick(R.id.btnVerzenden)
+    public void send() {
+        apMail = txtApMail.getText().toString();
+        if (apMail.isEmpty()){
+            Toast.makeText(getApplicationContext(),"Vul je AP email adres in",Toast.LENGTH_SHORT).show();
+        }
+        else if (verdiepingValue.isEmpty()){
+            Toast.makeText(getApplicationContext(),"Kies de juiste verdieping",Toast.LENGTH_SHORT).show();
+        }
+        else if (lokaalValue.isEmpty()){
+            Toast.makeText(getApplicationContext(),"Kies het lokaal",Toast.LENGTH_SHORT).show();
+        }
+        else if (categorieValue.isEmpty()){
+            Toast.makeText(getApplicationContext(),"Kies de categorie",Toast.LENGTH_SHORT).show();
+        }
+        else if (bitmap == null || filePath == null){
+            Toast.makeText(getApplicationContext(),"Kies of maak een foto",Toast.LENGTH_SHORT).show();
+        }
+        else if (seekBarValue > 4 || seekBarValue < 0){
+            Toast.makeText(getApplicationContext(),"Ongeldige urgentie",Toast.LENGTH_SHORT).show();
+        }
+        else if (!apMail.endsWith("@ap.be") && !apMail.endsWith("@student.ap.be")){
+            Toast.makeText(getApplicationContext(),"Geef een geldig AP email adres op",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            opmerking = txtOpmerking.getText().toString();
+            if (opmerking.isEmpty()){opmerking = "Geen opmerking";}
+            schadeId = UUID.randomUUID();
+            now = new Date();
+
+            uploadImage();
+            schadeMelding = new Schade(schadeId.toString(), apMail, verdiepingValue, lokaalValue, categorieValue, fotoNaam, seekBarValue, opmerking, now, isAfgehandeld);
+            scorenMelding = new Scoren(apMail, schadeId.toString());
+            Toast.makeText(getApplicationContext(), "Item verzonden!", Toast.LENGTH_SHORT).show();
+            finish();
+            meldingenReference.child(schadeId.toString()).setValue(schadeMelding);
+
+            if(apMail.contains("@ap.be")) {
+                apMail.replace("@ap.be", " ");
+                String cleanMail = apMail.replace("@ap.be", "");
+                System.out.println(cleanMail);
+                scoresReference.child(cleanMail.toString()).child(schadeId.toString()).setValue(scorenMelding);
+
+            }
+            else if(apMail.contains("@student.ap.be")) {
+                apMail.replace("@student.ap.be", "");
+                String cleanMail = apMail.replace("@student.ap.be", "");
+                System.out.println(cleanMail);
+                scoresReference.child(cleanMail.toString()).child(schadeId.toString()).setValue(scorenMelding);
+            }
+            if (isNewImage) {
+                createdImage.delete();
+            }
+            resetScreen();
+        }
+
+    }
     private void resetScreen() {
         txtApMail.setText("");
         txtOpmerking.setText("");
@@ -302,28 +193,7 @@ public class Start extends Activity {
         opmerking = null;
         schadeId = null;
     }
-    private void chooseImage() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Selecteer een foto"), PICK_IMAGE_REQUEST);
-    }
-    private void takeImage() {
-        Intent intent = new Intent();
-        intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
-        try {
-            createdImage = createImageFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (createdImage != null) {
-            filePath = FileProvider.getUriForFile(this,
-                    "org.ap.edu.reportingapp.provider",
-                    createdImage);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, filePath);
-            startActivityForResult(intent, CREATE_IMAGE_REQUEST);
-        }
-    }
+
     private void uploadImage() {
         if(filePath != null)
         {
@@ -379,5 +249,131 @@ public class Start extends Activity {
             }
         }
         imgThumbnail.setImageBitmap(bitmap);
+    }
+
+    private void fillDatabase(){ verdiepingen = getResources().getStringArray(R.array.verdiepingen);
+        lokaalMin1 = getResources().getStringArray(R.array.lokaalMin1);
+        lokaalGelijkVloers = getResources().getStringArray(R.array.lokaalGelijkVloers);
+        lokaal1ste = getResources().getStringArray(R.array.lokaal1ste);
+        lokaal2de = getResources().getStringArray(R.array.lokaal2de);
+        lokaal3de = getResources().getStringArray(R.array.lokaal3de);
+        lokaal4de = getResources().getStringArray(R.array.lokaal4de);
+        lokaalDak = getResources().getStringArray(R.array.lokaalDak);
+
+        categorie = getResources().getStringArray(R.array.categorie);
+
+        urgenties = getResources().getStringArray(R.array.urgenties);
+
+        adapterVerdieping = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, verdiepingen);
+        adapterCategorie = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categorie);
+
+        cmbVerdieping.setAdapter(adapterVerdieping);
+        cmbCategorie.setAdapter(adapterCategorie);
+
+        //Default values
+        sldUrgentie.getProgressDrawable().setColorFilter(Color.parseColor(urgentieColorString), PorterDuff.Mode.MULTIPLY);
+        txtUrgentieValue.setText(urgenties[seekBarValue]);
+
+        cmbVerdieping.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View selectedItemView, int position, long id) {
+                verdiepingValue = cmbVerdieping.getSelectedItem().toString();
+                cmbLokaal.setEnabled(true);
+
+                switch (verdiepingValue) {
+                    case "-1":
+                        lokalen = lokaalMin1;
+                        break;
+                    case "Gelijkvloers":
+                        lokalen = lokaalGelijkVloers;
+                        break;
+                    case "1ste":
+                        lokalen = lokaal1ste;
+                        break;
+                    case "2de":
+                        lokalen = lokaal2de;
+                        break;
+                    case "3de":
+                        lokalen = lokaal3de;
+                        break;
+                    case "4de":
+                        lokalen = lokaal4de;
+                        break;
+                    case "Dak":
+                        lokalen = lokaalDak;
+                        break;
+                    default:
+                        lokalen = leeg;
+                        cmbLokaal.setEnabled(false);
+                        break;
+                }
+                adapterLokaal = new ArrayAdapter<>(Start.this, android.R.layout.simple_spinner_dropdown_item, lokalen);
+                cmbLokaal.setAdapter(adapterLokaal);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                cmbLokaal.setEnabled(false);
+            }
+        });
+
+        cmbLokaal.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override public void onItemSelected(AdapterView<?> parent, View selectedItemView, int position, long id)
+            {
+                lokaalValue = cmbLokaal.getSelectedItem().toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+
+            }
+        });
+
+        cmbCategorie.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View selectedItemView, int position, long id)
+            {
+                categorieValue = cmbCategorie.getSelectedItem().toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView)
+            {
+                //When no item is selected
+            }
+        });
+
+        sldUrgentie.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
+        {
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
+            {
+                seekBarValue = progress;
+                txtUrgentieValue.setText(urgenties[seekBarValue]);
+                if (seekBarValue == 0){
+                    urgentieColorString = "#00FF00";
+                }
+                else if (seekBarValue == 1){
+                    urgentieColorString = "#FFFF00";
+                }
+                else if (seekBarValue == 2){
+                    urgentieColorString = "#FFA500";
+                }
+                else if (seekBarValue == 3){
+                    urgentieColorString = "#FF0000";
+                }
+                else {
+                    urgentieColorString = "#8B0000";
+                }
+                sldUrgentie.getProgressDrawable().setColorFilter(Color.parseColor(urgentieColorString), PorterDuff.Mode.MULTIPLY);
+            }
+            public void onStartTrackingTouch(SeekBar seekBar)
+            {
+                //when the user touch hold the seekbar
+            }
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // when the user stopped touching the seekbar
+            }
+        });
     }
 }
