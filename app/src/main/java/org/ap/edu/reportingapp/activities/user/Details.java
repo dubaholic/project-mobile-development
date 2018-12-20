@@ -3,6 +3,7 @@ package org.ap.edu.reportingapp.activities.user;
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -12,6 +13,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,6 +25,8 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import org.ap.edu.reportingapp.R;
+
+import java.net.URL;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,76 +63,6 @@ public class Details extends Activity {
         urgenties = getResources().getStringArray(R.array.urgenties);
         requestStoragePermission();
         getDetails();
-
-    /*
-        databaseReference.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    if (String.valueOf(postSnapshot.child("schadeId").getValue()) != null
-                            && String.valueOf(postSnapshot.child("schadeId").getValue()).equals(id)) {
-                        String verdieping = postSnapshot.child("verdieping").getValue().toString();
-                        String apMail = postSnapshot.child("email").getValue().toString();
-                        String lokaal = postSnapshot.child("lokaal").getValue().toString();
-                        String opmerking = postSnapshot.child("opmerking").getValue().toString();
-                        String categorie = postSnapshot.child("categorie").getValue().toString();
-                        int urgentie = parseInt(postSnapshot.child("urgentie").getValue().toString());
-                        String timeStampStringDag = postSnapshot.child("timeStamp/date").getValue().toString();
-                        String timeStampStringMaand = postSnapshot.child("timeStamp/month").getValue().toString();
-                        String timeStampStringUur = postSnapshot.child("timeStamp/hours").getValue().toString();
-                        String timeStampStringMinuut = postSnapshot.child("timeStamp/minutes").getValue().toString();
-                        String fotoNaam = postSnapshot.child("fotoNaam").getValue().toString();
-                        Log.d("fotolog", fotoNaam);
-                        Log.d("fotoUrl", String.valueOf(storageReference.child("fotos/" + fotoNaam +".jpg").getDownloadUrl()));
-
-                        Picasso.with(Details.this)
-                                .load(storageReference.child("fotos/"+fotoNaam+".jpg").getDownloadUrl().toString())
-                                .into(imgMelding);
-
-                        storageReference.child("fotos/" + fotoNaam +".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                Log.d("fotoLog", "de foto is succesvol ingeladen");
-                                Glide.with(Details.this)
-                                        .load(storageReference.child("fotos/"+fotoNaam+".jpg").getStream())
-                                        .fitCenter()
-                                        .into(imgMelding);
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception exception) {
-                                // Handle any errors
-                            }
-                        });
-
-                        txtViewApMailIngevuld.setText(apMail);
-                        txtViewVerdiepingIngevuld.setText(verdieping);
-                        txtViewLokaalIngevuld.setText(lokaal);
-                        txtViewCategorieIngevuld.setText(categorie);
-                        txtViewOpmerkingIngevuld.setText(opmerking);
-                        txtUrgentieValueIngevuld.setText(urgenties[urgentie]);
-                        txtViewTimeIngevuld.setText("Melding gemaakt op " +
-                                String.format("%02d", Integer.parseInt(timeStampStringDag)) + "/" +
-                                String.format("%02d", Integer.parseInt(timeStampStringMaand)) + " om " +
-                                String.format("%02d", Integer.parseInt(timeStampStringUur)) + ":" +
-                                String.format("%02d", Integer.parseInt(timeStampStringMinuut)));
-                    }
-                }
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {}
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {}
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {}
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
-        });  */
-
     }
 
     @OnClick(R.id.btnTerug)
@@ -165,10 +100,16 @@ public class Details extends Activity {
                         String timeStampStringMinuut = postSnapshot.child("timeStamp/minutes").getValue().toString();
                         String fotoNaam = postSnapshot.child("fotoNaam").getValue().toString();
                         Log.d("fotolog", fotoNaam);
-                        Log.d("fotoUrl", String.valueOf(storageReference.child("fotos/" + fotoNaam +".jpg").getDownloadUrl()));
+                        //Log.d("fotoUrl", String.valueOf(storageReference.child("fotos/" + fotoNaam +".jpg").getDownloadUrl()));
 
-                        Picasso.with(Details.this)
+                        /* Picasso.with(Details.this)
                                 .load(storageReference.child("fotos/"+fotoNaam+".jpg").getDownloadUrl().toString())
+                                .into(imgMelding); */
+
+                        String downloadUrl = storageReference.child("fotos/"+fotoNaam+".jpg").getDownloadUrl().toString();
+                        Log.d("fotoUrl", downloadUrl);
+                        Glide.with(Details.this)
+                                .load(downloadUrl)
                                 .into(imgMelding);
 
                         /*storageReference.child("fotos/" + fotoNaam +".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

@@ -139,8 +139,7 @@ public class Listing extends Activity {
                                     String id = postSnapshot.child("schadeId").getValue().toString();
                                     bestaandDataIdArrayList.add(id);
                                     bestaandDataAdapter.add(categorie + " - " + opmerking);
-
-                                }
+                                    }
                             }
                         }
 
@@ -180,24 +179,6 @@ public class Listing extends Activity {
                 startActivity(intent);
             }
         });
-
-
-
-        /*
-        btnNieuw.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Listing.this, Start.class));
-
-            }
-        }); */
-
-        /*btnScoreboard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Listing.this, Scoreboard.class));
-            }
-        }); */
 
     }
 
