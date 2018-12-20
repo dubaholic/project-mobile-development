@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "406203913210-d2728ruvtgiugio4qu7mu0m4vggse8k7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.ap.edu.reportingapp",
+            "certificate_hash": "d3393af75ba3e241548df3fca5bd0e9a9c733fb6"
+          }
+        },
+        {
           "client_id": "406203913210-m2ht8r8nu7skahc4l7e9jkvd0ophvqem.apps.googleusercontent.com",
           "client_type": 3
         }
