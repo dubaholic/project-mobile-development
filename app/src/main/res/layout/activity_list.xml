@@ -11,7 +11,7 @@
         android:layout_width="300sp"
         android:layout_height="50sp"
         android:gravity="center"
-        android:text="Overzicht"
+        android:text="In behandeling"
         android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -104,7 +104,7 @@
 
     <Button
         android:id="@+id/btnAdmin"
-        android:layout_width="75sp"
+        android:layout_width="70sp"
         android:layout_height="50sp"
         android:text="Admin"
         android:visibility="gone"

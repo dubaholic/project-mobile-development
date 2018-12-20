@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.ap.edu.reportingapp.R;
+import org.ap.edu.reportingapp.activities.admin.Admin_Meldingen;
 
 import java.util.ArrayList;
 
@@ -192,12 +193,9 @@ public class Listing extends Activity {
         startActivity(new Intent(Listing.this, Scoreboard.class));
     }
 
-    /*@OnClick(R.id.btnAdmin)
+    @OnClick(R.id.btnAdmin)
     public void showAdminButton{
-        if (isAdmin){
-            btnAdmin.setVisibility(View.VISIBLE);
-        }
-
-    } */
+        startActivity(new Intent(Listing.this, Admin_Meldingen.class));
+    }
 
 }
