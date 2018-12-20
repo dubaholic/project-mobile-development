@@ -23,6 +23,10 @@ import org.ap.edu.reportingapp.activities.admin.Admin_Meldingen;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * Created by Maarten on 23/11/2018.
  */
@@ -34,23 +38,27 @@ public class Listing extends Activity {
 
     private ListView lstBestaand;
     private Spinner cmbLokaal, cmbVerdieping;
-    private Button btnNieuw, btnScoreboard, btnAdmin;
+    //private Button btnAdmin;
     private ArrayAdapter<String> adapterLokaal, adapterVerdieping, bestaandDataAdapter;
     ArrayList<String> bestaandDataArrayList = new ArrayList<>();
     ArrayList<String> bestaandDataIdArrayList = new ArrayList<>();
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
+    @BindView(R.id.btnAdmin) Button btnAdmin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-
+        ButterKnife.bind(this);
         //FirebaseDatabase.getInstance().setPersistenceEnabled(false);
         final DatabaseReference databaseReference = database.getReference();
         final DatabaseReference meldingenReference = databaseReference.child("meldingen");
-        //final String apMailAuth = getIntent().getExtras().getString("apMailAuth","Leeg");
         final Boolean isAdmin = getIntent().getExtras().getBoolean("isAdmin",false);
+        //final String apMailAuth = getIntent().getExtras().getString("apMailAuth","Leeg");
+
+        //final Boolean isAdmin = getIntent().getExtras().getBoolean("isAdmin",false);
 
         verdiepingen = getResources().getStringArray(R.array.verdiepingen);
         lokaalMin1 = getResources().getStringArray(R.array.lokaalMin1);
@@ -65,9 +73,7 @@ public class Listing extends Activity {
         cmbLokaal = findViewById(R.id.cmbLokaal);
         lstBestaand = findViewById(R.id.lstBestaand);
 
-        btnNieuw = findViewById(R.id.btnNieuw);
-        btnScoreboard = findViewById(R.id.btnScoreBoard);
-        btnAdmin = findViewById(R.id.btnAdmin);
+        ///btnAdmin = findViewById(R.id.btnAdmin);
 
         adapterVerdieping = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, verdiepingen);
         bestaandDataAdapter = new ArrayAdapter<>(Listing.this, android.R.layout.simple_list_item_1, bestaandDataArrayList);
@@ -134,8 +140,7 @@ public class Listing extends Activity {
                                     String id = postSnapshot.child("schadeId").getValue().toString();
                                     bestaandDataIdArrayList.add(id);
                                     bestaandDataAdapter.add(categorie + " - " + opmerking);
-
-                                }
+                                    }
                             }
                         }
 
@@ -176,27 +181,21 @@ public class Listing extends Activity {
             }
         });
 
-        btnNieuw.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Listing.this, Start.class));
-
-            }
-        });
-
-        btnScoreboard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Listing.this, Scoreboard.class));
-            }
-        });
-
-        btnAdmin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Listing.this, Admin_Meldingen.class));
-            }
-        });
-
     }
+
+    @OnClick(R.id.btnNieuw)
+    public void submit(){
+        startActivity(new Intent(Listing.this, Start.class));
+    }
+
+    @OnClick(R.id.btnScoreBoard)
+    public  void showScoreboard() {
+        startActivity(new Intent(Listing.this, Scoreboard.class));
+    }
+
+    @OnClick(R.id.btnAdmin)
+    public void showAdminButton{
+        startActivity(new Intent(Listing.this, Admin_Meldingen.class));
+    }
+
 }

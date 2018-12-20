@@ -1,14 +1,11 @@
 package org.ap.edu.reportingapp.activities.user;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.firebase.database.ChildEventListener;
@@ -22,79 +19,82 @@ import org.ap.edu.reportingapp.R;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class Scoreboard extends Activity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-    private ListView lstScores;
-    private Button btnTerug;
+public class Scoreboard extends Activity {
     private ArrayList<String> scoreArrayList = new ArrayList<>();
     private HashSet<String> uniekeEmails = new HashSet<>();
     private ArrayAdapter<String> scoresAadapter;
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    final DatabaseReference scoresReference = databaseReference.child("scores");
+
+    @BindView(R.id.lstScores) ListView lstScores;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard);
+        ButterKnife.bind(this);
+        getScoreboard();
+    }
 
-        //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        final DatabaseReference databaseReference = database.getReference();
-        final DatabaseReference scoresReference = databaseReference.child("scores");
+    @OnClick(R.id.btnTerug)
+    public void submit() {
+        finish();
+    }
 
-
-        lstScores = findViewById(R.id.lstScores);
-        btnTerug = findViewById(R.id.btnTerug);
-
-
+    private void getScoreboard() {
         scoresAadapter = new ArrayAdapter<>(Scoreboard.this, android.R.layout.simple_list_item_1, scoreArrayList );
-
         scoresReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
                 //scoresAadapter.clear();
 
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                   // if(postSnapshot.child("scores").getValue() != null) {
-                        databaseReference.orderByChild("email");
-                        int score = 1;
-                        String apMail = postSnapshot.child("email").getValue().toString();
-                        Log.d("email", apMail);
-                        if(apMail.contains("@ap.be")) {
-                            //apMail.replace("@ap.be", " ");
-                            score++;
-                            String cleanMail = apMail.replace("@ap.be", "");
-                            Log.d("cleanmail", cleanMail);
-                           // scoresReference.child(cleanMail.toString()).child(schadeId.toString()).setValue(scorenMelding);
-                            if (!uniekeEmails.contains(apMail)) {
-                                uniekeEmails.add(apMail);
-                                Log.d("uniekeMail", cleanMail);
-                                //int score = (int) dataSnapshot.child(cleanMail).getChildrenCount();
-                                Log.d("scoren",cleanMail + String.valueOf(score));
-                                scoreArrayList.add(apMail + " - " + score);
+                    // if(postSnapshot.child("scores").getValue() != null) {
+                    databaseReference.orderByChild("email");
+                    int score = 1;
+                    String apMail = postSnapshot.child("email").getValue().toString();
+                    Log.d("email", apMail);
+                    if(apMail.contains("@ap.be")) {
+                        //apMail.replace("@ap.be", " ");
+                        score++;
+                        String cleanMail = apMail.replace("@ap.be", "");
+                        Log.d("cleanmail", cleanMail);
+                        // scoresReference.child(cleanMail.toString()).child(schadeId.toString()).setValue(scorenMelding);
+                        if (!uniekeEmails.contains(apMail)) {
+                            uniekeEmails.add(apMail);
+                            Log.d("uniekeMail", cleanMail);
+                            //int score = (int) dataSnapshot.child(cleanMail).getChildrenCount();
+                            Log.d("scoren",cleanMail + String.valueOf(score));
+                            scoreArrayList.add(apMail + " - " + score);
 
-                            }
                         }
-                        else if(apMail.contains("@student.ap.be")) {
-                            apMail.replace("@student.ap.be", "");
-                            String cleanMail = apMail.replace("@student.ap.be", "");
-                            score++;
-                            Log.d("cleanmail", cleanMail);
-                            if (!uniekeEmails.contains(apMail)) {
-                                uniekeEmails.add(apMail);
-                                Log.d("uniekeMail", cleanMail);
-                               // int score = (int) dataSnapshot.child(cleanMail).getChildrenCount();
-                                Log.d("scoren", cleanMail + String.valueOf(score));
-                                scoreArrayList.add(apMail + " - " + score);
-                                }
+                    }
+                    else if(apMail.contains("@student.ap.be")) {
+                        apMail.replace("@student.ap.be", "");
+                        String cleanMail = apMail.replace("@student.ap.be", "");
+                        score++;
+                        Log.d("cleanmail", cleanMail);
+                        if (!uniekeEmails.contains(apMail)) {
+                            uniekeEmails.add(apMail);
+                            Log.d("uniekeMail", cleanMail);
+                            // int score = (int) dataSnapshot.child(cleanMail).getChildrenCount();
+                            Log.d("scoren", cleanMail + String.valueOf(score));
+                            scoreArrayList.add(apMail + " - " + score);
+                        }
 
-                           // scoresReference.child(cleanMail.toString()).child(schadeId.toString()).setValue(scorenMelding);
-                        }
+                        // scoresReference.child(cleanMail.toString()).child(schadeId.toString()).setValue(scorenMelding);
+                    }
                 }
                 lstScores.setAdapter(scoresAadapter);
-               // }
+                // }
 
-                }
-                @Override
+            }
+            @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
             }
@@ -110,19 +110,6 @@ public class Scoreboard extends Activity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-
         });
-
-        btnTerug.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-
-            }
-        });
-
     }
-
-
-
 }
