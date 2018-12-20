@@ -194,7 +194,7 @@ public class Listing extends Activity {
     }
 
     @OnClick(R.id.btnAdmin)
-    public void showAdminButton{
+    public void showAdminButton(){
         startActivity(new Intent(Listing.this, Admin_Meldingen.class));
     }
 
