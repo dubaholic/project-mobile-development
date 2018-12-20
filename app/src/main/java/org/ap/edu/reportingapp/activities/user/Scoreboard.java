@@ -45,46 +45,52 @@ public class Scoreboard extends Activity {
         lstScores = findViewById(R.id.lstScores);
         btnTerug = findViewById(R.id.btnTerug);
 
-        scoresAadapter = new ArrayAdapter<>(Scoreboard.this, android.R.layout.simple_list_item_1, scoreArrayList );
 
-        lstScores.setAdapter(scoresAadapter);
+        scoresAadapter = new ArrayAdapter<>(Scoreboard.this, android.R.layout.simple_list_item_1, scoreArrayList );
 
         scoresReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
-                scoresAadapter.clear();
+                //scoresAadapter.clear();
 
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                    // if(postSnapshot.child("scores").getValue() != null) {
                         databaseReference.orderByChild("email");
+                        int score = 1;
                         String apMail = postSnapshot.child("email").getValue().toString();
+                        Log.d("email", apMail);
                         if(apMail.contains("@ap.be")) {
-                            apMail.replace("@ap.be", " ");
+                            //apMail.replace("@ap.be", " ");
+                            score++;
                             String cleanMail = apMail.replace("@ap.be", "");
-                            System.out.println(cleanMail);
+                            Log.d("cleanmail", cleanMail);
                            // scoresReference.child(cleanMail.toString()).child(schadeId.toString()).setValue(scorenMelding);
                             if (!uniekeEmails.contains(apMail)) {
                                 uniekeEmails.add(apMail);
-                                System.out.println(dataSnapshot.child(cleanMail).getChildrenCount());
-                                scoresAadapter.add(apMail + " - " + (int)dataSnapshot.child(cleanMail).getChildrenCount());
-                                Log.d("Test", "komt wel hier");
+                                Log.d("uniekeMail", cleanMail);
+                                //int score = (int) dataSnapshot.child(cleanMail).getChildrenCount();
+                                Log.d("scoren",cleanMail + String.valueOf(score));
+                                scoreArrayList.add(apMail + " - " + score);
+
                             }
                         }
-                        if(apMail.contains("@student.ap.be")) {
+                        else if(apMail.contains("@student.ap.be")) {
                             apMail.replace("@student.ap.be", "");
                             String cleanMail = apMail.replace("@student.ap.be", "");
-                            System.out.println(cleanMail);
+                            score++;
+                            Log.d("cleanmail", cleanMail);
                             if (!uniekeEmails.contains(apMail)) {
                                 uniekeEmails.add(apMail);
-                                scoresAadapter.add(apMail + " - " + dataSnapshot.child(cleanMail).getChildrenCount());
-                                Log.d("Test", "komt wel hier");
-                            }
+                                Log.d("uniekeMail", cleanMail);
+                               // int score = (int) dataSnapshot.child(cleanMail).getChildrenCount();
+                                Log.d("scoren", cleanMail + String.valueOf(score));
+                                scoreArrayList.add(apMail + " - " + score);
+                                }
 
                            // scoresReference.child(cleanMail.toString()).child(schadeId.toString()).setValue(scorenMelding);
                         }
-
-                    }
-                    Log.d("Test", "komt niet hier");
+                }
+                lstScores.setAdapter(scoresAadapter);
                // }
 
                 }
