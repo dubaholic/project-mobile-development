@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.Adapter;
@@ -15,8 +16,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.FirebaseError;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.ap.edu.reportingapp.R;
 import org.ap.edu.reportingapp.activities.user.Details;
@@ -63,7 +68,8 @@ public class Admin_Melding_Afhandeling extends Activity {
 
         final DatabaseReference databaseReference = database.getReference();
         final DatabaseReference mededelingenReference = databaseReference.child("mededelingen");
-        final DatabaseReference medlingenReference = databaseReference.child("meldingen");
+        final DatabaseReference meldingenReference = databaseReference.child("meldingen");
+        final DatabaseReference archiveringReference = databaseReference.child("archief");
 
         final String id = getIntent().getExtras().getString("id", "Leeg");
 
@@ -135,12 +141,30 @@ public class Admin_Melding_Afhandeling extends Activity {
                     if (mededeling.isEmpty()){mededeling = "Geen mededeling";}
 
                     mededelingObject = new Mededeling(id, uitvoerenDoorNaam, dateRepaired, mededeling, uitvoerenValue);
-                    Toast.makeText(getApplicationContext(), "Item verzonden!", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(Admin_Melding_Afhandeling.this, Admin_Meldingen.class));
 
+                    startActivity(new Intent(Admin_Melding_Afhandeling.this, Admin_Meldingen.class));
                     mededelingenReference.child(id).setValue(mededelingObject);
-                    medlingenReference.child(id).child("afgehandeld").setValue(true);
+                    meldingenReference.child(id).child("afgehandeld").setValue(true);
+                    moveMelding(meldingenReference.child(id), archiveringReference.child(id));
+                    meldingenReference.child(id).removeValue();
+                    Toast.makeText(getApplicationContext(), "Item verzonden!", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+    }
+    private void moveMelding(final DatabaseReference fromPath, final DatabaseReference toPath) {
+        fromPath.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                toPath.setValue(dataSnapshot.getValue(), new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(DatabaseError firebaseError, DatabaseReference firebase) {
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
             }
         });
     }
