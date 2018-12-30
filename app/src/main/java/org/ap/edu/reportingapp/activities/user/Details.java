@@ -86,7 +86,8 @@ public class Details extends Activity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    if (String.valueOf(postSnapshot.child("schadeId").getValue()) != null
+                    if (String.valueOf(postSnapshot.child("verdieping").getValue()) != null
+                            && postSnapshot.child("lokaal").getValue() != null
                             && String.valueOf(postSnapshot.child("schadeId").getValue()).equals(id)) {
                         String verdieping = postSnapshot.child("verdieping").getValue().toString();
                         String apMail = postSnapshot.child("email").getValue().toString();

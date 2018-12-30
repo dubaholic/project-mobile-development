@@ -69,7 +69,7 @@ public class Admin_Meldingen extends Activity implements Adapter_Admin_Meldingen
                         bestaandDataArrayList.add(categorie + " - " + opmerking);
                         }
                     }
-                bestaandDataAdapter= new Adapter_Admin_Meldingen(Admin_Meldingen.this, bestaandDataArrayList);
+                bestaandDataAdapter = new Adapter_Admin_Meldingen(Admin_Meldingen.this, bestaandDataArrayList);
                 bestaandDataAdapter.setClickListener(Admin_Meldingen.this);
                 lstMeldingen.setAdapter(bestaandDataAdapter);
             }

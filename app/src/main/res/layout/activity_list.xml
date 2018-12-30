@@ -92,7 +92,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.975" />
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/lstBestaand"
         android:layout_width="344dp"
         android:layout_height="274dp"

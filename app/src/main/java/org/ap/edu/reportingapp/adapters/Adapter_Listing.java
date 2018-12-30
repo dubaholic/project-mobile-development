@@ -12,17 +12,17 @@ import org.ap.edu.reportingapp.R;
 import java.util.List;
 
 /**
- * Created by Maarten on 7/12/2018.
+ * Created by Maarten on 30/12/2018.
  */
 
-public class Adapter_Admin_Meldingen extends RecyclerView.Adapter<Adapter_Admin_Meldingen.ViewHolder> {
+public class Adapter_Listing extends RecyclerView.Adapter<Adapter_Listing.ViewHolder> {
     List<String> mData;
     LayoutInflater mInflater;
 
     ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    public Adapter_Admin_Meldingen(Context context, List<String> data) {
+    public Adapter_Listing(Context context, List<String> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
