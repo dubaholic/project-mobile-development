@@ -202,17 +202,31 @@
         app:layout_constraintVertical_bias="0.975" />
 
     <TextView
-        android:id="@+id/txtFoto"
-        android:layout_width="123dp"
+        android:id="@+id/txtViewIsAfgehandeldValue"
+        android:layout_width="190sp"
         android:layout_height="40sp"
-        android:text="Foto"
+        android:text="isAfgehandeld"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.086"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.753" />
+        app:layout_constraintVertical_bias="0.750" />
+
+    <Button
+        android:id="@+id/btnMededelingDetails"
+        android:layout_width="125dp"
+        android:layout_height="40sp"
+        android:gravity="center"
+        android:text="Bekijken"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.925"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.750"  />
 
     <ImageView
         android:id="@+id/imgMelding"

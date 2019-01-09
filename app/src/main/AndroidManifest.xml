@@ -36,6 +36,7 @@
         <activity android:name=".activities.user.Listing"></activity>
         <activity android:name="org.ap.edu.reportingapp.activities.admin.Admin_Meldingen"></activity>
         <activity android:name="org.ap.edu.reportingapp.activities.admin.Admin_Melding_Afhandeling"></activity>
+        <activity android:name="org.ap.edu.reportingapp.activities.user.Mededeling_Details"></activity>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"

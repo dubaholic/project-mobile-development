@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.ap.edu.reportingapp.activities.user.Listing">
+    tools:context="org.ap.edu.reportingapp.activities.user.Mededeling_Details">
 
     <TextView
         android:layout_width="300sp"
         android:layout_height="50sp"
         android:gravity="center"
-        android:text="In behandeling"
+        android:text="Afhandeling details"
         android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -19,10 +19,10 @@
         app:layout_constraintVertical_bias="0.025" />
 
     <TextView
-        android:id="@+id/txtViewVerdieping"
+        android:id="@+id/txtViewUitgevoerd"
         android:layout_width="130sp"
         android:layout_height="40sp"
-        android:text="Verdieping"
+        android:text="Uitgevoerd"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.075"
@@ -32,10 +32,10 @@
         app:layout_constraintVertical_bias="0.150" />
 
     <TextView
-        android:id="@+id/txtViewLokaal"
+        android:id="@+id/txtViewUitgevoerdPersoon"
         android:layout_width="130sp"
         android:layout_height="40sp"
-        android:text="Lokaal"
+        android:text="Door (persoon)"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.075"
@@ -44,10 +44,26 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.250" />
 
-    <Spinner
-        android:id="@+id/cmbVerdieping"
-        android:layout_width="160sp"
+    <TextView
+        android:id="@+id/txtViewExtraOpmerking"
+        android:layout_width="130sp"
         android:layout_height="40sp"
+        android:text="Opmerking"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.075"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.350" />
+
+
+    <TextView
+        android:id="@+id/txtViewUitgevoerdIngevuld"
+        android:layout_width="200sp"
+        android:layout_height="40sp"
+        android:text="Uitgevoerd"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -55,10 +71,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.150" />
 
-    <Spinner
-        android:id="@+id/cmbLokaal"
-        android:layout_width="160sp"
+    <TextView
+        android:id="@+id/txtViewUitgevoerdPersoonIngevuld"
+        android:layout_width="200sp"
         android:layout_height="40sp"
+        android:text="Persoon"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -66,52 +84,71 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.250" />
 
-    <Button
-        android:id="@+id/btnScoreBoard"
-        android:layout_width="160sp"
+    <TextView
+        android:id="@+id/txtViewExtraOpmerkingIngevuld"
+        android:layout_width="200sp"
         android:layout_height="40sp"
-        android:text="Scoreboard"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.089"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.974" />
-
-    <Button
-        android:id="@+id/btnNieuw"
-        android:layout_width="160sp"
-        android:layout_height="40sp"
-        android:layout_marginBottom="2dp"
-        android:text="Nieuwe melding"
+        android:text="Opmerking"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.975" />
+        app:layout_constraintVertical_bias="0.350" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/lstBestaand"
-        android:layout_width="344dp"
-        android:layout_height="274dp"
+    <TextView
+        android:id="@+id/txtViewDateReparatie"
+        android:layout_width="130sp"
+        android:layout_height="40sp"
+        android:text="Reparatie op"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.075"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.822" />
+        app:layout_constraintVertical_bias="0.450" />
+
+    <TextView
+        android:id="@+id/txtViewDateReparatieIngevuld"
+        android:layout_width="200sp"
+        android:layout_height="40sp"
+        android:text="Reparatie op"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.925"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.450" />
+
+    <TextView
+        android:id="@+id/txtViewVerlopen"
+        android:layout_width="300sp"
+        android:layout_height="40sp"
+        android:gravity="center"
+        android:text="Verlopen"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.500"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.550" />
 
     <Button
-        android:id="@+id/btnAdmin"
-        android:layout_width="70sp"
+        android:id="@+id/btnTerug"
+        android:layout_width="300sp"
         android:layout_height="50sp"
-        android:text="Admin"
-        android:visibility="gone"
+        android:gravity="center"
+        android:text="Terug"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.975"
+        app:layout_constraintHorizontal_bias="0.500"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.025" />
+        app:layout_constraintVertical_bias="0.975" />
 
 </android.support.constraint.ConstraintLayout>
+

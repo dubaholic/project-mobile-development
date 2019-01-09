@@ -139,6 +139,9 @@ public class Listing extends Activity implements Adapter_Listing.ItemClickListen
                 lokaalValue = cmbLokaal.getSelectedItem().toString();
                 bestaandDataIdArrayList = new ArrayList<>();
                 bestaandDataArrayList = new ArrayList<>();
+
+                bestaandDataAdapter = new Adapter_Listing(Listing.this, bestaandDataArrayList);
+                lstBestaand.setAdapter(bestaandDataAdapter);
                 databaseReference.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
@@ -153,13 +156,13 @@ public class Listing extends Activity implements Adapter_Listing.ItemClickListen
                                     String id = postSnapshot.child("schadeId").getValue().toString();
                                     bestaandDataIdArrayList.add(id);
                                     bestaandDataArrayList.add(categorie + " - " + opmerking);
-                                    bestaandDataAdapter = new Adapter_Listing(Listing.this, bestaandDataArrayList);
+                                    //bestaandDataAdapter = new Adapter_Listing(Listing.this, bestaandDataArrayList);
                                     bestaandDataAdapter.setClickListener(Listing.this);
-                                    lstBestaand.setAdapter(bestaandDataAdapter);
+
                                     }
                             }
                         }
-
+                        lstBestaand.setAdapter(bestaandDataAdapter);
                     }
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {

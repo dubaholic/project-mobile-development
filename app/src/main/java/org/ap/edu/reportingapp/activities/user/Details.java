@@ -2,6 +2,7 @@ package org.ap.edu.reportingapp.activities.user;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -52,8 +54,10 @@ public class Details extends Activity {
     @BindView(R.id.txtViewOpmerkingIngevuld) TextView txtViewOpmerkingIngevuld;
     @BindView(R.id.txtViewTimeIngevuld) TextView txtViewTimeIngevuld;
     @BindView(R.id.txtViewUrgentieValueIngevuld) TextView txtUrgentieValueIngevuld;
+    @BindView(R.id.txtViewIsAfgehandeldValue) TextView txtViewIsAfgehandeldValue;
     @BindView(R.id.imgMelding) ImageView imgMelding;
     @BindView(R.id.btnTerug) Button btnTerug;
+    @BindView(R.id.btnMededelingDetails) Button btnMededelingDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +73,14 @@ public class Details extends Activity {
     @OnClick(R.id.btnTerug)
     public void submit() {
         finish();
+    }
+
+    @OnClick(R.id.btnMededelingDetails)
+    public void mededelingDetails(){
+        final String id = getIntent().getExtras().getString("id","Leeg");
+        Intent intent = new Intent(Details.this, Mededeling_Details.class);
+        intent.putExtra("id", id);
+        startActivity(intent);
     }
 
     private void requestStoragePermission() {
@@ -98,6 +110,7 @@ public class Details extends Activity {
                         int urgentie = parseInt(postSnapshot.child("urgentie").getValue().toString());
                         Long timeStamp = Long.parseLong(postSnapshot.child("timeStamp").getValue().toString());
                         String fotoNaam = postSnapshot.child("fotoNaam").getValue().toString();
+                        Boolean isAfgehandeld = (Boolean) postSnapshot.child("afgehandeld").getValue();
                         Log.d("fotolog", fotoNaam);
                         //Log.d("fotoUrl", String.valueOf(storageReference.child("fotos/" + fotoNaam +".jpg").getDownloadUrl()));
 
@@ -132,6 +145,14 @@ public class Details extends Activity {
                         txtViewCategorieIngevuld.setText(categorie);
                         txtViewOpmerkingIngevuld.setText(opmerking);
                         txtUrgentieValueIngevuld.setText(urgenties[urgentie]);
+                        if (isAfgehandeld) {
+                            txtViewIsAfgehandeldValue.setText("Afhandeling");
+                            btnMededelingDetails.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            txtViewIsAfgehandeldValue.setText("Niet afgehandeld");
+                            btnMededelingDetails.setVisibility(View.GONE);
+                        }
                         Date d = new Date(timeStamp);
                         txtViewTimeIngevuld.setText("Gemaakt op " + d.toString());
                     }

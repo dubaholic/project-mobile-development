@@ -91,8 +91,8 @@ public class Admin_Melding_Afhandeling extends Activity {
                 Calendar chosenDate = Calendar.getInstance();
                 chosenDate.set(year, monthOfYear, dayOfMonth);
                 if (newCalendar.before(chosenDate)) {
-                    dateText = dateFormatter.format(chosenDate.getTime());
                     dateRepaired = chosenDate.getTime();
+                    dateText = dateFormatter.format(dateRepaired);
                 }
                 else {
                     dateText = "";
