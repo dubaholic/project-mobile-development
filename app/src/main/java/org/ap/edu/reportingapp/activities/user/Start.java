@@ -1,7 +1,9 @@
 package org.ap.edu.reportingapp.activities.user;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -82,6 +84,7 @@ public class Start extends Activity {
     @BindView(R.id.imgThumbnail) ImageView imgThumbnail;
     @BindView(R.id.sldUrgentie) SeekBar sldUrgentie;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -150,9 +153,12 @@ public class Start extends Activity {
             uploadImage();
             schadeMelding = new Schade(schadeId.toString(), apMail, verdiepingValue, lokaalValue, categorieValue, fotoNaam, seekBarValue, opmerking, now, isAfgehandeld);
             scorenMelding = new Scoren(apMail, schadeId.toString());
+
             Toast.makeText(getApplicationContext(), "Item verzonden!", Toast.LENGTH_SHORT).show();
             finish();
             meldingenReference.child(schadeId.toString()).setValue(schadeMelding);
+
+
 
             if(apMail.contains("@ap.be")) {
                 apMail.replace("@ap.be", " ");

@@ -32,7 +32,8 @@
             </intent-filter>
         </activity>
         <activity android:name="org.ap.edu.reportingapp.activities.user.Start"></activity>
-        <activity android:name="org.ap.edu.reportingapp.activities.user.Details"></activity>
+        <activity android:name="org.ap.edu.reportingapp.activities.user.Details">
+        </activity>
         <activity android:name=".activities.user.Listing"></activity>
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -45,6 +46,19 @@
         </provider>
 
         <activity android:name=".activities.user.Scoreboard"></activity>
+
+        <service android:name=".services.MyFirebaseInstanceIdService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"></action>
+            </intent-filter>
+        </service>
+
+        <service android:name=".services.MyFirebaseMessageService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"></action>
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

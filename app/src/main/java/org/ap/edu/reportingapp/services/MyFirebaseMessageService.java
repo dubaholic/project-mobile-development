@@ -13,6 +13,7 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import org.ap.edu.reportingapp.R;
 import org.ap.edu.reportingapp.activities.user.Listing;
+import org.ap.edu.reportingapp.activities.user.Start;
 
 
 public class MyFirebaseMessageService extends FirebaseMessagingService  {
@@ -20,30 +21,17 @@ public class MyFirebaseMessageService extends FirebaseMessagingService  {
 
     @Override
     public void onMessageReceived(RemoteMessage remotemsg) {
-
-        Log.d(TAG, "From -> " + remotemsg.getFrom());
-        Log.d(TAG, "Demo Notification Body -> " + remotemsg.getNotification().getBody());
-        sendNotification(remotemsg.getNotification().getBody());
-    }
-
-
-    private void sendNotification(String messageBody) {
-        Intent intent = new Intent(this, Listing.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
-                PendingIntent.FLAG_ONE_SHOT);
-
-        Uri soundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("C# Corner")
-                .setContentText(messageBody)
-                .setAutoCancel(true)
-                .setSound(soundUri)
-                .setContentIntent(pendingIntent);
-
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        Intent intent = new Intent(this, Start.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_ONE_SHOT);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this);
+        notificationBuilder.setContentTitle("FCM NOTIFICATION");
+        notificationBuilder.setContentText(remotemsg.getNotification().getBody());
+        notificationBuilder.setAutoCancel(true);
+        notificationBuilder.setSmallIcon(R.drawable.ic_notification);
+        notificationBuilder.setContentIntent(pendingIntent);
+        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0, notificationBuilder.build());
+
     }
 }
