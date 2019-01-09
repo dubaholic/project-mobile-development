@@ -51,6 +51,7 @@ public class Admin_Melding_Afhandeling extends Activity {
     private TextView txtViewReparatiedatum, txtMededeling, txtUitvoerenDoor;
     private String[] uitvoerenDoor;
     private Date dateRepaired;
+    private long dateRepairedLong;
     private Mededeling mededelingObject;
 
 
@@ -139,8 +140,8 @@ public class Admin_Melding_Afhandeling extends Activity {
                 else {
                     mededeling = txtMededeling.getText().toString();
                     if (mededeling.isEmpty()){mededeling = "Geen mededeling";}
-
-                    mededelingObject = new Mededeling(id, uitvoerenDoorNaam, dateRepaired, mededeling, uitvoerenValue);
+                    dateRepairedLong = dateRepaired.getTime();
+                    mededelingObject = new Mededeling(id, uitvoerenDoorNaam, dateRepairedLong, mededeling, uitvoerenValue);
 
                     startActivity(new Intent(Admin_Melding_Afhandeling.this, Admin_Meldingen.class));
                     mededelingenReference.child(id).setValue(mededelingObject);

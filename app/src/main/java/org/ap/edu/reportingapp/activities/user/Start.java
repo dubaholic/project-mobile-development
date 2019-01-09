@@ -11,6 +11,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -146,27 +147,23 @@ public class Start extends Activity {
             if (opmerking.isEmpty()){opmerking = "Geen opmerking";}
             schadeId = UUID.randomUUID();
             now = new Date();
-
+            long nowLong = now.getTime();
             uploadImage();
-            schadeMelding = new Schade(schadeId.toString(), apMail, verdiepingValue, lokaalValue, categorieValue, fotoNaam, seekBarValue, opmerking, now, isAfgehandeld);
+            schadeMelding = new Schade(schadeId.toString(), apMail, verdiepingValue, lokaalValue, categorieValue, fotoNaam, seekBarValue, opmerking, nowLong, isAfgehandeld);
             scorenMelding = new Scoren(apMail, schadeId.toString());
             Toast.makeText(getApplicationContext(), "Item verzonden!", Toast.LENGTH_SHORT).show();
             finish();
             meldingenReference.child(schadeId.toString()).setValue(schadeMelding);
 
-            if(apMail.contains("@ap.be")) {
-                apMail.replace("@ap.be", " ");
+            if(apMail.contains("@ap.be") || apMail.contains("@student.ap.be") || apMail.contains(".")) {
                 String cleanMail = apMail.replace("@ap.be", "");
-                System.out.println(cleanMail);
-                scoresReference.child(cleanMail.toString()).child(schadeId.toString()).setValue(scorenMelding);
+                cleanMail = cleanMail.replace("@student.ap.be", "");
+                cleanMail = cleanMail.replace(".", "-");
+                Log.d("cleanMail", cleanMail);
+                scoresReference.child(cleanMail).child(schadeId.toString()).setValue(scorenMelding);
 
             }
-            else if(apMail.contains("@student.ap.be")) {
-                apMail.replace("@student.ap.be", "");
-                String cleanMail = apMail.replace("@student.ap.be", "");
-                System.out.println(cleanMail);
-                scoresReference.child(cleanMail.toString()).child(schadeId.toString()).setValue(scorenMelding);
-            }
+
             if (isNewImage) {
                 createdImage.delete();
             }

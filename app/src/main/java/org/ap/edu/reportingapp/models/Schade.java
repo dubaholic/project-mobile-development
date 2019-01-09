@@ -1,7 +1,5 @@
 package org.ap.edu.reportingapp.models;
 
-import java.util.Date;
-
 /**
  * Created by Maarten on 19/11/2018.
  */
@@ -15,7 +13,7 @@ public class Schade {
     private String fotoNaam;
     private int urgentie;
     private String opmerking;
-    private Date timeStamp;
+    private long timeStamp;
     private boolean isAfgehandeld;
 
     public String getSchadeId() {
@@ -82,11 +80,11 @@ public class Schade {
         this.opmerking = opmerking;
     }
 
-    public Date getTimeStamp() {
+    public long getTimeStamp() {
         return timeStamp;
     }
 
-    public void setTimeStamp(Date timeStamp) {
+    public void setTimeStamp(long timeStamp) {
         this.timeStamp = timeStamp;
     }
 
@@ -98,7 +96,7 @@ public class Schade {
         isAfgehandeld = afgehandeld;
     }
 
-    public Schade(String schadeId, String email, String verdieping, String lokaal, String categorie, String fotoNaam, int urgentie, String opmerking, Date timeStamp, boolean isAfgehandeld) {
+    public Schade(String schadeId, String email, String verdieping, String lokaal, String categorie, String fotoNaam, int urgentie, String opmerking, long timeStamp, boolean isAfgehandeld) {
         this.schadeId = schadeId;
         this.email = email;
         this.verdieping = verdieping;

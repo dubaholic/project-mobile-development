@@ -9,7 +9,7 @@ import java.util.Date;
 public class Mededeling {
     private String schadeId;
     private String uitgevoerdDoorNaam;
-    private Date dateRepaired;
+    private long dateRepaired;
     private String mededelingText;
     private String uitgevoerdDoor;
 
@@ -29,11 +29,11 @@ public class Mededeling {
         this.uitgevoerdDoorNaam = uitgevoerdDoorNaam;
     }
 
-    public Date getDateRepaired() {
+    public long getDateRepaired() {
         return dateRepaired;
     }
 
-    public void setDateRepaired(Date dateRepaired) {
+    public void setDateRepaired(long dateRepaired) {
         this.dateRepaired = dateRepaired;
     }
 
@@ -53,7 +53,7 @@ public class Mededeling {
         this.uitgevoerdDoor = uitgevoerdDoor;
     }
 
-    public Mededeling(String schadeId, String uitgevoerdDoorNaam, Date dateRepaired, String mededelingText, String uitgevoerdDoor) {
+    public Mededeling(String schadeId, String uitgevoerdDoorNaam, long dateRepaired, String mededelingText, String uitgevoerdDoor) {
         this.schadeId = schadeId;
         this.uitgevoerdDoorNaam = uitgevoerdDoorNaam;
         this.dateRepaired = dateRepaired;

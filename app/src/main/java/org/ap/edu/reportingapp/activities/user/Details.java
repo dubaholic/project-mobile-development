@@ -27,6 +27,7 @@ import com.squareup.picasso.Picasso;
 import org.ap.edu.reportingapp.R;
 
 import java.net.URL;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,7 +51,7 @@ public class Details extends Activity {
     @BindView(R.id.txtViewCategorieIngevuld) TextView txtViewCategorieIngevuld;
     @BindView(R.id.txtViewOpmerkingIngevuld) TextView txtViewOpmerkingIngevuld;
     @BindView(R.id.txtViewTimeIngevuld) TextView txtViewTimeIngevuld;
-    @BindView(R.id.txtViewUrgentieValue) TextView txtUrgentieValueIngevuld;
+    @BindView(R.id.txtViewUrgentieValueIngevuld) TextView txtUrgentieValueIngevuld;
     @BindView(R.id.imgMelding) ImageView imgMelding;
     @BindView(R.id.btnTerug) Button btnTerug;
 
@@ -95,10 +96,7 @@ public class Details extends Activity {
                         String opmerking = postSnapshot.child("opmerking").getValue().toString();
                         String categorie = postSnapshot.child("categorie").getValue().toString();
                         int urgentie = parseInt(postSnapshot.child("urgentie").getValue().toString());
-                        String timeStampStringDag = postSnapshot.child("timeStamp/date").getValue().toString();
-                        String timeStampStringMaand = postSnapshot.child("timeStamp/month").getValue().toString();
-                        String timeStampStringUur = postSnapshot.child("timeStamp/hours").getValue().toString();
-                        String timeStampStringMinuut = postSnapshot.child("timeStamp/minutes").getValue().toString();
+                        Long timeStamp = Long.parseLong(postSnapshot.child("timeStamp").getValue().toString());
                         String fotoNaam = postSnapshot.child("fotoNaam").getValue().toString();
                         Log.d("fotolog", fotoNaam);
                         //Log.d("fotoUrl", String.valueOf(storageReference.child("fotos/" + fotoNaam +".jpg").getDownloadUrl()));
@@ -134,11 +132,8 @@ public class Details extends Activity {
                         txtViewCategorieIngevuld.setText(categorie);
                         txtViewOpmerkingIngevuld.setText(opmerking);
                         txtUrgentieValueIngevuld.setText(urgenties[urgentie]);
-                        txtViewTimeIngevuld.setText("Melding gemaakt op " +
-                                String.format("%02d", Integer.parseInt(timeStampStringDag)) + "/" +
-                                String.format("%02d", Integer.parseInt(timeStampStringMaand)) + " om " +
-                                String.format("%02d", Integer.parseInt(timeStampStringUur)) + ":" +
-                                String.format("%02d", Integer.parseInt(timeStampStringMinuut)));
+                        Date d = new Date(timeStamp);
+                        txtViewTimeIngevuld.setText("Gemaakt op " + d.toString());
                     }
                 }
             }
