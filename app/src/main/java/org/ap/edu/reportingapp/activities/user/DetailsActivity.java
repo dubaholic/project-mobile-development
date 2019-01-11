@@ -107,34 +107,14 @@ public class DetailsActivity extends Activity {
                         Long timeStamp = Long.parseLong(postSnapshot.child("timeStamp").getValue().toString());
                         String fotoNaam = postSnapshot.child("fotoNaam").getValue().toString();
                         Boolean isAfgehandeld = (Boolean) postSnapshot.child("afgehandeld").getValue();
+
                         Log.d("fotolog", fotoNaam);
-                        //Log.d("fotoUrl", String.valueOf(storageReference.child("fotos/" + fotoNaam +".jpg").getDownloadUrl()));
-
-                        /* Picasso.with(DetailsActivity.this)
-                                .load(storageReference.child("fotos/"+fotoNaam+".jpg").getDownloadUrl().toString())
-                                .into(imgMelding); */
-
                         String downloadUrl = storageReference.child("fotos/"+fotoNaam+".jpg").getDownloadUrl().toString();
                         Log.d("fotoUrl", downloadUrl);
                         Glide.with(DetailsActivity.this)
                                 .load(downloadUrl)
                                 .into(imgMelding);
 
-                        /*storageReference.child("fotos/" + fotoNaam +".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                Log.d("fotoLog", "de foto is succesvol ingeladen");
-                                Glide.with(DetailsActivity.this)
-                                        .load(storageReference.child("fotos/"+fotoNaam+".jpg").getStream())
-                                        .fitCenter()
-                                        .into(imgMelding);
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception exception) {
-                                // Handle any errors
-                            }
-                        }); */
                         txtViewApMailIngevuld.setText(apMail);
                         txtViewVerdiepingIngevuld.setText(verdieping);
                         txtViewLokaalIngevuld.setText(lokaal);
