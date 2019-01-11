@@ -61,6 +61,9 @@ public class Mededeling {
         this.uitgevoerdDoor = uitgevoerdDoor;
     }
 
+    public Mededeling() {
+    }
+
     @Override
     public String toString() {
         return "Mededeling{" +

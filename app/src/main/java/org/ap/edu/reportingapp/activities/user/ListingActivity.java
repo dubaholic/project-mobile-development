@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,12 +20,16 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.ap.edu.reportingapp.R;
 import org.ap.edu.reportingapp.activities.admin.Admin_Meldingen;
 import org.ap.edu.reportingapp.adapters.Adapter_Listing;
+import org.ap.edu.reportingapp.models.Mededeling;
+import org.ap.edu.reportingapp.models.Schade;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,8 +50,9 @@ public class ListingActivity extends Activity implements Adapter_Listing.ItemCli
     //private Button btnAdmin;
     private ArrayAdapter<String> adapterLokaal, adapterVerdieping;
     private Adapter_Listing bestaandDataAdapter;
-    ArrayList<String> bestaandDataArrayList = new ArrayList<>();
-    ArrayList<String> bestaandDataIdArrayList = new ArrayList<>();
+    ArrayList<String> bestaandDataStringArrayList = new ArrayList<>();
+    ArrayList<Schade> bestaandDataArrayList = new ArrayList<>();
+    ArrayList<Mededeling> bestaandDataMededelingArrayList = new ArrayList<>();
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
@@ -78,11 +84,8 @@ public class ListingActivity extends Activity implements Adapter_Listing.ItemCli
         cmbLokaal = findViewById(R.id.cmbLokaal);
         lstBestaand = findViewById(R.id.lstBestaand);
 
-        ///btnAdmin = findViewById(R.id.btnAdmin);
-
         adapterVerdieping = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, verdiepingen);
-        //bestaandDataAdapter = new ArrayAdapter<>(ListingActivity.this, android.R.layout.simple_list_item_1, bestaandDataArrayList);
-
+        
         cmbVerdieping.setAdapter(adapterVerdieping);
         mLayoutManager = new LinearLayoutManager(this);
         lstBestaand.setLayoutManager(mLayoutManager);
@@ -102,23 +105,32 @@ public class ListingActivity extends Activity implements Adapter_Listing.ItemCli
                 verdiepingValue = cmbVerdieping.getSelectedItem().toString();
                 cmbLokaal.setEnabled(true);
 
-                if (verdiepingValue.equals("-1")) {
-                    lokalen = lokaalMin1;
-                } else if (verdiepingValue.equals("Gelijkvloers")) {
-                    lokalen = lokaalGelijkVloers;
-                } else if (verdiepingValue.equals("1ste")) {
-                    lokalen = lokaal1ste;
-                } else if (verdiepingValue.equals("2de")) {
-                    lokalen = lokaal2de;
-                } else if (verdiepingValue.equals("3de")) {
-                    lokalen = lokaal3de;
-                } else if (verdiepingValue.equals("4de")) {
-                    lokalen = lokaal4de;
-                } else if (verdiepingValue.equals("Dak")) {
-                    lokalen = lokaalDak;
-                } else {
-                    lokalen = leeg;
-                    cmbLokaal.setEnabled(false);
+                switch (verdiepingValue) {
+                    case "-1":
+                        lokalen = lokaalMin1;
+                        break;
+                    case "Gelijkvloers":
+                        lokalen = lokaalGelijkVloers;
+                        break;
+                    case "1ste":
+                        lokalen = lokaal1ste;
+                        break;
+                    case "2de":
+                        lokalen = lokaal2de;
+                        break;
+                    case "3de":
+                        lokalen = lokaal3de;
+                        break;
+                    case "4de":
+                        lokalen = lokaal4de;
+                        break;
+                    case "Dak":
+                        lokalen = lokaalDak;
+                        break;
+                    default:
+                        lokalen = leeg;
+                        cmbLokaal.setEnabled(false);
+                        break;
                 }
                 adapterLokaal = new ArrayAdapter<>(ListingActivity.this, android.R.layout.simple_spinner_dropdown_item, lokalen);
                 cmbLokaal.setAdapter(adapterLokaal);
@@ -135,10 +147,11 @@ public class ListingActivity extends Activity implements Adapter_Listing.ItemCli
             @Override
             public void onItemSelected(AdapterView<?> parent, View selectedItemView, final int position, long id) {
                 lokaalValue = cmbLokaal.getSelectedItem().toString();
-                bestaandDataIdArrayList = new ArrayList<>();
                 bestaandDataArrayList = new ArrayList<>();
+                bestaandDataStringArrayList = new ArrayList<>();
+                bestaandDataMededelingArrayList = new ArrayList<>();
 
-                bestaandDataAdapter = new Adapter_Listing(ListingActivity.this, bestaandDataArrayList);
+                bestaandDataAdapter = new Adapter_Listing(ListingActivity.this, bestaandDataStringArrayList);
                 lstBestaand.setAdapter(bestaandDataAdapter);
                 databaseReference.addChildEventListener(new ChildEventListener() {
                     @Override
@@ -146,22 +159,22 @@ public class ListingActivity extends Activity implements Adapter_Listing.ItemCli
                         for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                             if (postSnapshot.child("verdieping").getValue() != null
                                     && postSnapshot.child("lokaal").getValue() != null){
-                                String verdieping = postSnapshot.child("verdieping").getValue().toString();
-                                String lokaal = postSnapshot.child("lokaal").getValue().toString();
-                                if (verdiepingValue.equals(verdieping) && lokaalValue.equals(lokaal)) {
-                                    String categorie = postSnapshot.child("categorie").getValue().toString();
-                                    String opmerking = postSnapshot.child("opmerking").getValue().toString();
-                                    String id = postSnapshot.child("schadeId").getValue().toString();
-                                    bestaandDataIdArrayList.add(id);
-                                    bestaandDataArrayList.add(categorie + " - " + opmerking);
-                                    //bestaandDataAdapter = new Adapter_Listing(ListingActivity.this, bestaandDataArrayList);
-                                    bestaandDataAdapter.setClickListener(ListingActivity.this);
-
+                                Schade schade = postSnapshot.getValue(Schade.class);
+                                if (verdiepingValue.equals(schade.getVerdieping()) && lokaalValue.equals(schade.getLokaal())) {
+                                    bestaandDataArrayList.add(schade);
+                                    bestaandDataStringArrayList.add(schade.getCategorie() + " - " + schade.getOpmerking());
                                     }
                             }
+                            else if (postSnapshot.child("mededelingText").getValue() != null
+                                    && postSnapshot.child("dateRepaired").getValue() != null){
+                                Mededeling mededeling = postSnapshot.getValue(Mededeling.class);
+                                bestaandDataMededelingArrayList.add(mededeling);
+                            }
                         }
+                        bestaandDataAdapter.setClickListener(ListingActivity.this);
                         lstBestaand.setAdapter(bestaandDataAdapter);
                     }
+
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
@@ -180,6 +193,7 @@ public class ListingActivity extends Activity implements Adapter_Listing.ItemCli
                     }
 
                 });
+
             }
 
             @Override
@@ -208,7 +222,7 @@ public class ListingActivity extends Activity implements Adapter_Listing.ItemCli
     @Override
     public void onItemClick(View view, int position) {
         Intent intent = new Intent(ListingActivity.this, DetailsActivity.class);
-        intent.putExtra("id", bestaandDataIdArrayList.get(position));
+        intent.putExtra("id", bestaandDataArrayList.get(position).getSchadeId());
         startActivity(intent);
     }
 }

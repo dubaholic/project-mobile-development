@@ -25,6 +25,9 @@ public class Scoren {
         this.schadeId = schadeId;
     }
 
+    public Scoren() {
+    }
+
     @Override
     public String toString() {
         return "Scoren{" +

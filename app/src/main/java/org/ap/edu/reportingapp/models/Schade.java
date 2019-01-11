@@ -109,6 +109,9 @@ public class Schade {
         this.isAfgehandeld = isAfgehandeld;
     }
 
+    public Schade() {
+    }
+
     @Override
     public String toString() {
         return "Schade{" +
