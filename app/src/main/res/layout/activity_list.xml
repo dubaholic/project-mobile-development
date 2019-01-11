@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,7 +10,7 @@
         android:layout_width="300sp"
         android:layout_height="50sp"
         android:gravity="center"
-        android:text="Overzicht"
+        android:text="In behandeling"
         android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -92,7 +91,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.975" />
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/lstBestaand"
         android:layout_width="344dp"
         android:layout_height="274dp"
@@ -100,11 +99,11 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.725" />
+        app:layout_constraintVertical_bias="0.822" />
 
     <Button
         android:id="@+id/btnAdmin"
-        android:layout_width="75sp"
+        android:layout_width="70sp"
         android:layout_height="50sp"
         android:text="Admin"
         android:visibility="gone"

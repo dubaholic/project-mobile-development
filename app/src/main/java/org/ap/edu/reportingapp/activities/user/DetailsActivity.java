@@ -2,12 +2,14 @@ package org.ap.edu.reportingapp.activities.user;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +24,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import org.ap.edu.reportingapp.R;
+
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,9 +49,11 @@ public class DetailsActivity extends Activity {
     @BindView(R.id.txtViewCategorieIngevuld) TextView txtViewCategorieIngevuld;
     @BindView(R.id.txtViewOpmerkingIngevuld) TextView txtViewOpmerkingIngevuld;
     @BindView(R.id.txtViewTimeIngevuld) TextView txtViewTimeIngevuld;
-    @BindView(R.id.txtViewUrgentieValue) TextView txtUrgentieValueIngevuld;
+    @BindView(R.id.txtViewUrgentieValueIngevuld) TextView txtUrgentieValueIngevuld;
+    @BindView(R.id.txtViewIsAfgehandeldValue) TextView txtViewIsAfgehandeldValue;
     @BindView(R.id.imgMelding) ImageView imgMelding;
     @BindView(R.id.btnTerug) Button btnTerug;
+    @BindView(R.id.btnMededelingDetails) Button btnMededelingDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +69,14 @@ public class DetailsActivity extends Activity {
     @OnClick(R.id.btnTerug)
     public void submit() {
         finish();
+    }
+
+    @OnClick(R.id.btnMededelingDetails)
+    public void mededelingDetails(){
+        final String id = getIntent().getExtras().getString("id","Leeg");
+        Intent intent = new Intent(DetailsActivity.this, Mededeling_DetailsActivity.class);
+        intent.putExtra("id", id);
+        startActivity(intent);
     }
 
     private void requestStoragePermission() {
@@ -81,7 +95,8 @@ public class DetailsActivity extends Activity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    if (String.valueOf(postSnapshot.child("schadeId").getValue()) != null
+                    if (String.valueOf(postSnapshot.child("verdieping").getValue()) != null
+                            && postSnapshot.child("lokaal").getValue() != null
                             && String.valueOf(postSnapshot.child("schadeId").getValue()).equals(id)) {
                         String verdieping = postSnapshot.child("verdieping").getValue().toString();
                         String apMail = postSnapshot.child("email").getValue().toString();
@@ -89,11 +104,9 @@ public class DetailsActivity extends Activity {
                         String opmerking = postSnapshot.child("opmerking").getValue().toString();
                         String categorie = postSnapshot.child("categorie").getValue().toString();
                         int urgentie = parseInt(postSnapshot.child("urgentie").getValue().toString());
-                        String timeStampStringDag = postSnapshot.child("timeStamp/date").getValue().toString();
-                        String timeStampStringMaand = postSnapshot.child("timeStamp/month").getValue().toString();
-                        String timeStampStringUur = postSnapshot.child("timeStamp/hours").getValue().toString();
-                        String timeStampStringMinuut = postSnapshot.child("timeStamp/minutes").getValue().toString();
+                        Long timeStamp = Long.parseLong(postSnapshot.child("timeStamp").getValue().toString());
                         String fotoNaam = postSnapshot.child("fotoNaam").getValue().toString();
+                        Boolean isAfgehandeld = (Boolean) postSnapshot.child("afgehandeld").getValue();
                         Log.d("fotolog", fotoNaam);
                         //Log.d("fotoUrl", String.valueOf(storageReference.child("fotos/" + fotoNaam +".jpg").getDownloadUrl()));
 
@@ -128,11 +141,16 @@ public class DetailsActivity extends Activity {
                         txtViewCategorieIngevuld.setText(categorie);
                         txtViewOpmerkingIngevuld.setText(opmerking);
                         txtUrgentieValueIngevuld.setText(urgenties[urgentie]);
-                        txtViewTimeIngevuld.setText("Melding gemaakt op " +
-                                String.format("%02d", Integer.parseInt(timeStampStringDag)) + "/" +
-                                String.format("%02d", Integer.parseInt(timeStampStringMaand)) + " om " +
-                                String.format("%02d", Integer.parseInt(timeStampStringUur)) + ":" +
-                                String.format("%02d", Integer.parseInt(timeStampStringMinuut)));
+                        if (isAfgehandeld) {
+                            txtViewIsAfgehandeldValue.setText("Afhandeling");
+                            btnMededelingDetails.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            txtViewIsAfgehandeldValue.setText("Niet afgehandeld");
+                            btnMededelingDetails.setVisibility(View.GONE);
+                        }
+                        Date d = new Date(timeStamp);
+                        txtViewTimeIngevuld.setText("Gemaakt op " + d.toString());
                     }
                 }
             }

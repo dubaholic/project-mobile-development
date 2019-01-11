@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.ap.edu.reportingapp.activities.user.DetailsActivity">
+    tools:context="org.ap.edu.reportingapp.activities.user.Mededeling_DetailsActivity">
 
     <TextView
         android:layout_width="300sp"
         android:layout_height="50sp"
         android:gravity="center"
-        android:text="Details"
+        android:text="Afhandeling details"
         android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -20,10 +19,10 @@
         app:layout_constraintVertical_bias="0.025" />
 
     <TextView
-        android:id="@+id/txtViewApMail"
+        android:id="@+id/txtViewUitgevoerd"
         android:layout_width="130sp"
         android:layout_height="40sp"
-        android:text="AP Email"
+        android:text="Uitgevoerd"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.075"
@@ -33,10 +32,10 @@
         app:layout_constraintVertical_bias="0.150" />
 
     <TextView
-        android:id="@+id/txtViewVerdieping"
+        android:id="@+id/txtViewUitgevoerdPersoon"
         android:layout_width="130sp"
         android:layout_height="40sp"
-        android:text="Verdieping"
+        android:text="Door (persoon)"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.075"
@@ -46,10 +45,10 @@
         app:layout_constraintVertical_bias="0.250" />
 
     <TextView
-        android:id="@+id/txtViewLokaal"
+        android:id="@+id/txtViewExtraOpmerking"
         android:layout_width="130sp"
         android:layout_height="40sp"
-        android:text="Lokaal"
+        android:text="Opmerking"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.075"
@@ -58,51 +57,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.350" />
 
-    <TextView
-        android:id="@+id/txtViewCategorie"
-        android:layout_width="130sp"
-        android:layout_height="40sp"
-        android:text="Categorie"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.075"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.450" />
 
     <TextView
-        android:id="@+id/txtViewOpmerking"
-        android:layout_width="130sp"
-        android:layout_height="40sp"
-        android:textSize="24sp"
-        android:text="Opmerking"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.075"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.550" />
-    <TextView
-        android:id="@+id/txtViewUrgentieValue"
-        android:layout_width="130sp"
-        android:layout_height="40sp"
-        android:textSize="24sp"
-        android:text="Urgentie"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.075"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.650" />
-
-
-    <TextView
-        android:id="@+id/txtViewApMailIngevuld"
+        android:id="@+id/txtViewUitgevoerdIngevuld"
         android:layout_width="200sp"
         android:layout_height="40sp"
-        android:text="AP Email"
-        android:textSize="16sp"
+        android:text="Uitgevoerd"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -111,10 +72,10 @@
         app:layout_constraintVertical_bias="0.150" />
 
     <TextView
-        android:id="@+id/txtViewVerdiepingIngevuld"
+        android:id="@+id/txtViewUitgevoerdPersoonIngevuld"
         android:layout_width="200sp"
         android:layout_height="40sp"
-        android:text="Verdieping"
+        android:text="Persoon"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
@@ -124,33 +85,7 @@
         app:layout_constraintVertical_bias="0.250" />
 
     <TextView
-        android:id="@+id/txtViewLokaalIngevuld"
-        android:layout_width="200sp"
-        android:layout_height="40sp"
-        android:text="Lokaal"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.925"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.350" />
-
-    <TextView
-        android:id="@+id/txtViewCategorieIngevuld"
-        android:layout_width="200sp"
-        android:layout_height="40sp"
-        android:text="Categorie"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.925"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.450" />
-
-    <TextView
-        android:id="@+id/txtViewOpmerkingIngevuld"
+        android:id="@+id/txtViewExtraOpmerkingIngevuld"
         android:layout_width="200sp"
         android:layout_height="40sp"
         android:text="Opmerking"
@@ -160,33 +95,47 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.550" />
+        app:layout_constraintVertical_bias="0.350" />
 
     <TextView
-        android:id="@+id/txtViewUrgentieValueIngevuld"
+        android:id="@+id/txtViewDateReparatie"
+        android:layout_width="130sp"
+        android:layout_height="40sp"
+        android:text="Reparatie op"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.075"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.450" />
+
+    <TextView
+        android:id="@+id/txtViewDateReparatieIngevuld"
         android:layout_width="200sp"
         android:layout_height="40sp"
+        android:text="Reparatie op"
         android:textSize="24sp"
-        android:text="Urgentie"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.650" />
+        app:layout_constraintVertical_bias="0.450" />
 
     <TextView
-        android:id="@+id/txtViewTimeIngevuld"
+        android:id="@+id/txtViewVerlopen"
         android:layout_width="300sp"
         android:layout_height="40sp"
         android:gravity="center"
-        android:text="timeStamp"
-        android:textSize="16sp"
+        android:text="Verlopen"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.500"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.87" />
+        app:layout_constraintVertical_bias="0.550" />
 
     <Button
         android:id="@+id/btnTerug"
@@ -200,41 +149,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.975" />
-
-    <TextView
-        android:id="@+id/txtViewIsAfgehandeldValue"
-        android:layout_width="190sp"
-        android:layout_height="40sp"
-        android:text="isAfgehandeld"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.750" />
-
-    <Button
-        android:id="@+id/btnMededelingDetails"
-        android:layout_width="125dp"
-        android:layout_height="40sp"
-        android:gravity="center"
-        android:text="Bekijken"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.925"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.750"  />
-
-    <ImageView
-        android:id="@+id/imgMelding"
-        android:layout_width="fill_parent"
-        android:layout_height="200dp"
-        android:src="@mipmap/ic_launcher"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"/>
 
 </android.support.constraint.ConstraintLayout>
 

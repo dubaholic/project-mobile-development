@@ -24,8 +24,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static android.support.constraint.Constraints.TAG;
-
 public class ScoreboardActivity extends Activity {
     private ArrayList<String> scoreArrayList = new ArrayList<>();
     private HashSet<String> uniekeEmails = new HashSet<>();
