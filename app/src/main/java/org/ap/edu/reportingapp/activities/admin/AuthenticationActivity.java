@@ -21,6 +21,9 @@ import com.google.firebase.database.ValueEventListener;
 import org.ap.edu.reportingapp.R;
 import org.ap.edu.reportingapp.activities.user.ListingActivity;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by Maarten on 5/12/2018.
  */
@@ -28,23 +31,20 @@ import org.ap.edu.reportingapp.activities.user.ListingActivity;
 public class AuthenticationActivity extends Activity {
     private String apMailAuth, inputAuth, adminPassword, adminEmail;
     private Boolean isAdmin = false;
-
-    private Button btnInvoeren;
-    private EditText txtApMailAuth, input;
-    private TextView txtViewAdminPass;
+    private EditText  input;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
+    final DatabaseReference databaseReference = database.getReference();
+
+    @BindView(R.id.txtViewAdminPass) TextView txtViewAdminPass;
+    @BindView(R.id.txtApMailAuth) EditText txtApMailAuth;
+    @BindView(R.id.btnInvoeren) Button btnInvoeren;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authentication);
-
-        final DatabaseReference databaseReference = database.getReference();
-
-        txtApMailAuth = findViewById(R.id.txtApMailAuth);
-        btnInvoeren = findViewById(R.id.btnInvoeren);
-        txtViewAdminPass = findViewById(R.id.txtViewAdminPass);
+        ButterKnife.bind(this);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override

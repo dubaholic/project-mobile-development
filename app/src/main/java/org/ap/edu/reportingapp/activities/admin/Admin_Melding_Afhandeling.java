@@ -26,50 +26,49 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * Created by Maarten on 12/12/2018.
  */
 
 public class Admin_Melding_Afhandeling extends Activity {
-    private Button btnInfoMelding, btnDatumKiezen, btnVerzendenMededeling;
     private ArrayAdapter<String> adapterUitvoerenDoor;
-    private Spinner cmbUitvoeren;
     private DatePicker datePicker;
-    private TextView txtViewReparatiedatum, txtMededeling, txtUitvoerenDoor;
     private String[] uitvoerenDoor;
     private Date dateRepaired;
     private long dateRepairedLong;
     private Mededeling mededelingObject;
 
-
     private String dateText, mededeling, uitvoerenDoorNaam, uitvoerenValue;
     SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
 
     final Calendar newCalendar = Calendar.getInstance();
-
     FirebaseDatabase database = FirebaseDatabase.getInstance();
+    final DatabaseReference databaseReference = database.getReference();
+    final DatabaseReference mededelingenReference = databaseReference.child("mededelingen");
+    final DatabaseReference meldingenReference = databaseReference.child("meldingen");
+    final DatabaseReference archiveringReference = databaseReference.child("archief");
+
+    @BindView(R.id.txtViewReparatiedatum) TextView txtViewReparatiedatum;
+    @BindView(R.id.txtMededeling) TextView txtMedeling;
+    @BindView(R.id.txtUitvoerenDoor) TextView txtUitvoerenDoor;
+    @BindView(R.id.btnVerzendenMededeling) Button btnVerzendenMededeling;
+    @BindView(R.id.btnInfoMelding) Button btnInfoMelding;
+    @BindView(R.id.btnDatumKiezen) Button btnDatumKiezen;
+    @BindView(R.id.cmbUitvoeren) Spinner cmbUitvoeren;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_afhandelen);
-
-        final DatabaseReference databaseReference = database.getReference();
-        final DatabaseReference mededelingenReference = databaseReference.child("mededelingen");
-        final DatabaseReference meldingenReference = databaseReference.child("meldingen");
-        final DatabaseReference archiveringReference = databaseReference.child("archief");
+        ButterKnife.bind(this);
 
         final String id = getIntent().getExtras().getString("id", "Leeg");
 
         uitvoerenDoor = getResources().getStringArray(R.array.uitvoering);
-
-        btnInfoMelding = findViewById(R.id.btnInfoMelding);
-        btnDatumKiezen = findViewById(R.id.btnDatumKiezen);
-        btnVerzendenMededeling = findViewById(R.id.btnVerzendenMededeling);
-        cmbUitvoeren = findViewById(R.id.cmbUitvoeren);
-        txtUitvoerenDoor = findViewById(R.id.txtUitvoerenDoor);
-        txtMededeling = findViewById(R.id.txtMededeling);
-
         adapterUitvoerenDoor = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, uitvoerenDoor);
 
         cmbUitvoeren.setAdapter(adapterUitvoerenDoor);
@@ -97,7 +96,6 @@ public class Admin_Melding_Afhandeling extends Activity {
             }
         });
 
-        txtViewReparatiedatum = findViewById(R.id.txtViewReparatiedatum);
         btnInfoMelding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,7 +123,7 @@ public class Admin_Melding_Afhandeling extends Activity {
                     Toast.makeText(getApplicationContext(),"Kies de datum van reparatie",Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    mededeling = txtMededeling.getText().toString();
+                    mededeling = txtMedeling.getText().toString();
                     if (mededeling.isEmpty()){mededeling = "Geen mededeling";}
                     dateRepairedLong = dateRepaired.getTime();
                     mededelingObject = new Mededeling(id, uitvoerenDoorNaam, dateRepairedLong, mededeling, uitvoerenValue);
@@ -156,4 +154,5 @@ public class Admin_Melding_Afhandeling extends Activity {
             }
         });
     }
+
 }

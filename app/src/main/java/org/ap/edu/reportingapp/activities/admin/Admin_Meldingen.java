@@ -21,13 +21,16 @@ import org.ap.edu.reportingapp.adapters.Adapter_Admin_Meldingen;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by Maarten on 7/12/2018.
  */
 
 public class Admin_Meldingen extends Activity implements Adapter_Admin_Meldingen.ItemClickListener{
 
-    private RecyclerView lstMeldingen;
+    //private RecyclerView lstMeldingen;
     private Adapter_Admin_Meldingen bestaandDataAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
@@ -36,21 +39,23 @@ public class Admin_Meldingen extends Activity implements Adapter_Admin_Meldingen
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
+    final DatabaseReference databaseReference = database.getReference();
+    final DatabaseReference meldingenReference = databaseReference.child("meldingen");
+
+    @BindView(R.id.lstMeldingen) RecyclerView lstMeldingen;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_list);
-
-        final DatabaseReference databaseReference = database.getReference();
-        final DatabaseReference meldingenReference = databaseReference.child("meldingen");
-
-        lstMeldingen = findViewById(R.id.lstMeldingen);
-
+        ButterKnife.bind(this);
+        //lstMeldingen = findViewById(R.id.lstMeldingen);
         mLayoutManager = new LinearLayoutManager(this);
+
         lstMeldingen.setLayoutManager(mLayoutManager);
         lstMeldingen.setLayoutManager(new LinearLayoutManager(Admin_Meldingen.this));
+
         DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), LinearLayoutManager.VERTICAL  );
         lstMeldingen.addItemDecoration(decoration);
 
