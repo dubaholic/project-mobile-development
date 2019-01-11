@@ -2,13 +2,9 @@ package org.ap.edu.reportingapp.activities.admin;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -16,7 +12,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.FirebaseError;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,20 +19,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import org.ap.edu.reportingapp.R;
-import org.ap.edu.reportingapp.activities.user.Details;
-import org.ap.edu.reportingapp.activities.user.Listing;
-import org.ap.edu.reportingapp.activities.user.Start;
+import org.ap.edu.reportingapp.activities.user.DetailsActivity;
 import org.ap.edu.reportingapp.models.Mededeling;
-import org.ap.edu.reportingapp.models.Schade;
-import org.ap.edu.reportingapp.models.Scoren;
 
-import java.text.DateFormat;
-import java.text.FieldPosition;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * Created by Maarten on 12/12/2018.
@@ -91,8 +78,8 @@ public class Admin_Melding_Afhandeling extends Activity {
                 Calendar chosenDate = Calendar.getInstance();
                 chosenDate.set(year, monthOfYear, dayOfMonth);
                 if (newCalendar.before(chosenDate)) {
-                    dateText = dateFormatter.format(chosenDate.getTime());
                     dateRepaired = chosenDate.getTime();
+                    dateText = dateFormatter.format(dateRepaired);
                 }
                 else {
                     dateText = "";
@@ -114,7 +101,7 @@ public class Admin_Melding_Afhandeling extends Activity {
         btnInfoMelding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Admin_Melding_Afhandeling.this, Details.class);
+                Intent intent = new Intent(Admin_Melding_Afhandeling.this, DetailsActivity.class);
                 intent.putExtra("id", id);
                 startActivity(intent);
             }

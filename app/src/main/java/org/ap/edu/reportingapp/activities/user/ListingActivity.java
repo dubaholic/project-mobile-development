@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.google.firebase.database.ChildEventListener;
@@ -22,7 +21,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.ap.edu.reportingapp.R;
-import org.ap.edu.reportingapp.activities.admin.Admin_Melding_Afhandeling;
 import org.ap.edu.reportingapp.activities.admin.Admin_Meldingen;
 import org.ap.edu.reportingapp.adapters.Adapter_Listing;
 
@@ -36,7 +34,7 @@ import butterknife.OnClick;
  * Created by Maarten on 23/11/2018.
  */
 
-public class Listing extends Activity implements Adapter_Listing.ItemClickListener{
+public class ListingActivity extends Activity implements Adapter_Listing.ItemClickListener{
     private String[] verdiepingen, lokaalMin1, lokaalGelijkVloers, lokaal1ste, lokaal2de, lokaal3de,
             lokaal4de, lokaalDak, leeg = {""}, lokalen;
     private String verdiepingValue, lokaalValue;
@@ -83,12 +81,12 @@ public class Listing extends Activity implements Adapter_Listing.ItemClickListen
         ///btnAdmin = findViewById(R.id.btnAdmin);
 
         adapterVerdieping = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, verdiepingen);
-        //bestaandDataAdapter = new ArrayAdapter<>(Listing.this, android.R.layout.simple_list_item_1, bestaandDataArrayList);
+        //bestaandDataAdapter = new ArrayAdapter<>(ListingActivity.this, android.R.layout.simple_list_item_1, bestaandDataArrayList);
 
         cmbVerdieping.setAdapter(adapterVerdieping);
         mLayoutManager = new LinearLayoutManager(this);
         lstBestaand.setLayoutManager(mLayoutManager);
-        lstBestaand.setLayoutManager(new LinearLayoutManager(Listing.this));
+        lstBestaand.setLayoutManager(new LinearLayoutManager(ListingActivity.this));
         DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), LinearLayoutManager.VERTICAL  );
         lstBestaand.addItemDecoration(decoration);
 
@@ -122,7 +120,7 @@ public class Listing extends Activity implements Adapter_Listing.ItemClickListen
                     lokalen = leeg;
                     cmbLokaal.setEnabled(false);
                 }
-                adapterLokaal = new ArrayAdapter<>(Listing.this, android.R.layout.simple_spinner_dropdown_item, lokalen);
+                adapterLokaal = new ArrayAdapter<>(ListingActivity.this, android.R.layout.simple_spinner_dropdown_item, lokalen);
                 cmbLokaal.setAdapter(adapterLokaal);
 
             }
@@ -139,6 +137,9 @@ public class Listing extends Activity implements Adapter_Listing.ItemClickListen
                 lokaalValue = cmbLokaal.getSelectedItem().toString();
                 bestaandDataIdArrayList = new ArrayList<>();
                 bestaandDataArrayList = new ArrayList<>();
+
+                bestaandDataAdapter = new Adapter_Listing(ListingActivity.this, bestaandDataArrayList);
+                lstBestaand.setAdapter(bestaandDataAdapter);
                 databaseReference.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
@@ -153,13 +154,13 @@ public class Listing extends Activity implements Adapter_Listing.ItemClickListen
                                     String id = postSnapshot.child("schadeId").getValue().toString();
                                     bestaandDataIdArrayList.add(id);
                                     bestaandDataArrayList.add(categorie + " - " + opmerking);
-                                    bestaandDataAdapter = new Adapter_Listing(Listing.this, bestaandDataArrayList);
-                                    bestaandDataAdapter.setClickListener(Listing.this);
-                                    lstBestaand.setAdapter(bestaandDataAdapter);
+                                    //bestaandDataAdapter = new Adapter_Listing(ListingActivity.this, bestaandDataArrayList);
+                                    bestaandDataAdapter.setClickListener(ListingActivity.this);
+
                                     }
                             }
                         }
-
+                        lstBestaand.setAdapter(bestaandDataAdapter);
                     }
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -191,22 +192,22 @@ public class Listing extends Activity implements Adapter_Listing.ItemClickListen
 
     @OnClick(R.id.btnNieuw)
     public void submit(){
-        startActivity(new Intent(Listing.this, Start.class));
+        startActivity(new Intent(ListingActivity.this, SubmitActivity.class));
     }
 
     @OnClick(R.id.btnScoreBoard)
     public  void showScoreboard() {
-        startActivity(new Intent(Listing.this, Scoreboard.class));
+        startActivity(new Intent(ListingActivity.this, ScoreboardActivity.class));
     }
 
     @OnClick(R.id.btnAdmin)
     public void showAdminButton(){
-        startActivity(new Intent(Listing.this, Admin_Meldingen.class));
+        startActivity(new Intent(ListingActivity.this, Admin_Meldingen.class));
     }
 
     @Override
     public void onItemClick(View view, int position) {
-        Intent intent = new Intent(Listing.this, Details.class);
+        Intent intent = new Intent(ListingActivity.this, DetailsActivity.class);
         intent.putExtra("id", bestaandDataIdArrayList.get(position));
         startActivity(intent);
     }

@@ -17,7 +17,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.ap.edu.reportingapp.R;
-import org.ap.edu.reportingapp.activities.user.Details;
 import org.ap.edu.reportingapp.adapters.Adapter_Admin_Meldingen;
 
 import java.util.ArrayList;
