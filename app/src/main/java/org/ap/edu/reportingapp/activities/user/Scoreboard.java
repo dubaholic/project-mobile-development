@@ -13,6 +13,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.ap.edu.reportingapp.R;
 
@@ -23,6 +25,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static android.support.constraint.Constraints.TAG;
+
 public class Scoreboard extends Activity {
     private ArrayList<String> scoreArrayList = new ArrayList<>();
     private HashSet<String> uniekeEmails = new HashSet<>();
@@ -31,6 +35,8 @@ public class Scoreboard extends Activity {
     final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     final DatabaseReference scoresReference = databaseReference.child("scores");
 
+    final DatabaseReference fcmReference = databaseReference.child("fcm-token");
+
     @BindView(R.id.lstScores) ListView lstScores;
 
     @Override
@@ -38,7 +44,14 @@ public class Scoreboard extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard);
         ButterKnife.bind(this);
+        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        Log.d(TAG, "FCM token: " + refreshedToken);
         getScoreboard();
+
+        }
+
+    public void update(String token) {
+        scoresReference.setValue(token);
     }
 
     @OnClick(R.id.btnTerug)

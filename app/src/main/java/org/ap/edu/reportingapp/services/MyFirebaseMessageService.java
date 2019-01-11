@@ -21,14 +21,14 @@ public class MyFirebaseMessageService extends FirebaseMessagingService  {
 
     @Override
     public void onMessageReceived(RemoteMessage remotemsg) {
-        Intent intent = new Intent(this, Start.class);
+        Intent intent = new Intent(this, Listing.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_ONE_SHOT);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this);
-        notificationBuilder.setContentTitle("FCM NOTIFICATION");
+        notificationBuilder.setContentTitle("AP rapportering app");
         notificationBuilder.setContentText(remotemsg.getNotification().getBody());
         notificationBuilder.setAutoCancel(true);
-        notificationBuilder.setSmallIcon(R.drawable.ic_notification);
+        notificationBuilder.setSmallIcon(R.mipmap.ic_launcher);
         notificationBuilder.setContentIntent(pendingIntent);
         NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0, notificationBuilder.build());
