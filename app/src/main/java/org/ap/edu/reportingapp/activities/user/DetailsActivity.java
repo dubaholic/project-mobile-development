@@ -3,7 +3,6 @@ package org.ap.edu.reportingapp.activities.user;
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -14,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,11 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
 
 import org.ap.edu.reportingapp.R;
-
-import java.net.URL;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,7 +33,7 @@ import static java.lang.Integer.parseInt;
  * Created by Maarten on 30/11/2018.
  */
 
-public class Details extends Activity {
+public class DetailsActivity extends Activity {
     private String[] urgenties;
     private static final int MY_PERMISSIONS_REQUEST = 100;
     final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -71,10 +66,10 @@ public class Details extends Activity {
     }
 
     private void requestStoragePermission() {
-        if (ContextCompat.checkSelfPermission(Details.this,
+        if (ContextCompat.checkSelfPermission(DetailsActivity.this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(Details.this,
+            ActivityCompat.requestPermissions(DetailsActivity.this,
                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     MY_PERMISSIONS_REQUEST);
         }
@@ -102,13 +97,13 @@ public class Details extends Activity {
                         Log.d("fotolog", fotoNaam);
                         //Log.d("fotoUrl", String.valueOf(storageReference.child("fotos/" + fotoNaam +".jpg").getDownloadUrl()));
 
-                        /* Picasso.with(Details.this)
+                        /* Picasso.with(DetailsActivity.this)
                                 .load(storageReference.child("fotos/"+fotoNaam+".jpg").getDownloadUrl().toString())
                                 .into(imgMelding); */
 
                         String downloadUrl = storageReference.child("fotos/"+fotoNaam+".jpg").getDownloadUrl().toString();
                         Log.d("fotoUrl", downloadUrl);
-                        Glide.with(Details.this)
+                        Glide.with(DetailsActivity.this)
                                 .load(downloadUrl)
                                 .into(imgMelding);
 
@@ -116,7 +111,7 @@ public class Details extends Activity {
                             @Override
                             public void onSuccess(Uri uri) {
                                 Log.d("fotoLog", "de foto is succesvol ingeladen");
-                                Glide.with(Details.this)
+                                Glide.with(DetailsActivity.this)
                                         .load(storageReference.child("fotos/"+fotoNaam+".jpg").getStream())
                                         .fitCenter()
                                         .into(imgMelding);

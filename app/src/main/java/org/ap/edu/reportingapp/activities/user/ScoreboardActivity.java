@@ -14,7 +14,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.ap.edu.reportingapp.R;
 
@@ -27,7 +26,7 @@ import butterknife.OnClick;
 
 import static android.support.constraint.Constraints.TAG;
 
-public class Scoreboard extends Activity {
+public class ScoreboardActivity extends Activity {
     private ArrayList<String> scoreArrayList = new ArrayList<>();
     private HashSet<String> uniekeEmails = new HashSet<>();
     private ArrayAdapter<String> scoresAadapter;
@@ -60,7 +59,7 @@ public class Scoreboard extends Activity {
     }
 
     private void getScoreboard() {
-        scoresAadapter = new ArrayAdapter<>(Scoreboard.this, android.R.layout.simple_list_item_1, scoreArrayList );
+        scoresAadapter = new ArrayAdapter<>(ScoreboardActivity.this, android.R.layout.simple_list_item_1, scoreArrayList );
         scoresReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {

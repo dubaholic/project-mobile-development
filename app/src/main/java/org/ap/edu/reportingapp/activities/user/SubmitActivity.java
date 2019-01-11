@@ -1,9 +1,7 @@
 package org.ap.edu.reportingapp.activities.user;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -16,7 +14,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -46,10 +43,9 @@ import org.ap.edu.reportingapp.models.Scoren;
 import butterknife.ButterKnife;
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.OnItemSelected;
 
 
-public class Start extends Activity {
+public class SubmitActivity extends Activity {
     private String[] verdiepingen, lokaalMin1, lokaalGelijkVloers, lokaal1ste, lokaal2de, lokaal3de,
             lokaal4de, lokaalDak, leeg = {""},  lokalen, categorie, urgenties;
     private String verdiepingValue, lokaalValue, categorieValue, urgentieColorString = "#FFA500",
@@ -89,7 +85,7 @@ public class Start extends Activity {
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start);
+        setContentView(R.layout.activity_submit);
         ButterKnife.bind(this);
         fillDatabase();
     }
@@ -313,7 +309,7 @@ public class Start extends Activity {
                         cmbLokaal.setEnabled(false);
                         break;
                 }
-                adapterLokaal = new ArrayAdapter<>(Start.this, android.R.layout.simple_spinner_dropdown_item, lokalen);
+                adapterLokaal = new ArrayAdapter<>(SubmitActivity.this, android.R.layout.simple_spinner_dropdown_item, lokalen);
                 cmbLokaal.setAdapter(adapterLokaal);
             }
 

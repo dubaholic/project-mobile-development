@@ -24,17 +24,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name="org.ap.edu.reportingapp.activities.admin.Authentication">
+        <activity android:name="org.ap.edu.reportingapp.activities.admin.AuthenticationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="org.ap.edu.reportingapp.activities.user.Start"></activity>
-        <activity android:name="org.ap.edu.reportingapp.activities.user.Details">
+        <activity android:name="org.ap.edu.reportingapp.activities.user.SubmitActivity"></activity>
+        <activity android:name="org.ap.edu.reportingapp.activities.user.DetailsActivity">
         </activity>
-        <activity android:name=".activities.user.Listing"></activity>
+        <activity android:name=".activities.user.ListingActivity"></activity>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -45,7 +45,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".activities.user.Scoreboard"></activity>
+        <activity android:name=".activities.user.ScoreboardActivity"></activity>
 
         <service android:name=".services.MyFirebaseInstanceIdService">
             <intent-filter>

@@ -30,7 +30,7 @@ import butterknife.OnClick;
  * Created by Maarten on 23/11/2018.
  */
 
-public class Listing extends Activity {
+public class ListingActivity extends Activity {
     private String[] verdiepingen, lokaalMin1, lokaalGelijkVloers, lokaal1ste, lokaal2de, lokaal3de,
             lokaal4de, lokaalDak, leeg = {""}, lokalen;
     private String verdiepingValue, lokaalValue;
@@ -75,7 +75,7 @@ public class Listing extends Activity {
         ///btnAdmin = findViewById(R.id.btnAdmin);
 
         adapterVerdieping = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, verdiepingen);
-        bestaandDataAdapter = new ArrayAdapter<>(Listing.this, android.R.layout.simple_list_item_1, bestaandDataArrayList);
+        bestaandDataAdapter = new ArrayAdapter<>(ListingActivity.this, android.R.layout.simple_list_item_1, bestaandDataArrayList);
 
         cmbVerdieping.setAdapter(adapterVerdieping);
         lstBestaand.setAdapter(bestaandDataAdapter);
@@ -108,7 +108,7 @@ public class Listing extends Activity {
                     lokalen = leeg;
                     cmbLokaal.setEnabled(false);
                 }
-                adapterLokaal = new ArrayAdapter<>(Listing.this, android.R.layout.simple_spinner_dropdown_item, lokalen);
+                adapterLokaal = new ArrayAdapter<>(ListingActivity.this, android.R.layout.simple_spinner_dropdown_item, lokalen);
                 cmbLokaal.setAdapter(adapterLokaal);
 
             }
@@ -174,7 +174,7 @@ public class Listing extends Activity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(Listing.this, Details.class);
+                Intent intent = new Intent(ListingActivity.this, DetailsActivity.class);
                 intent.putExtra("id", bestaandDataIdArrayList.get(position));
                 startActivity(intent);
             }
@@ -184,12 +184,12 @@ public class Listing extends Activity {
 
     @OnClick(R.id.btnNieuw)
     public void submit(){
-        startActivity(new Intent(Listing.this, Start.class));
+        startActivity(new Intent(ListingActivity.this, SubmitActivity.class));
     }
 
     @OnClick(R.id.btnScoreBoard)
     public  void showScoreboard() {
-        startActivity(new Intent(Listing.this, Scoreboard.class));
+        startActivity(new Intent(ListingActivity.this, ScoreboardActivity.class));
     }
 
     /*@OnClick(R.id.btnAdmin)
