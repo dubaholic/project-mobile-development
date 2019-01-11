@@ -19,13 +19,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import org.ap.edu.reportingapp.R;
-import org.ap.edu.reportingapp.activities.user.Listing;
+import org.ap.edu.reportingapp.activities.user.ListingActivity;
 
 /**
  * Created by Maarten on 5/12/2018.
  */
 
-public class Authentication extends Activity {
+public class AuthenticationActivity extends Activity {
     private String apMailAuth, inputAuth, adminPassword, adminEmail;
     private Boolean isAdmin = false;
 
@@ -60,7 +60,7 @@ public class Authentication extends Activity {
         btnInvoeren.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Intent intent = new Intent(Authentication.this, Listing.class);
+                final Intent intent = new Intent(AuthenticationActivity.this, ListingActivity.class);
                 apMailAuth = txtApMailAuth.getText().toString();
                 if (apMailAuth.isEmpty()){
                     Toast.makeText(getApplicationContext(),"Vul je AP email adres in",Toast.LENGTH_SHORT).show();
@@ -69,9 +69,9 @@ public class Authentication extends Activity {
                     Toast.makeText(getApplicationContext(),"Geef een geldig AP email adres op",Toast.LENGTH_SHORT).show();
                 }
                 else if (apMailAuth.equals(adminEmail)){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(Authentication.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(AuthenticationActivity.this);
                     builder.setTitle("Admin paswoord");
-                    input = new EditText(Authentication.this);
+                    input = new EditText(AuthenticationActivity.this);
                     input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                     builder.setView(input);
 

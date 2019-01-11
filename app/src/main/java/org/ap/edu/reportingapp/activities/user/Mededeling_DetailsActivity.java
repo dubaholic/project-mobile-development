@@ -33,7 +33,7 @@ import static java.lang.Integer.parseInt;
  * Created by Maarten on 9/01/2019.
  */
 
-public class Mededeling_Details extends Activity {
+public class Mededeling_DetailsActivity extends Activity {
 
     final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 

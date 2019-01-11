@@ -23,7 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class Scoreboard extends Activity {
+public class ScoreboardActivity extends Activity {
     private ArrayList<String> scoreArrayList = new ArrayList<>();
     private HashSet<String> uniekeEmails = new HashSet<>();
     private ArrayAdapter<String> scoresAadapter;
@@ -47,7 +47,7 @@ public class Scoreboard extends Activity {
     }
 
     private void getScoreboard() {
-        scoresAadapter = new ArrayAdapter<>(Scoreboard.this, android.R.layout.simple_list_item_1, scoreArrayList );
+        scoresAadapter = new ArrayAdapter<>(ScoreboardActivity.this, android.R.layout.simple_list_item_1, scoreArrayList );
         scoresReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
