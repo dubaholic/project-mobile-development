@@ -1,47 +1,33 @@
 package org.ap.edu.reportingapp.activities.user;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import org.ap.edu.reportingapp.R;
+import org.ap.edu.reportingapp.models.Schade;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static java.lang.Integer.parseInt;
-
-/**
- * Created by Maarten on 30/11/2018.
- */
-
 public class DetailsActivity extends Activity {
     private String[] urgenties;
-    private static final int MY_PERMISSIONS_REQUEST = 100;
     final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    final StorageReference storageReference = FirebaseStorage.getInstance().getReference();
 
     @BindView(R.id.txtViewApMailIngevuld) TextView txtViewApMailIngevuld;
     @BindView(R.id.txtViewVerdiepingIngevuld) TextView txtViewVerdiepingIngevuld;
@@ -51,7 +37,6 @@ public class DetailsActivity extends Activity {
     @BindView(R.id.txtViewTimeIngevuld) TextView txtViewTimeIngevuld;
     @BindView(R.id.txtViewUrgentieValueIngevuld) TextView txtUrgentieValueIngevuld;
     @BindView(R.id.txtViewIsAfgehandeldValue) TextView txtViewIsAfgehandeldValue;
-    @BindView(R.id.imgMelding) ImageView imgMelding;
     @BindView(R.id.btnTerug) Button btnTerug;
     @BindView(R.id.btnMededelingDetails) Button btnMededelingDetails;
 
@@ -59,10 +44,8 @@ public class DetailsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
-        //final String id = getIntent().getExtras().getString("id","Leeg");
         ButterKnife.bind(this);
         urgenties = getResources().getStringArray(R.array.urgenties);
-        requestStoragePermission();
         getDetails();
     }
 
@@ -79,16 +62,6 @@ public class DetailsActivity extends Activity {
         startActivity(intent);
     }
 
-    private void requestStoragePermission() {
-        if (ContextCompat.checkSelfPermission(DetailsActivity.this,
-                Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(DetailsActivity.this,
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                    MY_PERMISSIONS_REQUEST);
-        }
-    }
-
     private void getDetails() {
         final String id = getIntent().getExtras().getString("id","Leeg");
         databaseReference.addChildEventListener(new ChildEventListener() {
@@ -98,29 +71,20 @@ public class DetailsActivity extends Activity {
                     if (String.valueOf(postSnapshot.child("verdieping").getValue()) != null
                             && postSnapshot.child("lokaal").getValue() != null
                             && String.valueOf(postSnapshot.child("schadeId").getValue()).equals(id)) {
-                        String verdieping = postSnapshot.child("verdieping").getValue().toString();
-                        String apMail = postSnapshot.child("email").getValue().toString();
-                        String lokaal = postSnapshot.child("lokaal").getValue().toString();
-                        String opmerking = postSnapshot.child("opmerking").getValue().toString();
-                        String categorie = postSnapshot.child("categorie").getValue().toString();
-                        int urgentie = parseInt(postSnapshot.child("urgentie").getValue().toString());
-                        Long timeStamp = Long.parseLong(postSnapshot.child("timeStamp").getValue().toString());
-                        String fotoNaam = postSnapshot.child("fotoNaam").getValue().toString();
+                        Schade schade = postSnapshot.getValue(Schade.class);
+                        Date schadeTimeStamp = new Date(schade.getTimeStamp());
+                        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                        String schadeTimeStampFormatted = formatter.format(schadeTimeStamp);
+
+                        txtViewApMailIngevuld.setText(schade.getEmail());
+                        txtViewVerdiepingIngevuld.setText(schade.getVerdieping());
+                        txtViewLokaalIngevuld.setText(schade.getLokaal());
+                        txtViewCategorieIngevuld.setText(schade.getCategorie());
+                        txtViewOpmerkingIngevuld.setText(schade.getOpmerking());
+                        txtUrgentieValueIngevuld.setText(urgenties[schade.getUrgentie()]);
+                        txtViewTimeIngevuld.setText("Gemaakt op " + schadeTimeStampFormatted);
+
                         Boolean isAfgehandeld = (Boolean) postSnapshot.child("afgehandeld").getValue();
-
-                        Log.d("fotolog", fotoNaam);
-                        String downloadUrl = storageReference.child("fotos/"+fotoNaam+".jpg").getDownloadUrl().toString();
-                        Log.d("fotoUrl", downloadUrl);
-                        Glide.with(DetailsActivity.this)
-                                .load(downloadUrl)
-                                .into(imgMelding);
-
-                        txtViewApMailIngevuld.setText(apMail);
-                        txtViewVerdiepingIngevuld.setText(verdieping);
-                        txtViewLokaalIngevuld.setText(lokaal);
-                        txtViewCategorieIngevuld.setText(categorie);
-                        txtViewOpmerkingIngevuld.setText(opmerking);
-                        txtUrgentieValueIngevuld.setText(urgenties[urgentie]);
                         if (isAfgehandeld) {
                             txtViewIsAfgehandeldValue.setText("Afhandeling");
                             btnMededelingDetails.setVisibility(View.VISIBLE);
@@ -129,8 +93,6 @@ public class DetailsActivity extends Activity {
                             txtViewIsAfgehandeldValue.setText("Niet afgehandeld");
                             btnMededelingDetails.setVisibility(View.GONE);
                         }
-                        Date d = new Date(timeStamp);
-                        txtViewTimeIngevuld.setText("Gemaakt op " + d.toString());
                     }
                 }
             }

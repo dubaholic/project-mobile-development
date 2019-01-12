@@ -11,15 +11,11 @@ import org.ap.edu.reportingapp.R;
 
 import java.util.List;
 
-/**
- * Created by Maarten on 7/12/2018.
- */
-
 public class Adapter_Admin_Meldingen extends RecyclerView.Adapter<Adapter_Admin_Meldingen.ViewHolder> {
-    List<String> mData;
-    LayoutInflater mInflater;
+    private List<String> mData;
+    private LayoutInflater mInflater;
 
-    ItemClickListener mClickListener;
+    private ItemClickListener mClickListener;
 
     // data is passed into the constructor
     public Adapter_Admin_Meldingen(Context context, List<String> data) {
@@ -45,11 +41,6 @@ public class Adapter_Admin_Meldingen extends RecyclerView.Adapter<Adapter_Admin_
     @Override
     public int getItemCount() {
         return mData.size();
-    }
-
-    // convenience method for getting data at click position
-    String getItem(int id) {
-        return mData.get(id);
     }
 
     // allows clicks events to be caught

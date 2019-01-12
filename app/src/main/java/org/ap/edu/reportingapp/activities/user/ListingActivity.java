@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,7 +19,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.ap.edu.reportingapp.R;
 import org.ap.edu.reportingapp.activities.admin.Admin_Meldingen;
@@ -29,26 +27,26 @@ import org.ap.edu.reportingapp.models.Mededeling;
 import org.ap.edu.reportingapp.models.Schade;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by Maarten on 23/11/2018.
- */
-
 public class ListingActivity extends Activity implements Adapter_Listing.ItemClickListener{
-    private String[] verdiepingen, lokaalMin1, lokaalGelijkVloers, lokaal1ste, lokaal2de, lokaal3de,
-            lokaal4de, lokaalDak, leeg = {""}, lokalen;
+    private String[] lokaalMin1;
+    private String[] lokaalGelijkVloers;
+    private String[] lokaal1ste;
+    private String[] lokaal2de;
+    private String[] lokaal3de;
+    private String[] lokaal4de;
+    private String[] lokaalDak;
+    private String[] leeg = {""};
+    private String[] lokalen;
     private String verdiepingValue, lokaalValue;
 
     private RecyclerView lstBestaand;
     private Spinner cmbLokaal, cmbVerdieping;
-    private RecyclerView.LayoutManager mLayoutManager;
-    //private Button btnAdmin;
-    private ArrayAdapter<String> adapterLokaal, adapterVerdieping;
+    private ArrayAdapter<String> adapterLokaal;
     private Adapter_Listing bestaandDataAdapter;
     ArrayList<String> bestaandDataStringArrayList = new ArrayList<>();
     ArrayList<Schade> bestaandDataArrayList = new ArrayList<>();
@@ -63,15 +61,10 @@ public class ListingActivity extends Activity implements Adapter_Listing.ItemCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         ButterKnife.bind(this);
-        //FirebaseDatabase.getInstance().setPersistenceEnabled(false);
         final DatabaseReference databaseReference = database.getReference();
-        final DatabaseReference meldingenReference = databaseReference.child("meldingen");
         final Boolean isAdmin = getIntent().getExtras().getBoolean("isAdmin",false);
-        //final String apMailAuth = getIntent().getExtras().getString("apMailAuth","Leeg");
 
-        //final Boolean isAdmin = getIntent().getExtras().getBoolean("isAdmin",false);
-
-        verdiepingen = getResources().getStringArray(R.array.verdiepingen);
+        String[] verdiepingen = getResources().getStringArray(R.array.verdiepingen);
         lokaalMin1 = getResources().getStringArray(R.array.lokaalMin1);
         lokaalGelijkVloers = getResources().getStringArray(R.array.lokaalGelijkVloers);
         lokaal1ste = getResources().getStringArray(R.array.lokaal1ste);
@@ -84,10 +77,10 @@ public class ListingActivity extends Activity implements Adapter_Listing.ItemCli
         cmbLokaal = findViewById(R.id.cmbLokaal);
         lstBestaand = findViewById(R.id.lstBestaand);
 
-        adapterVerdieping = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, verdiepingen);
-        
+        ArrayAdapter<String> adapterVerdieping = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, verdiepingen);
+
         cmbVerdieping.setAdapter(adapterVerdieping);
-        mLayoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         lstBestaand.setLayoutManager(mLayoutManager);
         lstBestaand.setLayoutManager(new LinearLayoutManager(ListingActivity.this));
         DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), LinearLayoutManager.VERTICAL  );
@@ -134,7 +127,6 @@ public class ListingActivity extends Activity implements Adapter_Listing.ItemCli
                 }
                 adapterLokaal = new ArrayAdapter<>(ListingActivity.this, android.R.layout.simple_spinner_dropdown_item, lokalen);
                 cmbLokaal.setAdapter(adapterLokaal);
-
             }
 
             @Override
@@ -191,9 +183,7 @@ public class ListingActivity extends Activity implements Adapter_Listing.ItemCli
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
                     }
-
                 });
-
             }
 
             @Override

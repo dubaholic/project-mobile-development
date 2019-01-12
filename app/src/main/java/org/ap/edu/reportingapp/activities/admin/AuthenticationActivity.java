@@ -24,13 +24,8 @@ import org.ap.edu.reportingapp.activities.user.ListingActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by Maarten on 5/12/2018.
- */
-
 public class AuthenticationActivity extends Activity {
     private String apMailAuth, inputAuth, adminPassword, adminEmail;
-    private Boolean isAdmin = false;
     private EditText  input;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -80,8 +75,7 @@ public class AuthenticationActivity extends Activity {
                         public void onClick(DialogInterface dialog, int which) {
                             inputAuth = input.getText().toString();
                             if (inputAuth.equals(adminPassword)){
-                                isAdmin = true;
-                                intent.putExtra("isAdmin", isAdmin);
+                                intent.putExtra("isAdmin", true);
                                 intent.putExtra("apMailAuth", apMailAuth);
                                 startActivity(intent);
                                 Toast.makeText(getApplicationContext(), "Ingelogd als admin", Toast.LENGTH_SHORT).show();
@@ -101,7 +95,7 @@ public class AuthenticationActivity extends Activity {
                     builder.show();
                 }
                 else {
-                    intent.putExtra("isAdmin", isAdmin);
+                    intent.putExtra("isAdmin", false);
                     intent.putExtra("apMailAuth", apMailAuth);
                     startActivity(intent);
                     Toast.makeText(getApplicationContext(), "Ingelogd met " + apMailAuth, Toast.LENGTH_SHORT).show();

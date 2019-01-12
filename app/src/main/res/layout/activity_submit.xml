@@ -114,8 +114,8 @@
 
     <Spinner
         android:id="@+id/cmbVerdieping"
-        android:layout_width="190sp"
-        android:layout_height="40sp"
+        android:layout_width="190dp"
+        android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -125,8 +125,8 @@
 
     <Spinner
         android:id="@+id/cmbLokaal"
-        android:layout_width="190sp"
-        android:layout_height="40sp"
+        android:layout_width="190dp"
+        android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -136,8 +136,8 @@
 
     <Spinner
         android:id="@+id/cmbCategorie"
-        android:layout_width="190sp"
-        android:layout_height="40sp"
+        android:layout_width="190dp"
+        android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -147,8 +147,8 @@
 
     <Button
         android:id="@+id/btnFoto"
-        android:layout_width="80sp"
-        android:layout_height="40sp"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
         android:text="Kiezen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
@@ -159,8 +159,8 @@
 
     <Button
         android:id="@+id/btnFotoMaken"
-        android:layout_width="80sp"
-        android:layout_height="40sp"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
         android:text="Maken"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.650"
@@ -200,8 +200,8 @@
 
     <SeekBar
         android:id="@+id/sldUrgentie"
-        android:layout_width="300sp"
-        android:layout_height="40sp"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
         android:max="4"
         android:progress="2"
         android:thumbTint="#808080"
@@ -228,21 +228,34 @@
 
     <Button
         android:id="@+id/btnVerzenden"
-        android:layout_width="300sp"
-        android:layout_height="50sp"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
         android:gravity="center"
         android:text="Verzenden"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.500"
+        app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.975" />
 
+    <Button
+        android:id="@+id/btnTerug"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="Terug"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.075"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.975"  />
+
     <ImageView
         android:id="@+id/imgThumbnail"
-        android:layout_width="35sp"
-        android:layout_height="35sp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.425"
         app:layout_constraintLeft_toLeftOf="parent"

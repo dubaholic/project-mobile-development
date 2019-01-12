@@ -87,7 +87,6 @@ public class ScoreboardActivity extends Activity {
                         }
                     }
                     else if(apMail.contains("@student.ap.be")) {
-                        apMail.replace("@student.ap.be", "");
                         String cleanMail = apMail.replace("@student.ap.be", "");
                         score++;
                         Log.d("cleanmail", cleanMail);

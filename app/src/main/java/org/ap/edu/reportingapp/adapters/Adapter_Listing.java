@@ -11,15 +11,11 @@ import org.ap.edu.reportingapp.R;
 
 import java.util.List;
 
-/**
- * Created by Maarten on 30/12/2018.
- */
-
 public class Adapter_Listing extends RecyclerView.Adapter<Adapter_Listing.ViewHolder> {
-    List<String> mData;
-    LayoutInflater mInflater;
+    private List<String> mData;
+    private LayoutInflater mInflater;
 
-    ItemClickListener mClickListener;
+    private ItemClickListener mClickListener;
 
     // data is passed into the constructor
     public Adapter_Listing(Context context, List<String> data) {
@@ -45,11 +41,6 @@ public class Adapter_Listing extends RecyclerView.Adapter<Adapter_Listing.ViewHo
     @Override
     public int getItemCount() {
         return mData.size();
-    }
-
-    // convenience method for getting data at click position
-    String getItem(int id) {
-        return mData.get(id);
     }
 
     // allows clicks events to be caught

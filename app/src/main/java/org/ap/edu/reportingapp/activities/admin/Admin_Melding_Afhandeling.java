@@ -30,14 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by Maarten on 12/12/2018.
- */
-
 public class Admin_Melding_Afhandeling extends Activity {
-    private ArrayAdapter<String> adapterUitvoerenDoor;
-    private DatePicker datePicker;
-    private String[] uitvoerenDoor;
     private Date dateRepaired;
     private long dateRepairedLong;
     private Mededeling mededelingObject;
@@ -68,8 +61,8 @@ public class Admin_Melding_Afhandeling extends Activity {
 
         final String id = getIntent().getExtras().getString("id", "Leeg");
 
-        uitvoerenDoor = getResources().getStringArray(R.array.uitvoering);
-        adapterUitvoerenDoor = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, uitvoerenDoor);
+        String[] uitvoerenDoor = getResources().getStringArray(R.array.uitvoering);
+        ArrayAdapter<String> adapterUitvoerenDoor = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, uitvoerenDoor);
 
         cmbUitvoeren.setAdapter(adapterUitvoerenDoor);
         final DatePickerDialog  StartTime = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
@@ -138,6 +131,11 @@ public class Admin_Melding_Afhandeling extends Activity {
             }
         });
     }
+    @OnClick(R.id.btnTerug)
+    public void submit() {
+        finish();
+    }
+
     private void moveMelding(final DatabaseReference fromPath, final DatabaseReference toPath) {
         fromPath.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

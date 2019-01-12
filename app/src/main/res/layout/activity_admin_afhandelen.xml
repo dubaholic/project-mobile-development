@@ -19,8 +19,8 @@
 
     <Button
         android:id="@+id/btnInfoMelding"
-        android:layout_width="300sp"
-        android:layout_height="50sp"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
         android:gravity="center"
         android:text="Meer informatie"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -59,8 +59,8 @@
 
     <Button
         android:id="@+id/btnDatumKiezen"
-        android:layout_width="150sp"
-        android:layout_height="40sp"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
         android:gravity="center"
         android:text="Kiezen"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -112,8 +112,8 @@
 
     <Spinner
         android:id="@+id/cmbUitvoeren"
-        android:layout_width="190sp"
-        android:layout_height="40sp"
+        android:layout_width="190dp"
+        android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -150,15 +150,28 @@
 
     <Button
         android:id="@+id/btnVerzendenMededeling"
-        android:layout_width="300sp"
-        android:layout_height="50sp"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
         android:gravity="center"
         android:text="Verzenden"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.500"
+        app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.975" />
+        app:layout_constraintVertical_bias="0.975"  />
+
+    <Button
+        android:id="@+id/btnTerug"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="Terug"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.075"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.975"  />
 
 </android.support.constraint.ConstraintLayout>

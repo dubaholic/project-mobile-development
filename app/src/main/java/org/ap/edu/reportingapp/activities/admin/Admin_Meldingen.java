@@ -23,16 +23,12 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-/**
- * Created by Maarten on 7/12/2018.
- */
 
 public class Admin_Meldingen extends Activity implements Adapter_Admin_Meldingen.ItemClickListener{
 
-    //private RecyclerView lstMeldingen;
     private Adapter_Admin_Meldingen bestaandDataAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
 
     ArrayList<String> bestaandDataArrayList = new ArrayList<>();
     ArrayList<String> bestaandDataIdArrayList = new ArrayList<>();
@@ -40,7 +36,6 @@ public class Admin_Meldingen extends Activity implements Adapter_Admin_Meldingen
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     final DatabaseReference databaseReference = database.getReference();
-    final DatabaseReference meldingenReference = databaseReference.child("meldingen");
 
     @BindView(R.id.lstMeldingen) RecyclerView lstMeldingen;
 
@@ -50,8 +45,7 @@ public class Admin_Meldingen extends Activity implements Adapter_Admin_Meldingen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_list);
         ButterKnife.bind(this);
-        //lstMeldingen = findViewById(R.id.lstMeldingen);
-        mLayoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
 
         lstMeldingen.setLayoutManager(mLayoutManager);
         lstMeldingen.setLayoutManager(new LinearLayoutManager(Admin_Meldingen.this));
@@ -100,6 +94,12 @@ public class Admin_Meldingen extends Activity implements Adapter_Admin_Meldingen
         });
 
     }
+
+    @OnClick(R.id.btnTerug)
+    public void submit() {
+        finish();
+    }
+
     @Override
     public void onItemClick(View view, int position) {
         Intent intent = new Intent(Admin_Meldingen.this, Admin_Melding_Afhandeling.class);

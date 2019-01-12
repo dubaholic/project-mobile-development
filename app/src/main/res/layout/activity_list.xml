@@ -46,8 +46,8 @@
 
     <Spinner
         android:id="@+id/cmbVerdieping"
-        android:layout_width="160sp"
-        android:layout_height="40sp"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -57,8 +57,8 @@
 
     <Spinner
         android:id="@+id/cmbLokaal"
-        android:layout_width="160sp"
-        android:layout_height="40sp"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -68,20 +68,20 @@
 
     <Button
         android:id="@+id/btnScoreBoard"
-        android:layout_width="160sp"
-        android:layout_height="40sp"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
         android:text="Scoreboard"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.089"
+        app:layout_constraintHorizontal_bias="0.075"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.974" />
+        app:layout_constraintVertical_bias="0.975" />
 
     <Button
         android:id="@+id/btnNieuw"
-        android:layout_width="160sp"
-        android:layout_height="40sp"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
         android:layout_marginBottom="2dp"
         android:text="Nieuwe melding"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -94,17 +94,17 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/lstBestaand"
         android:layout_width="344dp"
-        android:layout_height="274dp"
+        android:layout_height="286dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.822" />
+        app:layout_constraintVertical_bias="0.750" />
 
     <Button
         android:id="@+id/btnAdmin"
-        android:layout_width="70sp"
-        android:layout_height="50sp"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
         android:text="Admin"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"

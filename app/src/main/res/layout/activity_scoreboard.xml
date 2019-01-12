@@ -8,24 +8,26 @@
 
     <ListView
         android:id="@+id/lstScores"
-        android:layout_width="339dp"
-        android:layout_height="382dp"
+        android:layout_width="350dp"
+        android:layout_height="400dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.644"
+        app:layout_constraintHorizontal_bias="0.650"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.124" />
+        app:layout_constraintVertical_bias="0.125" />
 
     <Button
         android:id="@+id/btnTerug"
-        android:layout_width="147dp"
-        android:layout_height="34dp"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:gravity="center"
         android:text="Terug"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.447"
+        app:layout_constraintHorizontal_bias="0.500"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.928" />
+        app:layout_constraintVertical_bias="0.975"  />
+
 </android.support.constraint.ConstraintLayout>

@@ -47,16 +47,24 @@ import butterknife.OnClick;
 
 
 public class SubmitActivity extends Activity {
-    private String[] verdiepingen, lokaalMin1, lokaalGelijkVloers, lokaal1ste, lokaal2de, lokaal3de,
-            lokaal4de, lokaalDak, leeg = {""},  lokalen, categorie, urgenties;
-    private String verdiepingValue, lokaalValue, categorieValue, urgentieColorString = "#FFA500",
-            apMail, opmerking, fotoNaam;
+    private String[] lokaalMin1;
+    private String[] lokaalGelijkVloers;
+    private String[] lokaal1ste;
+    private String[] lokaal2de;
+    private String[] lokaal3de;
+    private String[] lokaal4de;
+    private String[] lokaalDak;
+    private String[] leeg = {""};
+    private String[] lokalen;
+    private String[] urgenties;
+    private String verdiepingValue;
+    private String lokaalValue;
+    private String categorieValue;
+    private String urgentieColorString = "#FFA500";
+    private String fotoNaam;
     private int seekBarValue = 2;
-    private boolean isAfgehandeld = false, isNewImage = false;
-    private UUID schadeId;
-    private Date now;
 
-    private ArrayAdapter<String> adapterLokaal, adapterVerdieping, adapterCategorie;
+    private ArrayAdapter<String> adapterLokaal;
 
     private Uri filePath;
     File createdImage = null;
@@ -91,6 +99,11 @@ public class SubmitActivity extends Activity {
         fillDatabase();
     }
 
+    @OnClick(R.id.btnTerug)
+    public void submit() {
+        finish();
+    }
+
     @OnClick(R.id.btnFoto)
     public void chooseImage(){
         Intent intent = new Intent();
@@ -119,7 +132,7 @@ public class SubmitActivity extends Activity {
 
     @OnClick(R.id.btnVerzenden)
     public void send() {
-        apMail = txtApMail.getText().toString();
+        String apMail = txtApMail.getText().toString();
         if (apMail.isEmpty()){
             Toast.makeText(getApplicationContext(),"Vul je AP email adres in",Toast.LENGTH_SHORT).show();
         }
@@ -142,13 +155,14 @@ public class SubmitActivity extends Activity {
             Toast.makeText(getApplicationContext(),"Geef een geldig AP email adres op",Toast.LENGTH_SHORT).show();
         }
         else {
-            opmerking = txtOpmerking.getText().toString();
-            if (opmerking.isEmpty()){opmerking = "Geen opmerking";}
-            schadeId = UUID.randomUUID();
-            now = new Date();
+            String opmerking = txtOpmerking.getText().toString();
+            if (opmerking.isEmpty()){
+                opmerking = "Geen opmerking";}
+            UUID schadeId = UUID.randomUUID();
+            Date now = new Date();
             long nowLong = now.getTime();
             uploadImage();
-            schadeMelding = new Schade(schadeId.toString(), apMail, verdiepingValue, lokaalValue, categorieValue, fotoNaam, seekBarValue, opmerking, nowLong, isAfgehandeld);
+            schadeMelding = new Schade(schadeId.toString(), apMail, verdiepingValue, lokaalValue, categorieValue, fotoNaam, seekBarValue, opmerking, nowLong, false);
             scorenMelding = new Scoren(apMail, schadeId.toString());
 
             Toast.makeText(getApplicationContext(), "Item verzonden!", Toast.LENGTH_SHORT).show();
@@ -161,34 +175,8 @@ public class SubmitActivity extends Activity {
                 cleanMail = cleanMail.replace(".", "-");
                 Log.d("cleanMail", cleanMail);
                 scoresReference.child(cleanMail).child(schadeId.toString()).setValue(scorenMelding);
-
             }
-
-            if (isNewImage) {
-                createdImage.delete();
-            }
-            resetScreen();
         }
-
-    }
-    private void resetScreen() {
-        txtApMail.setText("");
-        txtOpmerking.setText("");
-        cmbVerdieping.setSelection(0);
-        cmbLokaal.setSelection(0);
-        cmbCategorie.setSelection(0);
-        sldUrgentie.setProgress(2);
-
-        filePath = null;
-        bitmap = null;
-        fotoNaam = null;
-        apMail = null;
-        verdiepingValue = null;
-        seekBarValue = 2;
-        lokaalValue = null;
-        categorieValue = null;
-        opmerking = null;
-        schadeId = null;
     }
 
     private void uploadImage() {
@@ -232,7 +220,6 @@ public class SubmitActivity extends Activity {
             filePath = data.getData();
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                isNewImage = false;
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -240,7 +227,6 @@ public class SubmitActivity extends Activity {
         if (requestCode == CREATE_IMAGE_REQUEST && resultCode == RESULT_OK) {
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                isNewImage = true;
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -248,7 +234,8 @@ public class SubmitActivity extends Activity {
         imgThumbnail.setImageBitmap(bitmap);
     }
 
-    private void fillDatabase(){ verdiepingen = getResources().getStringArray(R.array.verdiepingen);
+    private void fillDatabase(){
+        String[] verdiepingen = getResources().getStringArray(R.array.verdiepingen);
         lokaalMin1 = getResources().getStringArray(R.array.lokaalMin1);
         lokaalGelijkVloers = getResources().getStringArray(R.array.lokaalGelijkVloers);
         lokaal1ste = getResources().getStringArray(R.array.lokaal1ste);
@@ -257,12 +244,12 @@ public class SubmitActivity extends Activity {
         lokaal4de = getResources().getStringArray(R.array.lokaal4de);
         lokaalDak = getResources().getStringArray(R.array.lokaalDak);
 
-        categorie = getResources().getStringArray(R.array.categorie);
+        String[] categorie = getResources().getStringArray(R.array.categorie);
 
         urgenties = getResources().getStringArray(R.array.urgenties);
 
-        adapterVerdieping = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, verdiepingen);
-        adapterCategorie = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categorie);
+        ArrayAdapter<String> adapterVerdieping = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, verdiepingen);
+        ArrayAdapter<String> adapterCategorie = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categorie);
 
         cmbVerdieping.setAdapter(adapterVerdieping);
         cmbCategorie.setAdapter(adapterCategorie);
@@ -337,7 +324,7 @@ public class SubmitActivity extends Activity {
             @Override
             public void onNothingSelected(AdapterView<?> parentView)
             {
-                //When no item is selected
+
             }
         });
 
@@ -366,10 +353,10 @@ public class SubmitActivity extends Activity {
             }
             public void onStartTrackingTouch(SeekBar seekBar)
             {
-                //when the user touch hold the seekbar
+
             }
             public void onStopTrackingTouch(SeekBar seekBar) {
-                // when the user stopped touching the seekbar
+
             }
         });
     }
