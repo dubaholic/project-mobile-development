@@ -49,6 +49,7 @@ public class AuthenticationActivity extends Activity {
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                //unused
             }
         });
 

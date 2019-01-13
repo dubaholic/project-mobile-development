@@ -31,12 +31,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="org.ap.edu.reportingapp.activities.user.SubmitActivity"></activity>
-        <activity android:name="org.ap.edu.reportingapp.activities.user.DetailsActivity"></activity>
-        <activity android:name=".activities.user.ListingActivity"></activity>
-        <activity android:name="org.ap.edu.reportingapp.activities.admin.Admin_Meldingen"></activity>
-        <activity android:name="org.ap.edu.reportingapp.activities.admin.Admin_Melding_Afhandeling"></activity>
-        <activity android:name="org.ap.edu.reportingapp.activities.user.Mededeling_DetailsActivity"></activity>
+        <activity android:name="org.ap.edu.reportingapp.activities.user.SubmitActivity" />
+        <activity android:name="org.ap.edu.reportingapp.activities.user.DetailsActivity" />
+        <activity android:name=".activities.user.ListingActivity" />
+        <activity android:name="org.ap.edu.reportingapp.activities.admin.Admin_Meldingen" />
+        <activity android:name="org.ap.edu.reportingapp.activities.admin.Admin_Melding_Afhandeling" />
+        <activity android:name="org.ap.edu.reportingapp.activities.user.Mededeling_DetailsActivity" />
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -47,17 +47,17 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".activities.user.ScoreboardActivity"></activity>
+        <activity android:name=".activities.user.ScoreboardActivity" />
 
         <service android:name=".services.MyFirebaseInstanceIdService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"></action>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
         <service android:name=".services.MyFirebaseMessageService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"></action>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
         <meta-data

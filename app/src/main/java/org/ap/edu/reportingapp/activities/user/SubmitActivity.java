@@ -299,28 +299,24 @@ public class SubmitActivity extends Activity {
 
         cmbLokaal.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
-            @Override public void onItemSelected(AdapterView<?> parent, View selectedItemView, int position, long id)
-            {
+            @Override public void onItemSelected(AdapterView<?> parent, View selectedItemView, int position, long id) {
                 lokaalValue = cmbLokaal.getSelectedItem().toString();
             }
             @Override
-            public void onNothingSelected(AdapterView<?> parent)
-            {
-
+            public void onNothingSelected(AdapterView<?> parent) {
+                //unused
             }
         });
 
         cmbCategorie.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View selectedItemView, int position, long id)
-            {
+            public void onItemSelected(AdapterView<?> parent, View selectedItemView, int position, long id) {
                 categorieValue = cmbCategorie.getSelectedItem().toString();
             }
             @Override
-            public void onNothingSelected(AdapterView<?> parentView)
-            {
-
+            public void onNothingSelected(AdapterView<?> parentView) {
+                //unused
             }
         });
 
@@ -347,12 +343,11 @@ public class SubmitActivity extends Activity {
                 }
                 sldUrgentie.getProgressDrawable().setColorFilter(Color.parseColor(urgentieColorString), PorterDuff.Mode.MULTIPLY);
             }
-            public void onStartTrackingTouch(SeekBar seekBar)
-            {
-
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                //unused
             }
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                //unused
             }
         });
     }

@@ -23,12 +23,12 @@
     <string name="timestamp">timeStamp</string>
     <string name="isafgehandeld">isAfgehandeld</string>
     <string name="bekijken">Bekijken</string>
-    <string name="in_behandeling">In behandeling</string>
+    <string name="in_behandeling">Alle meldingen</string>
     <string name="nieuwe_melding">Nieuwe melding</string>
     <string name="admin">Admin</string>
     <string name="afhandeling_details">Afhandeling details</string>
     <string name="uitgevoerd">Uitgevoerd</string>
-    <string name="door_persoon">Door (persoon)</string>
+    <string name="door_persoon">Door</string>
     <string name="persoon">Persoon</string>
     <string name="verlopen">Verlopen</string>
     <string name="scorebord">Scorebord</string>
@@ -37,8 +37,12 @@
     <string name="maken">Maken</string>
     <string name="urgentie_waarde">Urgentie waarde</string>
     <string name="thumbnail">Thumbnail</string>
+    <string name="afhandeling">Afhandeling</string>
+    <string name="niet_afgehandeld">Niet afgehandeld</string>
+    <string name="is_gerepareerd">Is gerepareerd</string>
+    <string name="nog_niet_gerepareerd">Nog niet gerepareerd</string>
     <string-array name="verdiepingen">
-        <item></item>
+        <item />
         <item>-1</item>
         <item>Gelijkvloers</item>
         <item>1ste</item>
@@ -251,7 +255,7 @@
         <item>Dak</item>
     </string-array>
     <string-array name="categorie">
-        <item></item>
+        <item />
         <item>Deur</item>
         <item>Meubilair</item>
         <item>Sanitair</item>
@@ -270,7 +274,7 @@
         <item>Zeer hoog</item>
     </string-array>
     <string-array name="uitvoering">
-        <item></item>
+        <item />
         <item>AP</item>
         <item>Provincie</item>
         <item>Andere</item>

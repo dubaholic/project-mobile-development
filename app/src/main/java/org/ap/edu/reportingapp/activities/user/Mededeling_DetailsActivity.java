@@ -59,10 +59,10 @@ public class Mededeling_DetailsActivity extends Activity {
                         Date now = new Date();
                         Date d = new Date(mededeling.getDateRepaired());
                         if (d.before(now)){
-                            txtViewVerlopen.setText("Is gerepareerd");
+                            txtViewVerlopen.setText(R.string.is_gerepareerd);
                         }
                         else {
-                            txtViewVerlopen.setText("Nog niet gerepareerd");
+                            txtViewVerlopen.setText(R.string.nog_niet_gerepareerd);
                         }
 
                         String dateRepairedFormatted = dateFormatter.format(d);
@@ -76,16 +76,24 @@ public class Mededeling_DetailsActivity extends Activity {
             }
 
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {}
+            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
+                //unused
+            }
 
             @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                //unused
+            }
 
             @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {}
+            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
+                //unused
+            }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                //unused
+            }
         });
 
     }

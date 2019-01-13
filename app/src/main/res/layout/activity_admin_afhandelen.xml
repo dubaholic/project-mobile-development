@@ -6,11 +6,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:layout_width="300sp"
-        android:layout_height="50sp"
-        android:gravity="center"
+        style="@style/TopTitle"
         android:text="@string/melding_verzenden"
-        android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -18,24 +15,20 @@
         app:layout_constraintVertical_bias="0.025" />
 
     <Button
+        style="@style/SmallButton"
         android:id="@+id/btnInfoMelding"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:gravity="center"
         android:text="@string/meer_informatie"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.500"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.125" />
+        app:layout_constraintVertical_bias="0.140" />
 
     <TextView
+        style="@style/BigTextView"
         android:id="@+id/txtViewReparatieOp"
-        android:layout_width="150sp"
-        android:layout_height="40sp"
         android:text="@string/reparatie_op"
-        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.075"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -44,12 +37,10 @@
         app:layout_constraintVertical_bias="0.250" />
 
     <TextView
+        style="@style/BigTextView"
         android:id="@+id/txtViewReparatiedatum"
-        android:layout_width="150sp"
-        android:layout_height="40sp"
         android:gravity="center"
         android:text=""
-        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.500"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -58,10 +49,8 @@
         app:layout_constraintVertical_bias="0.325" />
 
     <Button
+        style="@style/SmallButton"
         android:id="@+id/btnDatumKiezen"
-        android:layout_width="150dp"
-        android:layout_height="40dp"
-        android:gravity="center"
         android:text="@string/kiezen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
@@ -71,10 +60,8 @@
         app:layout_constraintVertical_bias="0.250" />
 
     <TextView
+        style="@style/StandardTextView"
         android:id="@+id/txtViewMededeling"
-        android:layout_width="130sp"
-        android:layout_height="40sp"
-        android:textSize="24sp"
         android:text="@string/mededeling"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.075"
@@ -84,12 +71,8 @@
         app:layout_constraintVertical_bias="0.425" />
 
     <EditText
+        style="@style/StandardEditText"
         android:id="@+id/txtMededeling"
-        android:layout_width="190sp"
-        android:layout_height="40dp"
-        android:backgroundTint="#808080"
-        android:inputType="textPersonName"
-        android:textCursorDrawable="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -98,10 +81,9 @@
         app:layout_constraintVertical_bias="0.425" />
 
     <TextView
+        style="@style/StandardTextView"
         android:id="@+id/txtViewUitvoeren"
-        android:layout_width="130sp"
-        android:layout_height="40sp"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:text="@string/uitvoeren_door"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.075"
@@ -111,9 +93,8 @@
         app:layout_constraintVertical_bias="0.525" />
 
     <Spinner
+        style="@style/StandardSpinner"
         android:id="@+id/cmbUitvoeren"
-        android:layout_width="190dp"
-        android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -122,10 +103,8 @@
         app:layout_constraintVertical_bias="0.525" />
 
     <TextView
+        style="@style/StandardTextView"
         android:id="@+id/txtViewUitvoerenDoor"
-        android:layout_width="130sp"
-        android:layout_height="40sp"
-        android:textSize="24sp"
         android:text="@string/naam"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.075"
@@ -135,12 +114,8 @@
         app:layout_constraintVertical_bias="0.625" />
 
     <EditText
+        style="@style/StandardEditText"
         android:id="@+id/txtUitvoerenDoor"
-        android:layout_width="190sp"
-        android:layout_height="40dp"
-        android:backgroundTint="#808080"
-        android:inputType="textPersonName"
-        android:textCursorDrawable="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -149,10 +124,8 @@
         app:layout_constraintVertical_bias="0.625" />
 
     <Button
+        style="@style/SmallButton"
         android:id="@+id/btnVerzendenMededeling"
-        android:layout_width="160dp"
-        android:layout_height="40dp"
-        android:gravity="center"
         android:text="@string/verzenden"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
@@ -162,10 +135,8 @@
         app:layout_constraintVertical_bias="0.975"  />
 
     <Button
+        style="@style/SmallButton"
         android:id="@+id/btnTerug"
-        android:layout_width="160dp"
-        android:layout_height="40dp"
-        android:gravity="center"
         android:text="@string/terug"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.075"

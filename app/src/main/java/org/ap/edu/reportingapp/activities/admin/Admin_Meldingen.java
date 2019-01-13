@@ -72,22 +72,22 @@ public class Admin_Meldingen extends Activity implements Adapter_Default.ItemCli
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                //unused
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
+                //unused
             }
 
             @Override
             public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                //unused
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                //unused
             }
         });
 

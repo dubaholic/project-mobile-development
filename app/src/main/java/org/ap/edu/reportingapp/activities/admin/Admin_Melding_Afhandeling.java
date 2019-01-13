@@ -145,12 +145,14 @@ public class Admin_Melding_Afhandeling extends Activity {
                 toPath.setValue(dataSnapshot.getValue(), new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(DatabaseError firebaseError, DatabaseReference firebase) {
+                        //unused
                     }
                 });
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                //unused
             }
         });
     }

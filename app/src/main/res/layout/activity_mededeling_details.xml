@@ -7,11 +7,8 @@
     tools:context="org.ap.edu.reportingapp.activities.user.Mededeling_DetailsActivity">
 
     <TextView
-        android:layout_width="300sp"
-        android:layout_height="50sp"
-        android:gravity="center"
+        style="@style/TopTitle"
         android:text="@string/afhandeling_details"
-        android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -19,11 +16,9 @@
         app:layout_constraintVertical_bias="0.025" />
 
     <TextView
+        style="@style/StandardTextView"
         android:id="@+id/txtViewUitgevoerd"
-        android:layout_width="130sp"
-        android:layout_height="40sp"
         android:text="@string/uitgevoerd"
-        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.075"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -32,11 +27,9 @@
         app:layout_constraintVertical_bias="0.150" />
 
     <TextView
+        style="@style/StandardTextView"
         android:id="@+id/txtViewUitgevoerdPersoon"
-        android:layout_width="130sp"
-        android:layout_height="40sp"
         android:text="@string/door_persoon"
-        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.075"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -45,11 +38,9 @@
         app:layout_constraintVertical_bias="0.250" />
 
     <TextView
+        style="@style/StandardTextView"
         android:id="@+id/txtViewExtraOpmerking"
-        android:layout_width="130sp"
-        android:layout_height="40sp"
         android:text="@string/opmerking"
-        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.075"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -59,11 +50,9 @@
 
 
     <TextView
+        style="@style/BigTextView"
         android:id="@+id/txtViewUitgevoerdIngevuld"
-        android:layout_width="200sp"
-        android:layout_height="40sp"
         android:text="@string/uitgevoerd"
-        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -72,11 +61,9 @@
         app:layout_constraintVertical_bias="0.150" />
 
     <TextView
+        style="@style/BigTextView"
         android:id="@+id/txtViewUitgevoerdPersoonIngevuld"
-        android:layout_width="200sp"
-        android:layout_height="40sp"
         android:text="@string/persoon"
-        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -85,11 +72,10 @@
         app:layout_constraintVertical_bias="0.250" />
 
     <TextView
+        style="@style/BigTextView"
         android:id="@+id/txtViewExtraOpmerkingIngevuld"
-        android:layout_width="200sp"
-        android:layout_height="40sp"
+        android:textSize="16sp"
         android:text="@string/opmerking"
-        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -98,11 +84,9 @@
         app:layout_constraintVertical_bias="0.350" />
 
     <TextView
+        style="@style/StandardTextView"
         android:id="@+id/txtViewDateReparatie"
-        android:layout_width="130sp"
-        android:layout_height="40sp"
         android:text="@string/reparatie_op"
-        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.075"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -111,11 +95,9 @@
         app:layout_constraintVertical_bias="0.450" />
 
     <TextView
+        style="@style/BigTextView"
         android:id="@+id/txtViewDateReparatieIngevuld"
-        android:layout_width="200sp"
-        android:layout_height="40sp"
         android:text="@string/reparatie_op"
-        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -124,12 +106,11 @@
         app:layout_constraintVertical_bias="0.450" />
 
     <TextView
+        style="@style/BigTextView"
         android:id="@+id/txtViewVerlopen"
-        android:layout_width="300sp"
-        android:layout_height="40sp"
         android:gravity="center"
+        android:layout_width="300sp"
         android:text="@string/verlopen"
-        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.500"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -138,10 +119,8 @@
         app:layout_constraintVertical_bias="0.550" />
 
     <Button
+        style="@style/SmallButton"
         android:id="@+id/btnTerug"
-        android:layout_width="160dp"
-        android:layout_height="40dp"
-        android:gravity="center"
         android:text="@string/terug"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.500"

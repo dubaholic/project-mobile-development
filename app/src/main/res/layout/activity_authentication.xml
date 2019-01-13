@@ -8,11 +8,8 @@
     tools:context="org.ap.edu.reportingapp.activities.admin.AuthenticationActivity">
 
     <TextView
-        android:layout_width="300sp"
-        android:layout_height="50sp"
-        android:gravity="center"
+        style="@style/TopTitle"
         android:text="@string/authenticatie"
-        android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -20,9 +17,8 @@
         app:layout_constraintVertical_bias="0.025" />
 
     <TextView
+        style="@style/TopTitle"
         android:id="@+id/txtViewApMailAuth"
-        android:layout_width="300sp"
-        android:layout_height="40sp"
         android:text="@string/voer_je_ap_email_in"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -33,13 +29,10 @@
         app:layout_constraintVertical_bias="0.350" />
 
     <EditText
+        style="@style/StandardEditText"
         android:id="@+id/txtApMailAuth"
-        android:layout_width="300sp"
-        android:layout_height="40sp"
-        android:backgroundTint="#ADD8E6"
-        android:ems="10"
+        android:layout_width="250sp"
         android:inputType="textEmailAddress"
-        android:textCursorDrawable="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.500"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -48,10 +41,8 @@
         app:layout_constraintVertical_bias="0.450" />
 
     <Button
+        style="@style/SmallButton"
         android:id="@+id/btnInvoeren"
-        android:layout_width="160dp"
-        android:layout_height="40dp"
-        android:gravity="center"
         android:text="@string/invoeren"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.500"

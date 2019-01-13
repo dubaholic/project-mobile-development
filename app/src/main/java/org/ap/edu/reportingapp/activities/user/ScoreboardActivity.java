@@ -9,7 +9,6 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -82,26 +81,30 @@ public class ScoreboardActivity extends Activity {
                 scoreMap = sortByValue(scoreMap);
                 scoreStringArrayList = new ArrayList<>();
                 for (Map.Entry<String, Integer> score : scoreMap.entrySet()) {
-                    scoreStringArrayList.add(score.getKey() + " - " + score.getValue() + " Meldingen");
+                    String meldingen = " Meldingen";
+                    if (score.getValue() == 1) {
+                        meldingen = " Melding";
+                    }
+                    scoreStringArrayList.add(score.getKey() + " - " + score.getValue() + meldingen);
                 }
                 scoresAadapter = new Adapter_Default(ScoreboardActivity.this, scoreStringArrayList);
                 lstScores.setAdapter(scoresAadapter);
             }
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                //unused
             }
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
+                //unused
             }
             @Override
             public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                //unused
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                //unused
             }
         });
     }

@@ -8,11 +8,8 @@
     tools:context="org.ap.edu.reportingapp.activities.user.SubmitActivity">
 
     <TextView
-        android:layout_width="300sp"
-        android:layout_height="50sp"
-        android:gravity="center"
+        style="@style/TopTitle"
         android:text="@string/schade_vaststellen"
-        android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -20,11 +17,9 @@
         app:layout_constraintVertical_bias="0.025" />
 
     <TextView
+        style="@style/StandardTextView"
         android:id="@+id/txtViewApMail"
-        android:layout_width="140sp"
-        android:layout_height="40sp"
         android:text="@string/ap_email"
-        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.075"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -33,11 +28,9 @@
         app:layout_constraintVertical_bias="0.150" />
 
     <TextView
+        style="@style/StandardTextView"
         android:id="@+id/txtViewVerdieping"
-        android:layout_width="130sp"
-        android:layout_height="40sp"
         android:text="@string/verdieping"
-        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.075"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -46,11 +39,9 @@
         app:layout_constraintVertical_bias="0.250" />
 
     <TextView
+        style="@style/StandardTextView"
         android:id="@+id/txtViewLokaal"
-        android:layout_width="130sp"
-        android:layout_height="40sp"
         android:text="@string/lokaal"
-        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.075"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -59,11 +50,9 @@
         app:layout_constraintVertical_bias="0.350" />
 
     <TextView
+        style="@style/StandardTextView"
         android:id="@+id/txtViewCategorie"
-        android:layout_width="130sp"
-        android:layout_height="40sp"
         android:text="@string/categorie"
-        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.075"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -72,11 +61,9 @@
         app:layout_constraintVertical_bias="0.450" />
 
     <TextView
+        style="@style/StandardTextView"
         android:id="@+id/txtViewFoto"
-        android:layout_width="130sp"
-        android:layout_height="40sp"
         android:text="@string/foto_toevoegen"
-        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.075"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -85,10 +72,8 @@
         app:layout_constraintVertical_bias="0.550" />
 
     <TextView
+        style="@style/StandardTextView"
         android:id="@+id/txtViewOpmerking"
-        android:layout_width="130sp"
-        android:layout_height="40sp"
-        android:textSize="24sp"
         android:text="@string/opmerking"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.075"
@@ -98,13 +83,9 @@
         app:layout_constraintVertical_bias="0.825" />
 
     <EditText
+        style="@style/StandardEditText"
         android:id="@+id/txtApMail"
-        android:layout_width="190sp"
-        android:layout_height="40sp"
-        android:backgroundTint="#ADD8E6"
-        android:ems="10"
         android:inputType="textEmailAddress"
-        android:textCursorDrawable="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -113,9 +94,8 @@
         app:layout_constraintVertical_bias="0.150" />
 
     <Spinner
+        style="@style/StandardSpinner"
         android:id="@+id/cmbVerdieping"
-        android:layout_width="190dp"
-        android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -124,9 +104,9 @@
         app:layout_constraintVertical_bias="0.250" />
 
     <Spinner
+        style="@style/StandardSpinner"
         android:id="@+id/cmbLokaal"
         android:layout_width="190dp"
-        android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -135,9 +115,8 @@
         app:layout_constraintVertical_bias="0.350" />
 
     <Spinner
+        style="@style/StandardSpinner"
         android:id="@+id/cmbCategorie"
-        android:layout_width="190dp"
-        android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -146,9 +125,8 @@
         app:layout_constraintVertical_bias="0.450" />
 
     <Button
+        style="@style/ExtraSmallButton"
         android:id="@+id/btnFoto"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
         android:text="@string/kiezen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
@@ -158,9 +136,8 @@
         app:layout_constraintVertical_bias="0.550" />
 
     <Button
+        style="@style/ExtraSmallButton"
         android:id="@+id/btnFotoMaken"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
         android:text="@string/maken"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.650"
@@ -171,12 +148,8 @@
 
 
     <EditText
+        style="@style/StandardEditText"
         android:id="@+id/txtOpmerking"
-        android:layout_width="190sp"
-        android:layout_height="40dp"
-        android:backgroundTint="#808080"
-        android:inputType="textPersonName"
-        android:textCursorDrawable="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -185,12 +158,10 @@
         app:layout_constraintVertical_bias="0.825" />
 
     <TextView
+        style="@style/StandardTextView"
         android:id="@+id/txtUrgentie"
-        android:layout_width="160sp"
-        android:layout_height="40sp"
         android:gravity="center"
         android:text="@string/urgentie"
-        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.500"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -199,12 +170,8 @@
         app:layout_constraintVertical_bias="0.625"/>
 
     <SeekBar
+        style="@style/StandardSeekBar"
         android:id="@+id/sldUrgentie"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:max="4"
-        android:progress="2"
-        android:thumbTint="#808080"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.500"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -213,9 +180,8 @@
         app:layout_constraintVertical_bias="0.700" />
 
     <TextView
+        style="@style/BigTextView"
         android:id="@+id/txtViewUrgentieValue"
-        android:layout_width="160sp"
-        android:layout_height="40sp"
         android:gravity="center"
         android:textSize="20sp"
         android:text="@string/urgentie_waarde"
@@ -227,10 +193,8 @@
         app:layout_constraintVertical_bias="0.750"/>
 
     <Button
+        style="@style/SmallButton"
         android:id="@+id/btnVerzenden"
-        android:layout_width="160dp"
-        android:layout_height="40dp"
-        android:gravity="center"
         android:text="@string/verzenden"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
@@ -240,10 +204,8 @@
         app:layout_constraintVertical_bias="0.975" />
 
     <Button
+        style="@style/SmallButton"
         android:id="@+id/btnTerug"
-        android:layout_width="160dp"
-        android:layout_height="40dp"
-        android:gravity="center"
         android:text="@string/terug"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.075"
@@ -253,9 +215,8 @@
         app:layout_constraintVertical_bias="0.975"  />
 
     <ImageView
+        style="@style/Thumbnail"
         android:id="@+id/imgThumbnail"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.425"
         app:layout_constraintLeft_toLeftOf="parent"

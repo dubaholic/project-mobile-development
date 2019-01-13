@@ -87,11 +87,11 @@ public class DetailsActivity extends Activity {
 
                         Boolean isAfgehandeld = (Boolean) postSnapshot.child("afgehandeld").getValue();
                         if (isAfgehandeld) {
-                            txtViewIsAfgehandeldValue.setText("Afhandeling");
+                            txtViewIsAfgehandeldValue.setText(R.string.afhandeling);
                             btnMededelingDetails.setVisibility(View.VISIBLE);
                         }
                         else {
-                            txtViewIsAfgehandeldValue.setText("Niet afgehandeld");
+                            txtViewIsAfgehandeldValue.setText(R.string.niet_afgehandeld);
                             btnMededelingDetails.setVisibility(View.GONE);
                         }
                     }
@@ -99,16 +99,24 @@ public class DetailsActivity extends Activity {
             }
 
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {}
+            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
+                //unused
+            }
 
             @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                //unused
+            }
 
             @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {}
+            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
+                //unused
+            }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                //unused
+            }
         });
 
     }
