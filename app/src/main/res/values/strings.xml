@@ -1,5 +1,42 @@
 <resources>
     <string name="app_name">Reporting app</string>
+    <string name="meer_informatie">Meer informatie</string>
+    <string name="melding_verzenden">Melding verzenden</string>
+    <string name="reparatie_op">Reparatie op</string>
+    <string name="kiezen">Kiezen</string>
+    <string name="mededeling">Mededeling</string>
+    <string name="uitvoeren_door">Uitvoeren door</string>
+    <string name="naam">Naam</string>
+    <string name="verzenden">Verzenden</string>
+    <string name="terug">Terug</string>
+    <string name="nieuwe_meldingen">Nieuwe meldingen</string>
+    <string name="authenticatie">Authenticatie</string>
+    <string name="voer_je_ap_email_in">Voer je AP Email in</string>
+    <string name="invoeren">Invoeren</string>
+    <string name="details">Details</string>
+    <string name="ap_email">AP Email</string>
+    <string name="verdieping">Verdieping</string>
+    <string name="lokaal">Lokaal</string>
+    <string name="categorie">Categorie</string>
+    <string name="opmerking">Opmerking</string>
+    <string name="urgentie">Urgentie</string>
+    <string name="timestamp">timeStamp</string>
+    <string name="isafgehandeld">isAfgehandeld</string>
+    <string name="bekijken">Bekijken</string>
+    <string name="in_behandeling">In behandeling</string>
+    <string name="nieuwe_melding">Nieuwe melding</string>
+    <string name="admin">Admin</string>
+    <string name="afhandeling_details">Afhandeling details</string>
+    <string name="uitgevoerd">Uitgevoerd</string>
+    <string name="door_persoon">Door (persoon)</string>
+    <string name="persoon">Persoon</string>
+    <string name="verlopen">Verlopen</string>
+    <string name="scorebord">Scorebord</string>
+    <string name="schade_vaststellen">Schade vaststellen</string>
+    <string name="foto_toevoegen">Foto toevoegen</string>
+    <string name="maken">Maken</string>
+    <string name="urgentie_waarde">Urgentie waarde</string>
+    <string name="thumbnail">Thumbnail</string>
     <string-array name="verdiepingen">
         <item></item>
         <item>-1</item>

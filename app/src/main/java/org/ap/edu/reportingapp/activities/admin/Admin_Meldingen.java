@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.ap.edu.reportingapp.R;
 import org.ap.edu.reportingapp.adapters.Adapter_Default;
+import org.ap.edu.reportingapp.models.Schade;
 
 import java.util.ArrayList;
 
@@ -39,7 +40,6 @@ public class Admin_Meldingen extends Activity implements Adapter_Default.ItemCli
 
     @BindView(R.id.lstMeldingen) RecyclerView lstMeldingen;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,12 +59,10 @@ public class Admin_Meldingen extends Activity implements Adapter_Default.ItemCli
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     if ((postSnapshot.child("categorie").getValue() != null
                             || postSnapshot.child("opmerking").getValue() != null) && !((Boolean) postSnapshot.child("afgehandeld").getValue())){
-                        String categorie = postSnapshot.child("categorie").getValue().toString();
-                        String opmerking = postSnapshot.child("opmerking").getValue().toString();
-                        String id = postSnapshot.child("schadeId").getValue().toString();
+                        Schade schade = postSnapshot.getValue(Schade.class);
 
-                        bestaandDataIdArrayList.add(id);
-                        bestaandDataArrayList.add(categorie + " - " + opmerking);
+                        bestaandDataIdArrayList.add(schade.getSchadeId());
+                        bestaandDataArrayList.add(schade.getCategorie() + " - " + schade.getOpmerking());
                         }
                     }
                 bestaandDataAdapter = new Adapter_Default(Admin_Meldingen.this, bestaandDataArrayList);

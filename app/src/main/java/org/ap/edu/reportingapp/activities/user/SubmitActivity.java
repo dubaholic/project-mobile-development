@@ -1,5 +1,6 @@
 package org.ap.edu.reportingapp.activities.user;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,7 +12,6 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -44,7 +44,6 @@ import org.ap.edu.reportingapp.models.Scoren;
 import butterknife.ButterKnife;
 import butterknife.BindView;
 import butterknife.OnClick;
-
 
 public class SubmitActivity extends Activity {
     private String[] lokaalMin1;
@@ -202,7 +201,7 @@ public class SubmitActivity extends Activity {
         }
     }
     private File createImageFile() throws IOException {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         return File.createTempFile(imageFileName, ".jpg", storageDir);

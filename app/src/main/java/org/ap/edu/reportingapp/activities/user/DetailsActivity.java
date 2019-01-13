@@ -1,5 +1,6 @@
 package org.ap.edu.reportingapp.activities.user;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -73,7 +74,7 @@ public class DetailsActivity extends Activity {
                             && String.valueOf(postSnapshot.child("schadeId").getValue()).equals(id)) {
                         Schade schade = postSnapshot.getValue(Schade.class);
                         Date schadeTimeStamp = new Date(schade.getTimeStamp());
-                        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                        @SuppressLint("SimpleDateFormat") DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                         String schadeTimeStampFormatted = formatter.format(schadeTimeStamp);
 
                         txtViewApMailIngevuld.setText(schade.getEmail());

@@ -1,5 +1,6 @@
 package org.ap.edu.reportingapp.activities.user;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -25,6 +26,7 @@ import butterknife.OnClick;
 
 public class Mededeling_DetailsActivity extends Activity {
 
+    @SuppressLint("SimpleDateFormat")
     DateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
     final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 

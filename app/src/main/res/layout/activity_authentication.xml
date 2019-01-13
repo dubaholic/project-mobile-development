@@ -11,7 +11,7 @@
         android:layout_width="300sp"
         android:layout_height="50sp"
         android:gravity="center"
-        android:text="Authenticatie"
+        android:text="@string/authenticatie"
         android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -23,7 +23,7 @@
         android:id="@+id/txtViewApMailAuth"
         android:layout_width="300sp"
         android:layout_height="40sp"
-        android:text="Voer je AP Email in"
+        android:text="@string/voer_je_ap_email_in"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.500"
@@ -52,7 +52,7 @@
         android:layout_width="160dp"
         android:layout_height="40dp"
         android:gravity="center"
-        android:text="Invoeren"
+        android:text="@string/invoeren"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.500"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -65,7 +65,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:imeOptions="actionDone"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        tools:ignore="TextViewEdits" />
 
 
 </android.support.constraint.ConstraintLayout>

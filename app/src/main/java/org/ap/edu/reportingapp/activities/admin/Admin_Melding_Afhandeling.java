@@ -1,5 +1,6 @@
 package org.ap.edu.reportingapp.activities.admin;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -36,6 +37,7 @@ public class Admin_Melding_Afhandeling extends Activity {
     private Mededeling mededelingObject;
 
     private String dateText, mededeling, uitvoerenDoorNaam, uitvoerenValue;
+    @SuppressLint("SimpleDateFormat")
     SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
 
     final Calendar newCalendar = Calendar.getInstance();
