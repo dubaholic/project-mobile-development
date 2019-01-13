@@ -17,7 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.ap.edu.reportingapp.R;
-import org.ap.edu.reportingapp.adapters.Adapter_Admin_Meldingen;
+import org.ap.edu.reportingapp.adapters.Adapter_Default;
 
 import java.util.ArrayList;
 
@@ -26,9 +26,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class Admin_Meldingen extends Activity implements Adapter_Admin_Meldingen.ItemClickListener{
+public class Admin_Meldingen extends Activity implements Adapter_Default.ItemClickListener{
 
-    private Adapter_Admin_Meldingen bestaandDataAdapter;
+    private Adapter_Default bestaandDataAdapter;
 
     ArrayList<String> bestaandDataArrayList = new ArrayList<>();
     ArrayList<String> bestaandDataIdArrayList = new ArrayList<>();
@@ -67,7 +67,7 @@ public class Admin_Meldingen extends Activity implements Adapter_Admin_Meldingen
                         bestaandDataArrayList.add(categorie + " - " + opmerking);
                         }
                     }
-                bestaandDataAdapter = new Adapter_Admin_Meldingen(Admin_Meldingen.this, bestaandDataArrayList);
+                bestaandDataAdapter = new Adapter_Default(Admin_Meldingen.this, bestaandDataArrayList);
                 bestaandDataAdapter.setClickListener(Admin_Meldingen.this);
                 lstMeldingen.setAdapter(bestaandDataAdapter);
             }

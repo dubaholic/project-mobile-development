@@ -22,7 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.ap.edu.reportingapp.R;
 import org.ap.edu.reportingapp.activities.admin.Admin_Meldingen;
-import org.ap.edu.reportingapp.adapters.Adapter_Listing;
+import org.ap.edu.reportingapp.adapters.Adapter_Default;
 import org.ap.edu.reportingapp.models.Mededeling;
 import org.ap.edu.reportingapp.models.Schade;
 
@@ -32,7 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ListingActivity extends Activity implements Adapter_Listing.ItemClickListener{
+public class ListingActivity extends Activity implements Adapter_Default.ItemClickListener{
     private String[] lokaalMin1;
     private String[] lokaalGelijkVloers;
     private String[] lokaal1ste;
@@ -47,7 +47,7 @@ public class ListingActivity extends Activity implements Adapter_Listing.ItemCli
     private RecyclerView lstBestaand;
     private Spinner cmbLokaal, cmbVerdieping;
     private ArrayAdapter<String> adapterLokaal;
-    private Adapter_Listing bestaandDataAdapter;
+    private Adapter_Default bestaandDataAdapter;
     ArrayList<String> bestaandDataStringArrayList = new ArrayList<>();
     ArrayList<Schade> bestaandDataArrayList = new ArrayList<>();
     ArrayList<Mededeling> bestaandDataMededelingArrayList = new ArrayList<>();
@@ -143,7 +143,7 @@ public class ListingActivity extends Activity implements Adapter_Listing.ItemCli
                 bestaandDataStringArrayList = new ArrayList<>();
                 bestaandDataMededelingArrayList = new ArrayList<>();
 
-                bestaandDataAdapter = new Adapter_Listing(ListingActivity.this, bestaandDataStringArrayList);
+                bestaandDataAdapter = new Adapter_Default(ListingActivity.this, bestaandDataStringArrayList);
                 lstBestaand.setAdapter(bestaandDataAdapter);
                 databaseReference.addChildEventListener(new ChildEventListener() {
                     @Override

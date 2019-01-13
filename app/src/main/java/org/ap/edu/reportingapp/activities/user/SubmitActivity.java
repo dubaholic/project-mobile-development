@@ -169,13 +169,10 @@ public class SubmitActivity extends Activity {
             finish();
             meldingenReference.child(schadeId.toString()).setValue(schadeMelding);
 
-            if(apMail.contains("@ap.be") || apMail.contains("@student.ap.be") || apMail.contains(".")) {
-                String cleanMail = apMail.replace("@ap.be", "");
-                cleanMail = cleanMail.replace("@student.ap.be", "");
-                cleanMail = cleanMail.replace(".", "-");
-                Log.d("cleanMail", cleanMail);
-                scoresReference.child(cleanMail).child(schadeId.toString()).setValue(scorenMelding);
-            }
+            String cleanMail = apMail.replace("@ap.be", "");
+            cleanMail = cleanMail.replace("@student.ap.be", "");
+            cleanMail = cleanMail.replace(".", "-");
+            scoresReference.child(cleanMail).child(schadeId.toString()).setValue(scorenMelding);
         }
     }
 

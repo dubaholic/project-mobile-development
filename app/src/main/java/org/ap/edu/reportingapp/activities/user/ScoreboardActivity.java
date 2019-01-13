@@ -1,57 +1,59 @@
 package org.ap.edu.reportingapp.activities.user;
 
 import android.app.Activity;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.ap.edu.reportingapp.R;
+import org.ap.edu.reportingapp.adapters.Adapter_Default;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static android.support.constraint.Constraints.TAG;
+import static java.util.Map.Entry.comparingByValue;
 
 public class ScoreboardActivity extends Activity {
-    private ArrayList<String> scoreArrayList = new ArrayList<>();
-    private HashSet<String> uniekeEmails = new HashSet<>();
-    private ArrayAdapter<String> scoresAadapter;
+    private ArrayList<String> scoreStringArrayList = new ArrayList<>();
+    HashMap<String, Integer> scoreMap = new HashMap<>();
+    private Adapter_Default scoresAadapter;
+    private String cleanMail;
 
     final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     final DatabaseReference scoresReference = databaseReference.child("scores");
 
-    final DatabaseReference fcmReference = databaseReference.child("fcm-token");
-
-    @BindView(R.id.lstScores) ListView lstScores;
+    @BindView(R.id.lstScores) RecyclerView lstScores;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard);
         ButterKnife.bind(this);
-        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        Log.d(TAG, "FCM token: " + refreshedToken);
         getScoreboard();
-
         }
-
-    public void update(String token) {
-        scoresReference.setValue(token);
-    }
 
     @OnClick(R.id.btnTerug)
     public void submit() {
@@ -59,51 +61,34 @@ public class ScoreboardActivity extends Activity {
     }
 
     private void getScoreboard() {
-        scoresAadapter = new ArrayAdapter<>(ScoreboardActivity.this, android.R.layout.simple_list_item_1, scoreArrayList );
+        lstScores.setLayoutManager(new LinearLayoutManager(ScoreboardActivity.this));
+        DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), LinearLayoutManager.VERTICAL  );
+        lstScores.addItemDecoration(decoration);
+
         scoresReference.addChildEventListener(new ChildEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
-                //scoresAadapter.clear();
-
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    // if(postSnapshot.child("scores").getValue() != null) {
-                    databaseReference.orderByChild("email");
-                    int score = 1;
                     String apMail = postSnapshot.child("email").getValue().toString();
-                    Log.d("email", apMail);
-                    if(apMail.contains("@ap.be")) {
-                        //apMail.replace("@ap.be", " ");
-                        score++;
-                        String cleanMail = apMail.replace("@ap.be", "");
-                        Log.d("cleanmail", cleanMail);
-                        // scoresReference.child(cleanMail.toString()).child(schadeId.toString()).setValue(scorenMelding);
-                        if (!uniekeEmails.contains(apMail)) {
-                            uniekeEmails.add(apMail);
-                            Log.d("uniekeMail", cleanMail);
-                            //int score = (int) dataSnapshot.child(cleanMail).getChildrenCount();
-                            Log.d("scoren",cleanMail + String.valueOf(score));
-                            scoreArrayList.add(apMail + " - " + score);
-
-                        }
+                    cleanMail = apMail.replace("@ap.be", "");
+                    cleanMail = cleanMail.replace("@student.ap.be", "");
+                    cleanMail = cleanMail.replace(".", " ");
+                    if (scoreMap.containsKey(cleanMail)) {
+                        int score = scoreMap.get(cleanMail) + 1;
+                        scoreMap.replace(cleanMail, score);
                     }
-                    else if(apMail.contains("@student.ap.be")) {
-                        String cleanMail = apMail.replace("@student.ap.be", "");
-                        score++;
-                        Log.d("cleanmail", cleanMail);
-                        if (!uniekeEmails.contains(apMail)) {
-                            uniekeEmails.add(apMail);
-                            Log.d("uniekeMail", cleanMail);
-                            // int score = (int) dataSnapshot.child(cleanMail).getChildrenCount();
-                            Log.d("scoren", cleanMail + String.valueOf(score));
-                            scoreArrayList.add(apMail + " - " + score);
-                        }
-
-                        // scoresReference.child(cleanMail.toString()).child(schadeId.toString()).setValue(scorenMelding);
+                    else {
+                        scoreMap.put(cleanMail, 1);
                     }
                 }
+                scoreMap = sortByValue(scoreMap);
+                scoreStringArrayList = new ArrayList<>();
+                for (Map.Entry<String, Integer> score : scoreMap.entrySet()) {
+                    scoreStringArrayList.add(score.getKey() + " - " + score.getValue() + " Meldingen");
+                }
+                scoresAadapter = new Adapter_Default(ScoreboardActivity.this, scoreStringArrayList);
                 lstScores.setAdapter(scoresAadapter);
-                // }
-
             }
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -123,4 +108,23 @@ public class ScoreboardActivity extends Activity {
             }
         });
     }
+
+    public static HashMap<String, Integer> sortByValue(HashMap<String, Integer> hm)
+    {
+        List<Map.Entry<String, Integer> > list = new LinkedList<>(hm.entrySet());
+
+        Collections.sort(list, new Comparator<Map.Entry<String, Integer> >() {
+            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2)
+            {
+                return (o2.getValue()).compareTo(o1.getValue());
+            }
+        });
+
+        HashMap<String, Integer> temp = new LinkedHashMap<>();
+        for (Map.Entry<String, Integer> aa : list) {
+            temp.put(aa.getKey(), aa.getValue());
+        }
+        return temp;
+    }
 }
+
