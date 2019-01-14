@@ -46,7 +46,7 @@ public class DetailsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         ButterKnife.bind(this);
-        urgenties = getResources().getStringArray(R.array.urgenties);
+        getUrgenties();
         getDetails();
     }
 
@@ -61,6 +61,10 @@ public class DetailsActivity extends Activity {
         Intent intent = new Intent(DetailsActivity.this, Mededeling_DetailsActivity.class);
         intent.putExtra("id", id);
         startActivity(intent);
+    }
+
+    private void getUrgenties() {
+        urgenties = getResources().getStringArray(R.array.urgenties);
     }
 
     private void getDetails() {

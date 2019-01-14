@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnItemSelected;
 
 public class ListingActivity extends Activity implements Adapter_Default.ItemClickListener{
     private String[] lokaalMin1;
@@ -44,8 +45,6 @@ public class ListingActivity extends Activity implements Adapter_Default.ItemCli
     private String[] lokalen;
     private String verdiepingValue, lokaalValue;
 
-    private RecyclerView lstBestaand;
-    private Spinner cmbLokaal, cmbVerdieping;
     private ArrayAdapter<String> adapterLokaal;
     private Adapter_Default bestaandDataAdapter;
     ArrayList<String> bestaandDataStringArrayList = new ArrayList<>();
@@ -55,6 +54,9 @@ public class ListingActivity extends Activity implements Adapter_Default.ItemCli
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     @BindView(R.id.btnAdmin) Button btnAdmin;
+    @BindView(R.id.cmbVerdieping) Spinner cmbVerdieping;
+    @BindView(R.id.cmbLokaal) Spinner cmbLokaal;
+    @BindView(R.id.lstBestaand) RecyclerView lstBestaand;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,30 +65,7 @@ public class ListingActivity extends Activity implements Adapter_Default.ItemCli
         ButterKnife.bind(this);
         final DatabaseReference databaseReference = database.getReference();
         final Boolean isAdmin = getIntent().getExtras().getBoolean("isAdmin",false);
-
-        String[] verdiepingen = getResources().getStringArray(R.array.verdiepingen);
-        lokaalMin1 = getResources().getStringArray(R.array.lokaalMin1);
-        lokaalGelijkVloers = getResources().getStringArray(R.array.lokaalGelijkVloers);
-        lokaal1ste = getResources().getStringArray(R.array.lokaal1ste);
-        lokaal2de = getResources().getStringArray(R.array.lokaal2de);
-        lokaal3de = getResources().getStringArray(R.array.lokaal3de);
-        lokaal4de = getResources().getStringArray(R.array.lokaal4de);
-        lokaalDak = getResources().getStringArray(R.array.lokaalDak);
-
-        cmbVerdieping = findViewById(R.id.cmbVerdieping);
-        cmbLokaal = findViewById(R.id.cmbLokaal);
-        lstBestaand = findViewById(R.id.lstBestaand);
-
-        ArrayAdapter<String> adapterVerdieping = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, verdiepingen);
-
-        cmbVerdieping.setAdapter(adapterVerdieping);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
-        lstBestaand.setLayoutManager(mLayoutManager);
-        lstBestaand.setLayoutManager(new LinearLayoutManager(ListingActivity.this));
-        DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), LinearLayoutManager.VERTICAL  );
-        lstBestaand.addItemDecoration(decoration);
-
-        lstBestaand.setAdapter(bestaandDataAdapter);
+        configureAdapters();
 
         if (isAdmin){
             btnAdmin.setVisibility(View.VISIBLE);
@@ -214,5 +193,26 @@ public class ListingActivity extends Activity implements Adapter_Default.ItemCli
         Intent intent = new Intent(ListingActivity.this, DetailsActivity.class);
         intent.putExtra("id", bestaandDataArrayList.get(position).getSchadeId());
         startActivity(intent);
+    }
+
+    public void configureAdapters() {
+        String[] verdiepingen = getResources().getStringArray(R.array.verdiepingen);
+        lokaalMin1 = getResources().getStringArray(R.array.lokaalMin1);
+        lokaalGelijkVloers = getResources().getStringArray(R.array.lokaalGelijkVloers);
+        lokaal1ste = getResources().getStringArray(R.array.lokaal1ste);
+        lokaal2de = getResources().getStringArray(R.array.lokaal2de);
+        lokaal3de = getResources().getStringArray(R.array.lokaal3de);
+        lokaal4de = getResources().getStringArray(R.array.lokaal4de);
+        lokaalDak = getResources().getStringArray(R.array.lokaalDak);
+
+        ArrayAdapter<String> adapterVerdieping = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, verdiepingen);
+
+        cmbVerdieping.setAdapter(adapterVerdieping);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        lstBestaand.setLayoutManager(mLayoutManager);
+        lstBestaand.setLayoutManager(new LinearLayoutManager(ListingActivity.this));
+        DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), LinearLayoutManager.VERTICAL  );
+        lstBestaand.addItemDecoration(decoration);
+        lstBestaand.setAdapter(bestaandDataAdapter);
     }
 }

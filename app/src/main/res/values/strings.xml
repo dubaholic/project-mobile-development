@@ -41,6 +41,7 @@
     <string name="niet_afgehandeld">Niet afgehandeld</string>
     <string name="is_gerepareerd">Is gerepareerd</string>
     <string name="nog_niet_gerepareerd">Nog niet gerepareerd</string>
+    <string name="default_waarde">leeg</string>
     <string-array name="verdiepingen">
         <item />
         <item>-1</item>

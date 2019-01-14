@@ -45,13 +45,7 @@ public class Admin_Meldingen extends Activity implements Adapter_Default.ItemCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_list);
         ButterKnife.bind(this);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
-
-        lstMeldingen.setLayoutManager(mLayoutManager);
-        lstMeldingen.setLayoutManager(new LinearLayoutManager(Admin_Meldingen.this));
-
-        DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), LinearLayoutManager.VERTICAL  );
-        lstMeldingen.addItemDecoration(decoration);
+        configureListMeldingen();
 
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
@@ -103,6 +97,16 @@ public class Admin_Meldingen extends Activity implements Adapter_Default.ItemCli
         Intent intent = new Intent(Admin_Meldingen.this, Admin_Melding_Afhandeling.class);
         intent.putExtra("id", bestaandDataIdArrayList.get(position));
         startActivity(intent);
+    }
+
+    public void configureListMeldingen() {
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+
+        lstMeldingen.setLayoutManager(mLayoutManager);
+        lstMeldingen.setLayoutManager(new LinearLayoutManager(Admin_Meldingen.this));
+
+        DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), LinearLayoutManager.VERTICAL  );
+        lstMeldingen.addItemDecoration(decoration);
     }
 
 }
