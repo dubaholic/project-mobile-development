@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnItemSelected;
 
 public class ListingActivity extends Activity implements Adapter_Default.ItemClickListener{
     private String[] lokaalMin1;
