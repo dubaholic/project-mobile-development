@@ -28,14 +28,12 @@ import butterknife.OnClick;
 
 
 public class Admin_Meldingen extends Activity implements Adapter_Default.ItemClickListener{
-
     private Adapter_Default bestaandDataAdapter;
 
     ArrayList<String> bestaandDataArrayList = new ArrayList<>();
     ArrayList<String> bestaandDataIdArrayList = new ArrayList<>();
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-
     final DatabaseReference databaseReference = database.getReference();
 
     @BindView(R.id.lstMeldingen) RecyclerView lstMeldingen;
@@ -46,7 +44,33 @@ public class Admin_Meldingen extends Activity implements Adapter_Default.ItemCli
         setContentView(R.layout.activity_admin_list);
         ButterKnife.bind(this);
         configureListMeldingen();
+        getAllMeldingen();
 
+    }
+
+    @OnClick(R.id.btnTerug)
+    public void submit() {
+        finish();
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        Intent intent = new Intent(Admin_Meldingen.this, Admin_Melding_Afhandeling.class);
+        intent.putExtra("id", bestaandDataIdArrayList.get(position));
+        startActivity(intent);
+    }
+
+    public void configureListMeldingen() {
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+
+        lstMeldingen.setLayoutManager(mLayoutManager);
+        lstMeldingen.setLayoutManager(new LinearLayoutManager(Admin_Meldingen.this));
+
+        DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), LinearLayoutManager.VERTICAL  );
+        lstMeldingen.addItemDecoration(decoration);
+    }
+
+    public void getAllMeldingen() {
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
@@ -57,8 +81,8 @@ public class Admin_Meldingen extends Activity implements Adapter_Default.ItemCli
 
                         bestaandDataIdArrayList.add(schade.getSchadeId());
                         bestaandDataArrayList.add(schade.getCategorie() + " - " + schade.getOpmerking());
-                        }
                     }
+                }
                 bestaandDataAdapter = new Adapter_Default(Admin_Meldingen.this, bestaandDataArrayList);
                 bestaandDataAdapter.setClickListener(Admin_Meldingen.this);
                 lstMeldingen.setAdapter(bestaandDataAdapter);
@@ -85,28 +109,6 @@ public class Admin_Meldingen extends Activity implements Adapter_Default.ItemCli
             }
         });
 
-    }
-
-    @OnClick(R.id.btnTerug)
-    public void submit() {
-        finish();
-    }
-
-    @Override
-    public void onItemClick(View view, int position) {
-        Intent intent = new Intent(Admin_Meldingen.this, Admin_Melding_Afhandeling.class);
-        intent.putExtra("id", bestaandDataIdArrayList.get(position));
-        startActivity(intent);
-    }
-
-    public void configureListMeldingen() {
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
-
-        lstMeldingen.setLayoutManager(mLayoutManager);
-        lstMeldingen.setLayoutManager(new LinearLayoutManager(Admin_Meldingen.this));
-
-        DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), LinearLayoutManager.VERTICAL  );
-        lstMeldingen.addItemDecoration(decoration);
     }
 
 }

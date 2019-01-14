@@ -23,6 +23,7 @@ import org.ap.edu.reportingapp.activities.user.ListingActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class AuthenticationActivity extends Activity {
     private String apMailAuth, inputAuth, adminPassword, adminEmail;
@@ -40,7 +41,59 @@ public class AuthenticationActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authentication);
         ButterKnife.bind(this);
+        checkAdminCredentials();
+        }
 
+    @OnClick(R.id.btnInvoeren)
+    public void submit() {
+        final Intent intent = new Intent(AuthenticationActivity.this, ListingActivity.class);
+        apMailAuth = txtApMailAuth.getText().toString();
+        if (apMailAuth.isEmpty()){
+            Toast.makeText(getApplicationContext(),"Vul je AP email adres in",Toast.LENGTH_SHORT).show();
+        }
+        else if (!apMailAuth.endsWith("@ap.be") && !apMailAuth.endsWith("@student.ap.be")){
+            Toast.makeText(getApplicationContext(),"Geef een geldig AP email adres op",Toast.LENGTH_SHORT).show();
+        }
+        else if (apMailAuth.equals(adminEmail)){
+            AlertDialog.Builder builder = new AlertDialog.Builder(AuthenticationActivity.this);
+            builder.setTitle("Admin paswoord");
+            input = new EditText(AuthenticationActivity.this);
+            input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            builder.setView(input);
+
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    inputAuth = input.getText().toString();
+                    if (inputAuth.equals(adminPassword)){
+                        intent.putExtra("isAdmin", true);
+                        intent.putExtra("apMailAuth", apMailAuth);
+                        startActivity(intent);
+                        Toast.makeText(getApplicationContext(), "Ingelogd als admin", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "Foute code", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+            builder.setNegativeButton("Annuleren", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+            builder.show();
+        }
+        else {
+            intent.putExtra("isAdmin", false);
+            intent.putExtra("apMailAuth", apMailAuth);
+            startActivity(intent);
+            Toast.makeText(getApplicationContext(), "Ingelogd met " + apMailAuth, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void checkAdminCredentials() {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -50,57 +103,6 @@ public class AuthenticationActivity extends Activity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 //unused
-            }
-        });
-
-        btnInvoeren.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Intent intent = new Intent(AuthenticationActivity.this, ListingActivity.class);
-                apMailAuth = txtApMailAuth.getText().toString();
-                if (apMailAuth.isEmpty()){
-                    Toast.makeText(getApplicationContext(),"Vul je AP email adres in",Toast.LENGTH_SHORT).show();
-                }
-                else if (!apMailAuth.endsWith("@ap.be") && !apMailAuth.endsWith("@student.ap.be")){
-                    Toast.makeText(getApplicationContext(),"Geef een geldig AP email adres op",Toast.LENGTH_SHORT).show();
-                }
-                else if (apMailAuth.equals(adminEmail)){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(AuthenticationActivity.this);
-                    builder.setTitle("Admin paswoord");
-                    input = new EditText(AuthenticationActivity.this);
-                    input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                    builder.setView(input);
-
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            inputAuth = input.getText().toString();
-                            if (inputAuth.equals(adminPassword)){
-                                intent.putExtra("isAdmin", true);
-                                intent.putExtra("apMailAuth", apMailAuth);
-                                startActivity(intent);
-                                Toast.makeText(getApplicationContext(), "Ingelogd als admin", Toast.LENGTH_SHORT).show();
-                            }
-                            else {
-                                Toast.makeText(getApplicationContext(), "Foute code", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                    builder.setNegativeButton("Annuleren", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
-
-                    builder.show();
-                }
-                else {
-                    intent.putExtra("isAdmin", false);
-                    intent.putExtra("apMailAuth", apMailAuth);
-                    startActivity(intent);
-                    Toast.makeText(getApplicationContext(), "Ingelogd met " + apMailAuth, Toast.LENGTH_SHORT).show();
-                }
             }
         });
     }
